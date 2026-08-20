@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ССР — Сельские Страны и Республики</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f7fb;--surface:#fff;--surface2:#f8fafc;--text:#172033;--muted:#718096;--border:#e5eaf1;--accent:#e11d48;--accent2:#fb7185;--nav:#101828;--success:#16a34a;--shadow:0 14px 40px rgba(15,23,42,.08);--radius:20px}
+body{font-family:Inter,"Segoe UI",Arial,sans-serif;background:radial-gradient(circle at top left,#fff 0,var(--bg) 42%,#eef2f7 100%);color:var(--text);min-height:100vh;padding-top:76px;transition:.25s}
+button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit}
+.navbar{position:fixed;top:0;left:0;right:0;height:76px;background:rgba(16,24,40,.88);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:10000;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{display:flex;align-items:center;gap:11px;color:#fff;text-decoration:none;font-weight:800;font-size:1.25rem;letter-spacing:.2px}.brand-badge{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#be123c);box-shadow:0 8px 20px rgba(225,29,72,.35)}
+.nav-buttons{display:flex;align-items:center;gap:8px}.nav-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#e8edf5;padding:9px 13px;border-radius:12px;display:inline-flex;align-items:center;gap:7px;transition:.2s}.nav-btn:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}.nav-btn.active{background:linear-gradient(135deg,var(--accent),#be123c);border-color:transparent}
+.container{max-width:1250px;margin:0 auto;padding:30px 20px 60px}.hero{border:1px solid var(--border);border-radius:26px;padding:44px;background:linear-gradient(135deg,#fff 0%,#fff7f9 100%);box-shadow:var(--shadow);text-align:center;margin-bottom:28px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:230px;height:230px;border-radius:50%;background:rgba(225,29,72,.06);right:-60px;top:-80px}.hero h1{font-size:clamp(2rem,4vw,3.2rem);line-height:1.08;margin-bottom:14px}.hero p{max-width:760px;margin:0 auto 24px;color:var(--muted);font-size:1.06rem}.btn-primary,.btn-secondary{border:0;border-radius:13px;padding:13px 18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:750;transition:.2s}.btn-primary{background:linear-gradient(135deg,var(--accent),#be123c);color:#fff;box-shadow:0 12px 25px rgba(225,29,72,.22)}.btn-primary:hover{transform:translateY(-2px)}.btn-secondary{background:var(--nav);color:#fff}.btn-secondary:hover{filter:brightness(1.1)}
+.section-title{font-size:1.65rem;margin:30px 0 16px;display:flex;align-items:center;gap:10px}.section-title i{color:var(--accent)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow)}.info-panel{padding:28px}.info-panel p{color:var(--muted);margin:0 0 14px}.notice{background:#fff1f3;border:1px solid #fecdd3;border-left:5px solid var(--accent);padding:15px 18px;border-radius:14px}.notice strong{display:block;color:#9f1239;margin-bottom:4px}
+.live-stats,.stats-grid,.country-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.live-card,.stat-box{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}.live-card{display:flex;align-items:center;gap:14px}.live-card .icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:#fff1f3;color:var(--accent);font-size:1.3rem}.live-card .value{font-size:1.55rem;font-weight:800}.live-card .label{font-size:.88rem;color:var(--muted)}.stat-box h3{font-size:1.03rem;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}.stat-item{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}.stat-item:last-child{border-bottom:0}.stat-item .name{font-weight:700}.stat-item .val{color:var(--muted)}
+#map{height:520px;border-radius:20px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
+.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px}.search{flex:1;min-width:260px;position:relative}.search i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#94a3b8}.search input{width:100%;padding:13px 16px 13px 44px;border-radius:13px;border:1px solid var(--border);background:var(--surface);color:var(--text);outline:0}.search input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(225,29,72,.1)}.sorts{display:flex;gap:8px;flex-wrap:wrap}.sort-btn{padding:10px 13px;border-radius:11px;background:var(--surface);border:1px solid var(--border);color:var(--muted)}.sort-btn.active,.sort-btn:hover{color:#fff;background:var(--accent);border-color:var(--accent)}
+.country-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);transition:.22s}.country-card:hover{transform:translateY(-3px);border-color:#fda4af}.flag{height:155px;background:linear-gradient(135deg,#f1f5f9,#e2e8f0);display:flex;align-items:center;justify-content:center;overflow:hidden}.flag img{width:100%;height:100%;object-fit:cover}.flag i{font-size:3rem;color:#94a3b8}.country-body{padding:20px}.country-name{font-size:1.3rem;font-weight:800;margin-bottom:10px}.detail{color:var(--muted);font-size:.94rem;margin:6px 0}.detail i{color:var(--accent);width:20px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.action-btn{border:1px solid var(--border);background:var(--surface2);color:var(--text);padding:9px 11px;border-radius:11px;display:inline-flex;align-items:center;gap:6px;font-size:.86rem}.action-btn:hover{border-color:#fda4af;color:var(--accent)}
+.modal{display:none;position:fixed;inset:0;background:rgba(2,6,23,.7);backdrop-filter:blur(7px);z-index:20000;padding:20px;align-items:center;justify-content:center}.modal.open{display:flex}.modal-content{position:relative;width:min(95vw,760px);max-height:90vh;overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.3)}.modal-content.wide{width:min(95vw,980px)}.modal-header{display:flex;align-items:center;gap:10px;font-size:1.45rem;font-weight:800;margin-bottom:20px}.modal-header i{color:var(--accent)}.close-btn{position:absolute;right:16px;top:12px;width:36px;height:36px;border-radius:10px;border:0;background:var(--surface2);color:var(--muted);font-size:1.5rem}.close-btn:hover{color:var(--text);transform:rotate(90deg)}
+.form-group{margin-bottom:16px}.form-group label{display:block;font-weight:700;margin-bottom:7px}.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 13px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text);outline:0}.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(225,29,72,.1)}.hint{font-size:.82rem;color:var(--muted);margin-top:5px}.form-submit{width:100%;padding:13px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--accent),#be123c);color:#fff;font-weight:800}.file-btn{border:1px dashed #cbd5e1;background:var(--surface2);padding:13px;border-radius:12px;text-align:center;cursor:pointer}.file-name{text-align:center;color:var(--muted);font-size:.85rem;margin-top:6px}
+/* ===== Chat ===== */
+.chat-shell{height:min(72vh,650px);display:flex;flex-direction:column;background:linear-gradient(180deg,#f8fafc,#f1f5f9);border:1px solid var(--border);border-radius:20px;overflow:hidden}.chat-top{padding:14px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.86);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between}.chat-top-left{display:flex;align-items:center;gap:12px}.chat-avatar{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--accent),#be123c);box-shadow:0 8px 18px rgba(225,29,72,.22)}.chat-title{font-weight:800}.chat-subtitle{font-size:.8rem;color:var(--muted)}.online-dot{width:9px;height:9px;background:#22c55e;border-radius:50%;display:inline-block;margin-right:5px;box-shadow:0 0 0 4px rgba(34,197,94,.12)}.chat-messages{flex:1;padding:20px;overflow:auto;background-image:radial-gradient(circle at 15% 20%,rgba(225,29,72,.04) 0 1px,transparent 1px),radial-gradient(circle at 80% 60%,rgba(15,23,42,.04) 0 1px,transparent 1px);background-size:22px 22px}.bubble-row{display:flex;margin:8px 0}.bubble-row.mine{justify-content:flex-end}.bubble{max-width:min(76%,520px);padding:10px 13px;border-radius:18px;box-shadow:0 4px 14px rgba(15,23,42,.06);background:#fff;border:1px solid rgba(226,232,240,.85)}.mine .bubble{background:linear-gradient(135deg,#ffe4ea,#fff1f3);border-color:#fecdd3}.bubble-author{font-weight:800;color:var(--accent);font-size:.83rem;margin-bottom:3px}.bubble-text{white-space:pre-wrap;word-break:break-word}.bubble-meta{font-size:.72rem;color:#94a3b8;margin-top:6px;text-align:right}.chat-input-bar{display:flex;gap:9px;padding:12px;border-top:1px solid var(--border);background:rgba(255,255,255,.9)}.chat-input{flex:1;border:1px solid var(--border);background:#fff;border-radius:15px;padding:12px 14px;outline:0}.chat-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(225,29,72,.08)}.send-btn{width:48px;border:0;border-radius:15px;background:linear-gradient(135deg,var(--accent),#be123c);color:#fff}.chat-hint{font-size:.78rem;color:var(--muted);padding:0 16px 10px;background:rgba(255,255,255,.9)}
+.empty{text-align:center;color:var(--muted);padding:45px 15px}.toast{position:fixed;right:22px;bottom:22px;z-index:30000;background:#101828;color:#fff;padding:13px 16px;border-radius:13px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;box-shadow:0 12px 28px rgba(0,0,0,.2)}.toast.show{opacity:1;transform:translateY(0)}.loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:30px;color:var(--muted)}footer{text-align:center;padding:20px;color:var(--muted)}
+body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--muted:#94a3b8;--border:#243244;--nav:#020617;--shadow:0 16px 40px rgba(0,0,0,.28);background:radial-gradient(circle at top left,#0f172a 0,#080d18 55%,#05080f 100%)}body.dark .hero{background:linear-gradient(135deg,#101827,#1a0e15)}body.dark .chat-shell{background:linear-gradient(180deg,#0f172a,#111827)}body.dark .chat-top,body.dark .chat-input-bar,body.dark .chat-hint{background:rgba(15,23,42,.9)}body.dark .bubble{background:#111827;border-color:#253247}body.dark .mine .bubble{background:linear-gradient(135deg,#32141e,#1f1116)}body.dark .notice{background:#2a1118;border-color:#5b1c28}body.dark .notice strong{color:#fda4af}
+@media(max-width:760px){body{padding-top:128px}.navbar{height:auto;min-height:76px;flex-direction:column;align-items:flex-start;padding:10px 14px}.nav-buttons{width:100%;overflow:auto;padding-bottom:2px}.nav-btn{white-space:nowrap}.container{padding:20px 12px 40px}.hero{padding:30px 18px}.hero h1{font-size:2rem}#map{height:400px}.modal{padding:10px}.modal-content{padding:22px 16px;border-radius:20px}.chat-shell{height:75vh}.bubble{max-width:88%}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a class="brand" href="#"><span class="brand-badge"><i class="fa-solid fa-flag"></i></span><span>ССР</span></a>
+  <div class="nav-buttons">
+    <button class="nav-btn" id="themeToggle" type="button"><i class="fa-solid fa-moon"></i></button>
+    <button class="nav-btn" id="chatButton" type="button"><i class="fa-solid fa-comments"></i> Чат</button>
+    <button class="nav-btn" id="cabinetButton" type="button"><i class="fa-solid fa-user-tie"></i> Кабинет</button>
+    <button class="nav-btn" id="constitutionButton" type="button"><i class="fa-solid fa-gavel"></i> Устав</button>
+  </div>
+</nav>
+<main class="container">
+  <section class="hero">
+    <h1>Создай своё государство</h1>
+    <p>Регистрация, карта, граждане, мероприятия, голосования и общий чат теперь работают через Firebase и синхронизируются между устройствами.</p>
+    <button class="btn-primary" id="openApplicationButton" type="button"><i class="fa-solid fa-pen-fancy"></i> Подать заявку</button>
+  </section>
+  <h2 class="section-title"><i class="fa-solid fa-chart-simple"></i> Живая статистика</h2>
+  <section class="live-stats" id="liveStatsContainer"><div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Загрузка Firestore…</div></section>
+  <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> О проекте</h2>
+  <section class="panel info-panel">
+    <p>ССР — добровольное игровое сообщество. Термины «государство», «президент» и другие используются только в игровом контексте.</p>
+    <p>Участие добровольное. Реальные территории, органы власти и законодательство не изменяются. Мероприятия проводятся только на согласованных площадках и с соблюдением требований безопасности.</p>
+    <div class="notice"><strong><i class="fa-solid fa-shield-halved"></i> Условия участия</strong><span>Не проводите действия, которые могут причинить вред людям, имуществу или нарушить действующее законодательство.</span></div>
+  </section>
+  <h2 class="section-title"><i class="fa-solid fa-map-location-dot"></i> Карта государств ССР</h2>
+  <div id="map"></div>
+  <h2 class="section-title"><i class="fa-solid fa-ranking-star"></i> Топ государств</h2>
+  <section class="stats-grid" id="statsContainer"></section>
+  <h2 class="section-title"><i class="fa-solid fa-landmark"></i> Реестр государств</h2>
+  <div class="controls">
+    <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" placeholder="Поиск государства…"></div>
+    <div class="sorts">
+      <button class="sort-btn active" data-sort="alphabetical">А–Я</button>
+      <button class="sort-btn" data-sort="area">Площадь</button>
+      <button class="sort-btn" data-sort="population">Население</button>
+      <button class="sort-btn" data-sort="founded">Год</button>
+    </div>
+  </div>
+  <section class="country-grid" id="countriesList"></section>
+</main>
+<footer>© 2026 · Верховный Совет ССР · Firebase Firestore / Authentication</footer>
+
+<!-- Application -->
+<div class="modal" id="applicationModal" aria-hidden="true"><div class="modal-content">
+  <button class="close-btn" data-close="applicationModal">×</button><div class="modal-header"><i class="fa-solid fa-file-signature"></i> Заявка на создание государства</div>
+  <form id="applicationForm">
+    <div class="form-group"><label>Название государства *</label><input id="countryName" required></div>
+    <div class="form-group"><label>Имя Президента *</label><input id="presidentName" required></div>
+    <div class="form-group"><label>Пароль президента *</label><input id="password" type="password" minlength="6" required><div class="hint">Firebase Authentication требует пароль минимум 6 символов.</div></div>
+    <div class="form-group"><label>Столица *</label><input id="capital" required></div>
+    <div class="form-group"><label>Площадь (км²) *</label><input id="area" type="number" min="0" step="0.01" required></div>
+    <div class="form-group"><label>Население *</label><input id="population" type="number" min="0" step="1" required></div>
+    <div class="form-group"><label>Год основания</label><input id="founded" type="number" min="1800" max="2100" placeholder="2026"></div>
+    <div class="form-group"><label>Координаты *</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><input id="latitude" placeholder="55.7558" required><input id="longitude" placeholder="37.6176" required></div></div>
+    <div class="form-group"><label>Границы (необязательно)</label><textarea id="boundaryInput" rows="4" placeholder="55.1,37.1\n55.2,37.2\n55.3,37.1"></textarea><div class="hint">Каждая вершина на новой строке: широта,долгота</div></div>
+    <div class="form-group"><label>Флаг</label><div class="file-btn" id="filePicker"><i class="fa-solid fa-cloud-arrow-up"></i> Выбрать изображение</div><input id="flagUpload" type="file" accept="image/png,image/jpeg,image/webp" hidden><div class="file-name" id="fileNameDisplay">Файл не выбран</div></div>
+    <div class="form-group"><label>Ссылка на галерею</label><input id="galleryLink" type="url" placeholder="https://example.com/album"></div>
+    <div class="form-group"><label>Контактный телефон *</label><input id="phone" type="tel" required></div>
+    <div class="form-group"><label>Описание легитимности</label><textarea id="legitimacy" rows="4"></textarea></div>
+    <button class="form-submit" type="submit">Создать государство</button>
+  </form>
+</div></div>
+
+<!-- Login -->
+<div class="modal" id="loginModal" aria-hidden="true"><div class="modal-content" style="max-width:430px">
+  <button class="close-btn" data-close="loginModal">×</button><div class="modal-header"><i class="fa-solid fa-user-circle"></i> Вход в кабинет</div>
+  <form id="loginForm"><div class="form-group"><label>Название государства</label><input id="loginCountryName" required></div><div class="form-group"><label>Пароль</label><input id="loginPassword" type="password" required></div><button class="form-submit">Войти</button></form>
+</div></div>
+
+<!-- Cabinet -->
+<div class="modal" id="cabinetModal" aria-hidden="true"><div class="modal-content wide"><button class="close-btn" data-close="cabinetModal">×</button><div class="modal-header"><i class="fa-solid fa-crown"></i> Кабинет президента</div><div id="cabinetContent"></div></div></div>
+
+<!-- Chat -->
+<div class="modal" id="chatModal" aria-hidden="true"><div class="modal-content wide"><button class="close-btn" data-close="chatModal">×</button>
+  <div class="modal-header"><i class="fa-solid fa-comments"></i> Общий чат ССР</div>
+  <div class="chat-shell">
+    <div class="chat-top"><div class="chat-top-left"><div class="chat-avatar"><i class="fa-solid fa-users"></i></div><div><div class="chat-title">Общий чат ССР</div><div class="chat-subtitle"><span class="online-dot"></span><span id="chatOnlineLabel">синхронизация Firestore</span></div></div></div><button class="action-btn" id="chatRefreshButton" type="button"><i class="fa-solid fa-rotate"></i></button></div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-hint" id="chatHint">Войдите в кабинет или укажите имя перед отправкой.</div>
+    <div class="chat-input-bar"><input class="chat-input" id="chatInput" maxlength="1000" placeholder="Напишите сообщение…"><button class="send-btn" id="sendMessageButton"><i class="fa-solid fa-paper-plane"></i></button></div>
+  </div>
+</div></div>
+
+<!-- Citizen -->
+<div class="modal" id="citizenModal" aria-hidden="true"><div class="modal-content" style="max-width:430px"><button class="close-btn" data-close="citizenModal">×</button><div class="modal-header"><i class="fa-solid fa-id-card"></i> Регистрация гражданина</div><form id="citizenForm"><div class="form-group"><label>Государство *</label><select id="citizenCountry" required></select></div><div class="form-group"><label>Ваше имя *</label><input id="citizenName" required></div><div class="form-group"><label>Возраст *</label><input id="citizenAge" type="number" min="14" required></div><button class="form-submit">Зарегистрироваться</button></form></div></div>
+
+<!-- Event -->
+<div class="modal" id="eventModal" aria-hidden="true"><div class="modal-content"><button class="close-btn" data-close="eventModal">×</button><div class="modal-header"><i class="fa-solid fa-calendar-plus"></i> Добавить мероприятие</div><form id="eventForm"><input type="hidden" id="eventCountryName"><div class="form-group"><label>Название *</label><input id="eventName" required></div><div class="form-group"><label>Описание</label><textarea id="eventDescription" rows="3"></textarea></div><div class="form-group"><label>Дата и время *</label><input id="eventDate" type="datetime-local" required></div><div class="form-group"><label>Широта *</label><input id="eventLat" required></div><div class="form-group"><label>Долгота *</label><input id="eventLng" required></div><button class="form-submit">Создать</button></form></div></div>
+
+<!-- Citizens list -->
+<div class="modal" id="citizensListModal" aria-hidden="true"><div class="modal-content" style="max-width:620px"><button class="close-btn" data-close="citizensListModal">×</button><div class="modal-header"><i class="fa-solid fa-users"></i> Граждане</div><div id="citizensListContent"></div></div></div>
+
+<!-- Vote create -->
+<div class="modal" id="voteModal" aria-hidden="true"><div class="modal-content" style="max-width:520px"><button class="close-btn" data-close="voteModal">×</button><div class="modal-header"><i class="fa-solid fa-square-poll-vertical"></i> Новое голосование</div><form id="voteForm"><input type="hidden" id="voteCountryName"><div class="form-group"><label>Вопрос *</label><input id="voteQuestion" required></div><div class="form-group"><label>Варианты через запятую *</label><input id="voteOptions" placeholder="Да, Нет, Воздержаться" required></div><button class="form-submit">Создать</button></form></div></div>
+
+<!-- Votes list -->
+<div class="modal" id="voteListModal" aria-hidden="true"><div class="modal-content" style="max-width:680px"><button class="close-btn" data-close="voteListModal">×</button><div class="modal-header"><i class="fa-solid fa-square-poll-horizontal"></i> Голосования</div><div id="voteListContent"></div></div></div>
+
+<!-- Constitution -->
+<div class="modal" id="constitutionModal" aria-hidden="true"><div class="modal-content wide"><button class="close-btn" data-close="constitutionModal">×</button><div class="modal-header"><i class="fa-solid fa-gavel"></i> Народный устав ССР</div><div id="constitutionText"></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+import { getFirestore, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, limit, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-analytics.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCcWwOPTmkq6VlMyb2Jn3fq1PsJ-bZ6m_o",
+  authDomain: "quickchat-b4037.firebaseapp.com",
+  databaseURL: "https://quickchat-b4037-default-rtdb.firebaseio.com",
+  projectId: "quickchat-b4037",
+  storageBucket: "quickchat-b4037.firebasestorage.app",
+  messagingSenderId: "384947177954",
+  appId: "1:384947177954:web:1463e504880f67245411bb",
+  measurementId: "G-G81SZ4SK0K"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+try { if (await isSupported()) getAnalytics(app); } catch(e) { console.info("Analytics недоступна в этом окружении."); }
+
+const state = { countries:[], citizens:[], events:[], votes:[], chatMessages:[], currentUser:null, currentProfile:null, currentSort:"alphabetical", searchQuery:"", map:null, countryLayer:null, eventLayer:null, listeners:[] };
+
+const constitutionText = `
+<div style="line-height:1.75;color:var(--muted)">
+<p><strong style="color:var(--text)">ССР — игровое сообщество.</strong> Термины «государство», «президент», «территория» и т.п. используются исключительно в игровом контексте и не означают создание реального государства.</p>
+<h3 style="margin:20px 0 8px;color:var(--accent)">1. Добровольность</h3><p>Участие добровольное. Участники обязаны соблюдать действующее законодательство и правила площадок.</p>
+<h3 style="margin:20px 0 8px;color:var(--accent)">2. Безопасность</h3><p>Любые мероприятия проводятся только в подходящих местах и с необходимыми разрешениями. Запрещены реальные конфликты, причинение вреда людям или имуществу и опасные предметы.</p>
+<h3 style="margin:20px 0 8px;color:var(--accent)">3. Игровые должности</h3><p>«Президент» и другие должности — игровые роли сообщества.</p>
+<h3 style="margin:20px 0 8px;color:var(--accent)">4. Изменения</h3><p>Правила могут обновляться организаторами проекта с публикацией изменений на сайте.</p>
+</div>`;
+
+defineGlobals();
+
+function defineGlobals(){
+  window.openModal = () => showModal("applicationModal");
+  window.closeModal = () => hideModal("applicationModal");
+}
+function showModal(id){ const el=document.getElementById(id); if(!el)return; el.classList.add("open"); el.setAttribute("aria-hidden","false"); }
+function hideModal(id){ const el=document.getElementById(id); if(!el)return; el.classList.remove("open"); el.setAttribute("aria-hidden","true"); }
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(window.__toast); window.__toast=setTimeout(()=>t.classList.remove("show"),3000); }
+function esc(v){ return String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
+function safeURL(v){ try{ const u=new URL(v,location.href); return ["http:","https:"].includes(u.protocol)?u.href:"#"; }catch{return "#";} }
+function countryEmail(name){ const key=Array.from(name.normalize("NFKC")).map(c=>c.codePointAt(0).toString(16)).join(""); return `president-${key}@quickchat-b4037.firebaseapp.com`; }
+function slug(name){ return Array.from(String(name).normalize("NFKC").toLowerCase()).map(c=>/[a-z0-9]/.test(c)?c:c.codePointAt(0).toString(16)).join("").slice(0,120); }
+function coordinatesOK(lat,lng){ const a=Number(lat), b=Number(lng); return Number.isFinite(a)&&Number.isFinite(b)&&a>=-90&&a<=90&&b>=-180&&b<=180; }
+function boundaryParse(txt){ return txt.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(line=>line.split(",").map(Number)).filter(a=>a.length===2&&coordinatesOK(a[0],a[1])); }
+function timeText(ts){ try{ const d=ts?.toDate?ts.toDate():new Date(ts); return d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"}); }catch{return "";} }
+
+function subscribeData(){
+  state.listeners.forEach(u=>u&&u()); state.listeners=[];
+  state.listeners.push(onSnapshot(query(collection(db,"countries"),orderBy("createdAt","asc")),snap=>{state.countries=snap.docs.map(d=>({id:d.id,...d.data()})); renderAll(); updateMap();},handleFirestoreError));
+  state.listeners.push(onSnapshot(query(collection(db,"citizens"),orderBy("createdAt","desc")),snap=>{state.citizens=snap.docs.map(d=>({id:d.id,...d.data()})); renderAll();},handleFirestoreError));
+  state.listeners.push(onSnapshot(query(collection(db,"events"),orderBy("createdAt","desc")),snap=>{state.events=snap.docs.map(d=>({id:d.id,...d.data()})); renderAll(); updateMap();},handleFirestoreError));
+  state.listeners.push(onSnapshot(query(collection(db,"votes"),orderBy("createdAt","desc")),snap=>{state.votes=snap.docs.map(d=>({id:d.id,...d.data()})); renderAll();},handleFirestoreError));
+  state.listeners.push(onSnapshot(query(collection(db,"chatMessages"),orderBy("createdAt","asc"),limit(300)),snap=>{state.chatMessages=snap.docs.map(d=>({id:d.id,...d.data()})); renderChat();},handleFirestoreError));
+}
+function handleFirestoreError(error){ console.error(error); if(error.code==="failed-precondition") toast("Firestore: проверьте индексы."); else if(error.code==="permission-denied") toast("Firestore: проверьте Rules."); }
+
+function initMap(){ if(!window.L)return; state.map=L.map("map").setView([55.7558,37.6176],4); L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors",maxZoom:19}).addTo(state.map); state.countryLayer=L.layerGroup().addTo(state.map); state.eventLayer=L.layerGroup().addTo(state.map); }
+function updateMap(){ if(!state.map)return; state.countryLayer.clearLayers(); state.eventLayer.clearLayers(); state.countries.forEach(c=>{const lat=Number(c.latitude),lng=Number(c.longitude);const popup=`<strong>${esc(c.name)}</strong><br>Президент: ${esc(c.president)}<br>Столица: ${esc(c.capital)}<br>Площадь: ${Number(c.area||0).toLocaleString("ru-RU")} км²`; if(Array.isArray(c.boundary)&&c.boundary.length>=3){L.polygon(c.boundary,{color:"#e11d48",fillColor:"#e11d48",fillOpacity:.17}).bindPopup(popup).addTo(state.countryLayer);} else if(coordinatesOK(lat,lng)){L.marker([lat,lng]).bindPopup(popup).addTo(state.countryLayer);}}); state.events.forEach(e=>{const lat=Number(e.lat),lng=Number(e.lng); if(!coordinatesOK(lat,lng))return; L.marker([lat,lng],{icon:L.divIcon({className:"event-marker",html:'<i class="fa-solid fa-calendar-check" style="color:#e11d48;font-size:24px"></i>',iconSize:[24,24]})}).bindPopup(`<strong>${esc(e.name)}</strong><br>${esc(e.description)}<br>${esc(e.date)}<br>${esc(e.country)}`).addTo(state.eventLayer);}); }
+
+function renderAll(){renderLiveStats();renderStats();renderCountries();renderCitizenOptions();if(state.currentUser)refreshCabinet();}
+function renderLiveStats(){const c=document.getElementById("liveStatsContainer");if(!state.countries.length){c.innerHTML='<div class="empty">Пока нет зарегистрированных государств.</div>';return;}const pop=state.countries.reduce((s,x)=>s+(Number(x.population)||0),0),area=state.countries.reduce((s,x)=>s+(Number(x.area)||0),0),largest=[...state.countries].sort((a,b)=>(Number(b.area)||0)-(Number(a.area)||0))[0];c.innerHTML=`<div class="live-card"><div class="icon"><i class="fa-solid fa-flag"></i></div><div><div class="value">${state.countries.length}</div><div class="label">Государств</div></div></div><div class="live-card"><div class="icon"><i class="fa-solid fa-users"></i></div><div><div class="value">${pop.toLocaleString("ru-RU")}</div><div class="label">Население</div></div></div><div class="live-card"><div class="icon"><i class="fa-solid fa-vector-square"></i></div><div><div class="value">${area.toLocaleString("ru-RU")}</div><div class="label">км² общей площади</div></div></div><div class="live-card"><div class="icon"><i class="fa-solid fa-crown"></i></div><div><div class="value" style="font-size:1.1rem">${esc(largest.name)}</div><div class="label">Самое большое</div></div></div>`;}
+function renderStats(){const el=document.getElementById("statsContainer");if(!state.countries.length){el.innerHTML='<div class="empty">Нет данных.</div>';return;}const top=(arr,f,u)=>arr.slice(0,5).map(c=>`<div class="stat-item"><span class="name">${esc(c.name)}</span><span class="val">${Number(c[f]||0).toLocaleString("ru-RU")} ${u}</span></div>`).join("");const a=[...state.countries].sort((x,y)=>(Number(y.area)||0)-(Number(x.area)||0));const p=[...state.countries].sort((x,y)=>(Number(y.population)||0)-(Number(x.population)||0));el.innerHTML=`<div class="stat-box"><h3><i class="fa-solid fa-expand"></i> Топ-5 по площади</h3>${top(a,"area","км²")}</div><div class="stat-box"><h3><i class="fa-solid fa-users"></i> Топ-5 по населению</h3>${top(p,"population","чел.")}</div>`;}
+function getCountries(){const n=state.searchQuery.trim().toLocaleLowerCase("ru-RU");const list=state.countries.filter(c=>String(c.name||"").toLocaleLowerCase("ru-RU").includes(n));if(state.currentSort==="area")list.sort((a,b)=>(Number(b.area)||0)-(Number(a.area)||0));else if(state.currentSort==="population")list.sort((a,b)=>(Number(b.population)||0)-(Number(a.population)||0));else if(state.currentSort==="founded")list.sort((a,b)=>(Number(b.founded)||0)-(Number(a.founded)||0));else list.sort((a,b)=>String(a.name).localeCompare(String(b.name),"ru"));return list;}
+function renderCountries(){const el=document.getElementById("countriesList");const items=getCountries();if(!items.length){el.innerHTML='<div class="empty">Ничего не найдено.</div>';return;}el.innerHTML=items.map(c=>{const count=state.citizens.filter(x=>x.countryId===c.id).length;const flag=c.flagData?`<img src="${esc(c.flagData)}" alt="Флаг">`:`<i class="fa-solid fa-flag"></i>`;return `<article class="country-card"><div class="flag">${flag}</div><div class="country-body"><div class="country-name">${esc(c.name)}</div><div class="detail"><i class="fa-solid fa-user-tie"></i> Президент: ${esc(c.president)}</div><div class="detail"><i class="fa-solid fa-city"></i> Столица: ${esc(c.capital)}</div><div class="detail"><i class="fa-solid fa-vector-square"></i> ${Number(c.area||0).toLocaleString("ru-RU")} км²</div><div class="detail"><i class="fa-solid fa-users"></i> ${Number(c.population||0).toLocaleString("ru-RU")} чел.</div><div class="detail"><i class="fa-solid fa-id-card"></i> Граждане: ${count}</div>${c.founded?`<div class="detail"><i class="fa-solid fa-calendar"></i> Основано: ${esc(c.founded)}</div>`:""}${c.gallery?`<a href="${safeURL(c.gallery)}" target="_blank" rel="noopener noreferrer" class="detail" style="display:inline-block;margin-top:8px"><i class="fa-solid fa-images"></i> Галерея</a>`:""}<div class="actions"><button class="action-btn" data-action="citizen" data-id="${esc(c.id)}">Гражданином</button><button class="action-btn" data-action="votes" data-id="${esc(c.id)}">Голосования</button><button class="action-btn" data-action="citizens" data-id="${esc(c.id)}">Граждане</button></div></div></article>`}).join("");el.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>{const c=state.countries.find(x=>x.id===b.dataset.id);if(!c)return;if(b.dataset.action==="citizen")openCitizenRegistration(c.id);if(b.dataset.action==="votes")openVoteList(c.id);if(b.dataset.action==="citizens")showCitizensList(c.id);}));}
+function renderCitizenOptions(){const s=document.getElementById("citizenCountry");const selected=s.value;s.innerHTML=state.countries.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");if(state.countries.some(c=>c.id===selected))s.value=selected;}
+
+async function handleApplication(e){e.preventDefault();const data={name:document.getElementById("countryName").value.trim(),president:document.getElementById("presidentName").value.trim(),password:document.getElementById("password").value,capital:document.getElementById("capital").value.trim(),area:Number(document.getElementById("area").value),population:Number(document.getElementById("population").value),founded:document.getElementById("founded").value.trim(),latitude:document.getElementById("latitude").value.trim(),longitude:document.getElementById("longitude").value.trim(),gallery:document.getElementById("galleryLink").value.trim(),phone:document.getElementById("phone").value.trim(),legitimacy:document.getElementById("legitimacy").value.trim(),boundary:boundaryParse(document.getElementById("boundaryInput").value)};if(!data.name||!data.president||!data.capital||!Number.isFinite(data.area)||!Number.isFinite(data.population)||!coordinatesOK(data.latitude,data.longitude)){alert("Заполните обязательные поля и проверьте координаты.");return;}if(state.countries.some(c=>c.name.toLocaleLowerCase("ru-RU")===data.name.toLocaleLowerCase("ru-RU"))){alert("Такое государство уже существует.");return;}const file=document.getElementById("flagUpload").files[0];try{let flagData=null;if(file){if(file.size>900*1024){alert("Для Firestore флаг лучше держать до 900 КБ. Выберите меньший файл.");return;}flagData=await fileToDataURL(file);}const cred=await createUserWithEmailAndPassword(auth,countryEmail(data.name),data.password);const id=slug(data.name)+"-"+cred.user.uid.slice(0,8);await setDoc(doc(db,"countries",id),{name:data.name,president:data.president,capital:data.capital,area:data.area,population:data.population,founded:data.founded,latitude:data.latitude,longitude:data.longitude,gallery:data.gallery,phone:data.phone,legitimacy:data.legitimacy,boundary:data.boundary,flagData,uid:cred.user.uid,createdAt:serverTimestamp()});await setDoc(doc(db,"profiles",cred.user.uid),{uid:cred.user.uid,countryId:id,countryName:data.name,president:data.president,role:"president",createdAt:serverTimestamp()});hideModal("applicationModal");e.target.reset();document.getElementById("fileNameDisplay").textContent="Файл не выбран";toast("Государство создано. Вход выполнен автоматически.");openCabinet();}catch(err){console.error(err);alert(firebaseAuthMessage(err));}}
+function fileToDataURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
+function firebaseAuthMessage(e){const m={"auth/email-already-in-use":"Это название уже занято.","auth/weak-password":"Пароль слишком слабый.","auth/invalid-credential":"Неверные данные входа.","auth/user-not-found":"Государство не найдено.","auth/wrong-password":"Неверный пароль."};return m[e.code]||e.message||"Ошибка Firebase.";}
+
+async function handleLogin(e){e.preventDefault();const name=document.getElementById("loginCountryName").value.trim();const pw=document.getElementById("loginPassword").value;try{await signInWithEmailAndPassword(auth,countryEmail(name),pw);hideModal("loginModal");toast("Вход выполнен.");}catch(err){console.error(err);alert(firebaseAuthMessage(err));}}
+async function loadProfile(user){if(!user){state.currentUser=null;state.currentProfile=null;hideModal("cabinetModal");updateChatHint();return;}state.currentUser=user;const snap=await getDoc(doc(db,"profiles",user.uid));state.currentProfile=snap.exists()?snap.data():null;updateChatHint();if(document.getElementById("cabinetModal").classList.contains("open"))refreshCabinet();}
+async function refreshCabinet(){if(!state.currentProfile)return;const c=state.countries.find(x=>x.id===state.currentProfile.countryId);if(!c)return;const citizens=state.citizens.filter(x=>x.countryId===c.id),events=state.events.filter(x=>x.countryId===c.id),votes=state.votes.filter(x=>x.countryId===c.id);document.getElementById("cabinetContent").innerHTML=`<h2 style="margin-bottom:8px">${esc(c.name)}</h2><p class="detail">Президент: <strong>${esc(c.president)}</strong></p><p class="detail">Столица: ${esc(c.capital)}</p><p class="detail">Площадь: ${Number(c.area||0).toLocaleString("ru-RU")} км²</p><p class="detail">Население: ${Number(c.population||0).toLocaleString("ru-RU")}</p><p class="detail">Граждан: ${citizens.length}</p><div class="actions" style="margin-top:18px"><button class="btn-secondary" id="cabCitizens">Граждане</button><button class="btn-secondary" id="cabEvent">Мероприятие</button><button class="btn-secondary" id="cabVote">Голосование</button><button class="btn-secondary" id="cabVotes">Все голосования</button><button class="btn-primary" id="logoutButton">Выйти</button></div><div style="margin-top:24px"><h3>Мероприятия</h3>${events.length?events.map(x=>`<div class="panel" style="padding:14px;margin-top:10px"><strong>${esc(x.name)}</strong><div class="detail">${esc(x.description)}</div><div class="detail">${esc(x.date)}</div></div>`).join(""):"<p class='detail' style='margin-top:8px'>Нет мероприятий.</p>"}</div>`;document.getElementById("cabCitizens").onclick=()=>showCitizensList(c.id);document.getElementById("cabEvent").onclick=()=>openEventModal(c.id);document.getElementById("cabVote").onclick=()=>openVoteModal(c.id);document.getElementById("cabVotes").onclick=()=>openVoteList(c.id);document.getElementById("logoutButton").onclick=logout;}
+async function logout(){await signOut(auth);hideModal("cabinetModal");toast("Вы вышли.");}
+
+function updateChatHint(){document.getElementById("chatHint").textContent=state.currentProfile?`Вы вошли как Президент ${state.currentProfile.countryName}.`:`Для отправки можно войти как президент или использовать имя гостя.`;}
+function renderChat(){const box=document.getElementById("chatMessages");if(!state.chatMessages.length){box.innerHTML='<div class="empty">Сообщений пока нет. Напишите первым.</div>';return;}box.innerHTML=state.chatMessages.map(m=>{const mine=state.currentUser&&m.uid===state.currentUser.uid;return `<div class="bubble-row ${mine?"mine":""}"><div class="bubble"><div class="bubble-author">${esc(m.sender||"Гость")}</div><div class="bubble-text">${esc(m.text)}</div><div class="bubble-meta">${timeText(m.createdAt)}</div></div></div>`}).join("");box.scrollTop=box.scrollHeight;document.getElementById("chatOnlineLabel").textContent=`${state.chatMessages.length} сообщений · realtime`;
+}
+async function sendMessage(){const input=document.getElementById("chatInput"),text=input.value.trim();if(!text)return;let sender=state.currentProfile?`Президент ${state.currentProfile.countryName}`:"";if(!sender){sender=prompt("Введите имя для чата:")?.trim();if(!sender)return;}try{await addDoc(collection(db,"chatMessages"),{text,sender,uid:state.currentUser?.uid||null,createdAt:serverTimestamp()});input.value="";}catch(e){console.error(e);alert("Не удалось отправить сообщение. Проверьте Rules Firestore.");}}
+
+function openCitizenRegistration(countryId){renderCitizenOptions();document.getElementById("citizenCountry").value=countryId;showModal("citizenModal");}
+async function handleCitizen(e){e.preventDefault();const countryId=document.getElementById("citizenCountry").value,name=document.getElementById("citizenName").value.trim(),age=Number(document.getElementById("citizenAge").value);if(!name||!Number.isFinite(age)||age<14){alert("Возраст должен быть не менее 14 лет.");return;}const c=state.countries.find(x=>x.id===countryId);if(!c)return;try{await addDoc(collection(db,"citizens"),{countryId,name,age,createdAt:serverTimestamp()});hideModal("citizenModal");e.target.reset();toast(`Гражданин зарегистрирован в ${c.name}.`);}catch(err){console.error(err);alert("Не удалось зарегистрировать гражданина.");}}
+function showCitizensList(countryId){const c=state.countries.find(x=>x.id===countryId),list=state.citizens.filter(x=>x.countryId===countryId),el=document.getElementById("citizensListContent");el.innerHTML=list.length?`<h3 style="margin-bottom:12px">${esc(c?.name||"")}</h3><div>${list.map(x=>`<div class="panel" style="padding:12px;margin:8px 0"><strong>${esc(x.name)}</strong> · ${esc(x.age)} лет</div>`).join("")}</div>`:'<div class="empty">Граждан пока нет.</div>';showModal("citizensListModal");}
+
+function openEventModal(countryId){document.getElementById("eventCountryName").value=countryId;showModal("eventModal");}
+async function handleEvent(e){e.preventDefault();const countryId=document.getElementById("eventCountryName").value,name=document.getElementById("eventName").value.trim(),description=document.getElementById("eventDescription").value.trim(),date=document.getElementById("eventDate").value,lat=document.getElementById("eventLat").value.trim(),lng=document.getElementById("eventLng").value.trim();if(!coordinatesOK(lat,lng)){alert("Неверные координаты.");return;}const c=state.countries.find(x=>x.id===countryId);if(!c)return;if(!state.currentUser){alert("Сначала войдите в кабинет президента.");return;}try{await addDoc(collection(db,"events"),{countryId,country:c.name,name,description,date,lat,lng,createdAt:serverTimestamp(),uid:state.currentUser.uid});hideModal("eventModal");e.target.reset();toast("Мероприятие добавлено.");}catch(err){console.error(err);alert("Не удалось создать мероприятие.");}}
+
+function openVoteModal(countryId){document.getElementById("voteCountryName").value=countryId;showModal("voteModal");}
+async function handleVote(e){e.preventDefault();const countryId=document.getElementById("voteCountryName").value,question=document.getElementById("voteQuestion").value.trim(),options=document.getElementById("voteOptions").value.split(",").map(x=>x.trim()).filter(Boolean);if(options.length<2){alert("Нужно минимум 2 варианта.");return;}const c=state.countries.find(x=>x.id===countryId);if(!c)return;try{await addDoc(collection(db,"votes"),{countryId,country:c.name,question,options,votes:{},createdAt:serverTimestamp()});hideModal("voteModal");e.target.reset();toast("Голосование создано.");}catch(err){console.error(err);alert("Не удалось создать голосование.");}}
+function openVoteList(countryId){const c=state.countries.find(x=>x.id===countryId),list=state.votes.filter(v=>v.countryId===countryId),el=document.getElementById("voteListContent");if(!list.length){el.innerHTML='<div class="empty">Голосований пока нет.</div>';showModal("voteListModal");return;}el.innerHTML=`<h3>${esc(c?.name||"")}</h3>`+list.map(v=>{const counts=Object.values(v.votes||{});const total=counts.length;return `<div class="panel" style="padding:16px;margin-top:12px"><strong>${esc(v.question)}</strong><div style="margin:10px 0">${v.options.map(o=>{const n=counts.filter(x=>x===o).length,pc=total?Math.round(n/total*100):0;return `<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;gap:10px"><span>${esc(o)}</span><span>${n} · ${pc}%</span></div><div style="height:7px;background:var(--border);border-radius:99px;overflow:hidden"><div style="height:100%;width:${pc}%;background:var(--accent)"></div></div></div>`}).join("")}</div><button class="action-btn vote-button" data-id="${esc(v.id)}">Проголосовать</button></div>`}).join("");el.querySelectorAll(".vote-button").forEach(b=>b.onclick=()=>voteFor(b.dataset.id));showModal("voteListModal");}
+async function voteFor(voteId){const v=state.votes.find(x=>x.id===voteId);if(!v)return;const voter=prompt("Ваше имя:")?.trim();if(!voter)return;const choice=prompt(`Вариант: ${v.options.join(", ")}`)?.trim();if(!choice)return;const option=v.options.find(o=>o.toLocaleLowerCase("ru-RU")===choice.toLocaleLowerCase("ru-RU"));if(!option){alert("Такого варианта нет.");return;}try{await runTransaction(db,async tx=>{const ref=doc(db,"votes",voteId),snap=await tx.get(ref);if(!snap.exists())throw new Error("vote-not-found");const data=snap.data();const votes={...(data.votes||{}),[voter]:option};tx.update(ref,{votes});});toast("Голос учтён.");}catch(err){console.error(err);alert("Не удалось сохранить голос.");}}
+
+function openCabinet(){if(!state.currentUser){showModal("loginModal");return;}showModal("cabinetModal");refreshCabinet();}
+function openChat(){showModal("chatModal");renderChat();setTimeout(()=>document.getElementById("chatInput").focus(),100);}
+function openConstitution(){document.getElementById("constitutionText").innerHTML=constitutionText;showModal("constitutionModal");}
+function toggleTheme(){document.body.classList.toggle("dark");document.querySelector("#themeToggle i").className=document.body.classList.contains("dark")?"fa-solid fa-sun":"fa-solid fa-moon";}
+
+// Optional one-time migration helper. It is NOT used for normal app operation.
+async function migrateLegacyLocalStorage(){
+  const marker="ccp_firestore_migrated_v1"; if(localStorage.getItem(marker))return;
+  const keys=["countries","users","citizens","events","votes","chatMessages"]; const raw={}; let found=false;
+  for(const k of keys){const s=localStorage.getItem(k);if(s){try{raw[k]=JSON.parse(s);found=true;}catch{}}}
+  if(!found)return;
+  if(!confirm("Найдены старые данные localStorage. Перенести их в Firestore один раз?"))return;
+  try{
+    for(const c of (raw.countries||[])){const id=slug(c.name)+"-legacy";const existing=await getDoc(doc(db,"countries",id));if(!existing.exists())await setDoc(doc(db,"countries",id),{...c,legacy:true,createdAt:serverTimestamp()});}
+    for(const c of (raw.citizens||[])){const country=state.countries.find(x=>x.name===c.country);await addDoc(collection(db,"citizens"),{...c,countryId:country?.id||"legacy",createdAt:serverTimestamp()});}
+    for(const ev of (raw.events||[])){const country=state.countries.find(x=>x.name===ev.country);await addDoc(collection(db,"events"),{...ev,countryId:country?.id||"legacy",createdAt:serverTimestamp()});}
+    for(const v of (raw.votes||[])){const country=state.countries.find(x=>x.name===v.country);await addDoc(collection(db,"votes"),{...v,countryId:country?.id||"legacy",createdAt:serverTimestamp()});}
+    for(const m of (raw.chatMessages||[]))await addDoc(collection(db,"chatMessages"),{...m,createdAt:serverTimestamp()});
+    localStorage.setItem(marker,"1"); keys.forEach(k=>localStorage.removeItem(k)); toast("Старые данные перенесены в Firestore.");
+  }catch(e){console.error("Migration failed",e);toast("Перенос localStorage не завершён. Проверьте Rules.");}
+}
+
+function wireUI(){
+  document.getElementById("openApplicationButton").onclick=window.openModal;
+  document.getElementById("chatButton").onclick=openChat;
+  document.getElementById("cabinetButton").onclick=openCabinet;
+  document.getElementById("constitutionButton").onclick=openConstitution;
+  document.getElementById("themeToggle").onclick=toggleTheme;
+  document.getElementById("sendMessageButton").onclick=sendMessage;
+  document.getElementById("chatRefreshButton").onclick=renderChat;
+  document.getElementById("chatInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage();}});
+  document.getElementById("searchInput").addEventListener("input",e=>{state.searchQuery=e.target.value;renderCountries();});
+  document.querySelectorAll(".sort-btn").forEach(b=>b.addEventListener("click",()=>{state.currentSort=b.dataset.sort;document.querySelectorAll(".sort-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderCountries();}));
+  document.getElementById("applicationForm").addEventListener("submit",handleApplication);
+  document.getElementById("loginForm").addEventListener("submit",handleLogin);
+  document.getElementById("citizenForm").addEventListener("submit",handleCitizen);
+  document.getElementById("eventForm").addEventListener("submit",handleEvent);
+  document.getElementById("voteForm").addEventListener("submit",handleVote);
+  document.getElementById("filePicker").onclick=()=>document.getElementById("flagUpload").click();
+  document.getElementById("flagUpload").addEventListener("change",e=>document.getElementById("fileNameDisplay").textContent=e.target.files[0]?`Выбран файл: ${e.target.files[0].name}`:"Файл не выбран");
+  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>hideModal(b.dataset.close)));
+  document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)hideModal(m.id)}));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal.open").forEach(m=>hideModal(m.id));});
+}
+
+onAuthStateChanged(auth,async user=>{await loadProfile(user);});
+wireUI();
+initMap();
+subscribeData();
+setTimeout(migrateLegacyLocalStorage,2500);
+// ============================================================
+// РАЗДЕЛ «МЕРОПРИЯТИЯ» — ГЕНЕРАТОР ВОЕННЫХ КОНФЛИКТОВ
+// ============================================================
+
+// --- Рендер раздела мероприятий на главной ---
+function renderEventsSection() {
+    // Проверяем, есть ли уже блок мероприятий
+    let section = document.getElementById('eventsSection');
+    if (!section) {
+        // Создаём секцию, если её нет
+        section = document.createElement('section');
+        section.id = 'eventsSection';
+        section.style.marginTop = '40px';
+        
+        const title = document.createElement('h2');
+        title.className = 'section-title';
+        title.innerHTML = `<i class="fa-solid fa-crosshairs"></i> Военные конфликты и мероприятия`;
+        section.appendChild(title);
+        
+        // Контейнер для карточек
+        const grid = document.createElement('div');
+        grid.className = 'country-grid';
+        grid.id = 'eventsGrid';
+        section.appendChild(grid);
+        
+        // Вставляем после реестра
+        const registry = document.getElementById('countriesList');
+        if (registry) {
+            registry.closest('section')?.after(section);
+        } else {
+            document.querySelector('.container')?.appendChild(section);
+        }
+    }
+    renderEventsGrid();
+}
+
+// --- Рендер карточек мероприятий ---
+function renderEventsGrid() {
+    const grid = document.getElementById('eventsGrid');
+    if (!grid) return;
+    
+    const now = new Date();
+    // Сортируем по дате (ближайшие первыми)
+    const sorted = [...state.events].sort((a, b) => {
+        const da = new Date(a.date);
+        const db = new Date(b.date);
+        return da - db;
+    });
+    
+    if (!sorted.length) {
+        grid.innerHTML = `
+            <div class="empty" style="grid-column:1/-1;padding:30px;">
+                <i class="fa-solid fa-calendar-circle-plus" style="font-size:2.5rem;display:block;margin-bottom:12px;color:var(--muted);"></i>
+                Нет запланированных конфликтов. 
+                <br><small style="color:var(--muted)">Президенты могут создавать события в личном кабинете.</small>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = sorted.map(ev => {
+        const country = state.countries.find(c => c.id === ev.countryId);
+        const isPast = new Date(ev.date) < now;
+        const status = isPast ? '🟥 Завершён' : '🟩 Активен';
+        const statusColor = isPast ? 'var(--muted)' : 'var(--success)';
+        
+        return `
+            <article class="country-card" style="border-left: 4px solid ${isPast ? 'var(--muted)' : 'var(--accent)'};">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+                    <div style="font-weight:800;font-size:1.2rem;">${esc(ev.name)}</div>
+                    <div style="font-size:0.8rem;color:${statusColor};font-weight:700;">${status}</div>
+                </div>
+                <div class="detail"><i class="fa-solid fa-flag"></i> Организатор: ${esc(ev.country || country?.name || 'Неизвестно')}</div>
+                <div class="detail"><i class="fa-solid fa-calendar-day"></i> Дата: ${esc(ev.date)}</div>
+                ${ev.description ? `<div class="detail"><i class="fa-solid fa-align-left"></i> ${esc(ev.description)}</div>` : ''}
+                <div class="detail"><i class="fa-solid fa-location-dot"></i> Координаты: ${esc(ev.lat)}, ${esc(ev.lng)}</div>
+                <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="action-btn" onclick="showEventOnMap('${ev.id}')">
+                        <i class="fa-solid fa-map-pin"></i> На карту
+                    </button>
+                    ${!isPast ? `<button class="action-btn" style="background:var(--accent);color:#fff;border-color:var(--accent);" onclick="joinEvent('${ev.id}')">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Участвовать
+                    </button>` : ''}
+                    ${state.currentUser && state.currentProfile?.countryId === ev.countryId ? `<button class="action-btn" onclick="deleteEvent('${ev.id}')" style="color:#e11d48;">
+                        <i class="fa-solid fa-trash-can"></i> Отменить
+                    </button>` : ''}
+                </div>
+            </article>
+        `;
+    }).join('');
+}
+
+// --- Показать мероприятие на карте ---
+window.showEventOnMap = function(eventId) {
+    const ev = state.events.find(e => e.id === eventId);
+    if (!ev) return toast('Мероприятие не найдено');
+    
+    const lat = Number(ev.lat);
+    const lng = Number(ev.lng);
+    if (!coordinatesOK(lat, lng)) return toast('Неверные координаты');
+    
+    if (state.map) {
+        state.map.setView([lat, lng], 14);
+        // Анимированный маркер
+        const marker = L.marker([lat, lng], {
+            icon: L.divIcon({
+                className: 'event-marker',
+                html: '<i class="fa-solid fa-bullseye" style="color:#e11d48;font-size:32px;"></i>',
+                iconSize: [32, 32],
+                iconAnchor: [16, 16]
+            })
+        }).addTo(state.map);
+        marker.bindPopup(`
+            <strong>${esc(ev.name)}</strong><br>
+            Организатор: ${esc(ev.country)}<br>
+            Дата: ${esc(ev.date)}
+        `).openPopup();
+        
+        // Убираем маркер через 5 секунд
+        setTimeout(() => state.map.removeLayer(marker), 5000);
+    }
+    toast('📍 Мероприятие отмечено на карте');
+};
+
+// --- Участие в мероприятии ---
+window.joinEvent = function(eventId) {
+    const ev = state.events.find(e => e.id === eventId);
+    if (!ev) return toast('Мероприятие не найдено');
+    
+    if (!state.currentUser) {
+        toast('Сначала войдите в кабинет президента');
+        showModal('loginModal');
+        return;
+    }
+    
+    const country = state.countries.find(c => c.id === state.currentProfile?.countryId);
+    if (!country) {
+        toast('Ваше государство не найдено');
+        return;
+    }
+    
+    // Проверяем, не зарегистрировано ли уже
+    const already = ev.participants?.includes(country.name);
+    if (already) {
+        toast(`Вы уже участвуете в «${ev.name}»`);
+        return;
+    }
+    
+    if (confirm(`Ваше государство «${country.name}» подтверждает участие в военном конфликте «${ev.name}»?`)) {
+        // Добавляем участника в Firestore
+        const participants = ev.participants || [];
+        participants.push(country.name);
+        
+        import('https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js').then(({ updateDoc, doc }) => {
+            const ref = doc(db, 'events', eventId);
+            updateDoc(ref, { participants });
+            toast(`✅ «${country.name}» вступает в битву!`);
+        }).catch(err => {
+            console.error(err);
+            toast('Ошибка записи в Firestore');
+        });
+    }
+};
+
+// --- Удаление мероприятия (только для организатора) ---
+window.deleteEvent = function(eventId) {
+    if (!confirm('Удалить это мероприятие?')) return;
+    
+    import('https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js').then(({ deleteDoc, doc }) => {
+        const ref = doc(db, 'events', eventId);
+        deleteDoc(ref);
+        toast('Мероприятие отменено');
+    }).catch(err => {
+        console.error(err);
+        toast('Ошибка удаления');
+    });
+};
+
+// --- Добавляем кнопку в кабинет президента для создания конфликта ---
+// Патчим renderCabinet, чтобы добавить новый тип события "Военный конфликт"
+const originalRenderCabinet = window.renderCabinet || function() {};
+window.renderCabinet = function(country) {
+    originalRenderCabinet(country);
+    
+    // Добавляем кнопку "Военный конфликт" если её нет
+    const actions = document.querySelector('#cabinetContent .actions');
+    if (actions && !actions.querySelector('#cabWarButton')) {
+        const btn = document.createElement('button');
+        btn.className = 'btn-secondary';
+        btn.id = 'cabWarButton';
+        btn.innerHTML = '<i class="fa-solid fa-bomb"></i> Военный конфликт';
+        btn.onclick = () => openWarModal(country.id);
+        actions.appendChild(btn);
+    }
+};
+
+// --- Модалка для создания военного конфликта ---
+function openWarModal(countryId) {
+    // Создаём модалку, если её нет
+    let modal = document.getElementById('warModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'warModal';
+        modal.setAttribute('aria-hidden', 'true');
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width:550px;">
+                <button class="close-btn" data-close="warModal">×</button>
+                <div class="modal-header"><i class="fa-solid fa-bomb" style="color:var(--accent);"></i> Объявить военный конфликт</div>
+                <form id="warForm">
+                    <input type="hidden" id="warCountryId" value="${esc(countryId)}">
+                    <div class="form-group">
+                        <label>Название конфликта *</label>
+                        <input id="warName" placeholder="Битва за сектор X" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание (цели, условия)</label>
+                        <textarea id="warDescription" rows="3" placeholder="Захват флага, удержание территории..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Дата и время сбора *</label>
+                        <input id="warDate" type="datetime-local" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Координаты места сбора *</label>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            <input id="warLat" placeholder="55.7558" required>
+                            <input id="warLng" placeholder="37.6176" required>
+                        </div>
+                        <div class="hint">Координаты договорённой площадки для боя</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Правила конфликта</label>
+                        <select id="warRules">
+                            <option value="стандарт">Стандартные (попадание — выбывание)</option>
+                            <option value="захват_флага">Захват флага</option>
+                            <option value="удержание">Удержание территории</option>
+                            <option value="свои_правила">Свои правила</option>
+                        </select>
+                    </div>
+                    <button class="form-submit" type="submit">⚔️ Объявить конфликт</button>
+                </form>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Обработчик формы
+        modal.querySelector('#warForm').addEventListener('submit', handleWarSubmit);
+        
+        // Закрытие
+        modal.querySelector('[data-close="warModal"]').onclick = () => hideModal('warModal');
+        modal.addEventListener('click', (e) => { if (e.target === modal) hideModal('warModal'); });
+    }
+    
+    // Устанавливаем countryId
+    document.getElementById('warCountryId').value = countryId;
+    
+    // Автозаполнение даты (через 2 часа от текущего момента)
+    const now = new Date();
+    now.setHours(now.getHours() + 2);
+    document.getElementById('warDate').value = now.toISOString().slice(0, 16);
+    
+    showModal('warModal');
+}
+
+// --- Обработка создания военного конфликта ---
+async function handleWarSubmit(e) {
+    e.preventDefault();
+    
+    const countryId = document.getElementById('warCountryId').value;
+    const name = document.getElementById('warName').value.trim();
+    const description = document.getElementById('warDescription').value.trim();
+    const date = document.getElementById('warDate').value;
+    const lat = document.getElementById('warLat').value.trim();
+    const lng = document.getElementById('warLng').value.trim();
+    const rules = document.getElementById('warRules').value;
+    
+    if (!name || !date || !coordinatesOK(lat, lng)) {
+        alert('Заполните все обязательные поля и проверьте координаты.');
+        return;
+    }
+    
+    const country = state.countries.find(c => c.id === countryId);
+    if (!country) {
+        alert('Ваше государство не найдено');
+        return;
+    }
+    
+    const fullDescription = `⚔️ ${description || 'Боевые действия'}\n📋 Правила: ${rules === 'свои_правила' ? 'будут объявлены на месте' : rules}`;
+    
+    try {
+        await addDoc(collection(db, 'events'), {
+            countryId,
+            country: country.name,
+            name,
+            description: fullDescription,
+            date,
+            lat,
+            lng,
+            type: 'war',
+            rules,
+            participants: [country.name], // организатор участвует автоматически
+            createdAt: serverTimestamp(),
+            uid: state.currentUser?.uid || null
+        });
+        
+        hideModal('warModal');
+        document.getElementById('warForm').reset();
+        toast(`⚔️ Военный конфликт «${name}» объявлен!`);
+        
+        // Отправляем сообщение в чат
+        try {
+            await addDoc(collection(db, 'chatMessages'), {
+                text: `⚔️ ВНИМАНИЕ! Объявлен военный конфликт «${name}»! Организатор: ${country.name}. Сбор ${date}.`,
+                sender: `⚠️ Военный штаб ССР`,
+                uid: null,
+                createdAt: serverTimestamp()
+            });
+        } catch (chatErr) {
+            console.warn('Не удалось отправить уведомление в чат', chatErr);
+        }
+        
+    } catch (err) {
+        console.error(err);
+        alert('Не удалось объявить конфликт. Проверьте подключение к Firestore.');
+    }
+}
+
+// --- Патчим renderEventsSection для обновления при изменении данных ---
+// Переопределяем renderAll, чтобы обновлялась секция мероприятий
+const originalRenderAll = window.renderAll || function() {};
+window.renderAll = function() {
+    originalRenderAll();
+    renderEventsGrid();
+};
+
+// --- Инициализация раздела мероприятий при загрузке ---
+const originalInit = window.onload || function() {};
+window.onload = function() {
+    originalInit();
+    renderEventsSection();
+};
+
+// Вызываем сразу, если DOM уже загружен
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(renderEventsSection, 500);
+} else {
+    document.addEventListener('DOMContentLoaded', renderEventsSection);
+}
+// ============================================================
+// РАЗДЕЛ «ВОЕННЫЕ КОНФЛИКТЫ» — ОБЪЯВЛЕНИЕ ВОЙНЫ
+// ============================================================
+
+// Проверяем, не определены ли уже функции
+if (typeof window.warSystemInitialized === 'undefined') {
+    window.warSystemInitialized = true;
+
+    // --- Рендер секции военных конфликтов на главной ---
+    window.renderWarSection = function() {
+        let section = document.getElementById('warSection');
+        if (!section) {
+            section = document.createElement('section');
+            section.id = 'warSection';
+            section.style.marginTop = '40px';
+            
+            const title = document.createElement('h2');
+            title.className = 'section-title';
+            title.innerHTML = `<i class="fa-solid fa-crosshairs"></i> Военные конфликты`;
+            section.appendChild(title);
+            
+            const grid = document.createElement('div');
+            grid.className = 'country-grid';
+            grid.id = 'warGrid';
+            section.appendChild(grid);
+            
+            const registry = document.getElementById('countriesList');
+            if (registry) {
+                registry.closest('section')?.after(section);
+            } else {
+                document.querySelector('.container')?.appendChild(section);
+            }
+        }
+        window.renderWarGrid();
+    };
+
+    // --- Рендер карточек военных конфликтов ---
+    window.renderWarGrid = function() {
+        const grid = document.getElementById('warGrid');
+        if (!grid) return;
+        
+        const wars = state.events.filter(ev => ev.type === 'war');
+        const now = new Date();
+        
+        wars.sort((a, b) => {
+            const da = new Date(a.deadline || a.date);
+            const db = new Date(b.deadline || b.date);
+            return da - db;
+        });
+        
+        if (!wars.length) {
+            grid.innerHTML = `
+                <div class="empty" style="grid-column:1/-1;padding:30px;">
+                    <i class="fa-solid fa-dove" style="font-size:2.5rem;display:block;margin-bottom:12px;color:var(--muted);"></i>
+                    Нет активных военных конфликтов. 
+                    <br><small style="color:var(--muted)">Нажмите «Начать войну» в кабинете президента.</small>
+                </div>
+            `;
+            return;
+        }
+        
+        grid.innerHTML = wars.map(war => {
+            const targetCountry = state.countries.find(c => c.id === war.targetCountryId);
+            const initiatorCountry = state.countries.find(c => c.id === war.countryId);
+            const isExpired = new Date(war.deadline) < now;
+            const isAccepted = war.status === 'accepted';
+            const isDeclined = war.status === 'declined';
+            
+            let statusText = '⏳ Ожидание ответа';
+            let statusColor = '#eab308';
+            if (isAccepted) {
+                statusText = '✅ Принята';
+                statusColor = 'var(--success)';
+            } else if (isDeclined) {
+                statusText = '❌ Отклонена';
+                statusColor = 'var(--accent)';
+            } else if (isExpired) {
+                statusText = '⌛ Срок истёк';
+                statusColor = 'var(--muted)';
+            }
+            
+            return `
+                <article class="country-card" style="border-left: 4px solid ${statusColor};">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+                        <div style="font-weight:800;font-size:1.1rem;">⚔️ ${esc(war.name)}</div>
+                        <div style="font-size:0.8rem;color:${statusColor};font-weight:700;">${statusText}</div>
+                    </div>
+                    <div class="detail"><i class="fa-solid fa-flag"></i> Инициатор: ${esc(initiatorCountry?.name || war.country)}</div>
+                    <div class="detail"><i class="fa-solid fa-bullseye"></i> Цель: ${esc(targetCountry?.name || war.targetCountry)}</div>
+                    <div class="detail"><i class="fa-solid fa-clock"></i> Срок ответа: ${esc(new Date(war.deadline).toLocaleString('ru-RU'))}</div>
+                    ${war.location ? `<div class="detail"><i class="fa-solid fa-location-dot"></i> Место: ${esc(war.location)}</div>` : ''}
+                    ${war.reason ? `<div class="detail"><i class="fa-solid fa-question-circle"></i> Причина: ${esc(war.reason)}</div>` : ''}
+                    
+                    ${!isAccepted && !isDeclined && !isExpired && state.currentProfile?.countryId === war.targetCountryId ? `
+                        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+                            <button class="action-btn" style="background:var(--success);color:#fff;border-color:var(--success);" onclick="window.acceptWar('${war.id}')">
+                                <i class="fa-solid fa-check"></i> Принять
+                            </button>
+                            <button class="action-btn" style="background:var(--accent);color:#fff;border-color:var(--accent);" onclick="window.declineWar('${war.id}')">
+                                <i class="fa-solid fa-xmark"></i> Отклонить
+                            </button>
+                        </div>
+                    ` : ''}
+                    
+                    ${isAccepted ? `
+                        <div style="margin-top:14px;padding:10px;background:var(--surface2);border-radius:10px;">
+                            <strong>📍 Место войны:</strong> ${esc(war.location || 'Не выбрано')}
+                            <br><strong>🛡️ Подготовка:</strong> 10 дней с момента принятия
+                        </div>
+                    ` : ''}
+                </article>
+            `;
+        }).join('');
+    };
+
+    // --- Принятие войны ---
+    window.acceptWar = async function(warId) {
+        const war = state.events.find(e => e.id === warId);
+        if (!war) return toast('Война не найдена');
+        
+        const location = prompt('Введите место проведения войны (координаты или описание):');
+        if (!location) return;
+        
+        try {
+            await updateDoc(doc(db, 'events', warId), {
+                status: 'accepted',
+                location: location,
+                acceptedAt: serverTimestamp(),
+                warStartDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString()
+            });
+            
+            // Уведомление в чат
+            await addDoc(collection(db, 'chatMessages'), {
+                text: `✅ Война «${war.name}» ПРИНЯТА! Место: ${location}. Подготовка 10 дней.`,
+                sender: '⚠️ Военный штаб ССР',
+                uid: null,
+                createdAt: serverTimestamp()
+            });
+            
+            toast('✅ Война принята! Началась подготовка.');
+        } catch (err) {
+            console.error(err);
+            toast('Ошибка принятия войны');
+        }
+    };
+
+    // --- Отклонение войны ---
+    window.declineWar = async function(warId) {
+        const war = state.events.find(e => e.id === warId);
+        if (!war) return toast('Война не найдена');
+        
+        if (!confirm(`Отклонить войну «${war.name}»?`)) return;
+        
+        try {
+            await updateDoc(doc(db, 'events', warId), {
+                status: 'declined',
+                declinedAt: serverTimestamp()
+            });
+            
+            await addDoc(collection(db, 'chatMessages'), {
+                text: `❌ Война «${war.name}» отклонена.`,
+                sender: '⚠️ Военный штаб ССР',
+                uid: null,
+                createdAt: serverTimestamp()
+            });
+            
+            toast('Война отклонена');
+        } catch (err) {
+            console.error(err);
+            toast('Ошибка отклонения войны');
+        }
+    };
+
+    // --- Модальное окно для начала войны ---
+    window.openWarModal = function() {
+        let modal = document.getElementById('warModal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.id = 'warModal';
+            modal.setAttribute('aria-hidden', 'true');
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width:550px;">
+                    <button class="close-btn" data-close="warModal">×</button>
+                    <div class="modal-header"><i class="fa-solid fa-bomb" style="color:var(--accent);"></i> Начать войну</div>
+                    <form id="warForm">
+                        <div class="form-group">
+                            <label>Название войны *</label>
+                            <input id="warName" placeholder="Война за территорию..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Целевое государство *</label>
+                            <select id="warTargetCountry" required>
+                                <option value="">Выберите государство...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Причина войны</label>
+                            <textarea id="warReason" rows="3" placeholder="Территориальный спор, ресурсы..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Срок ответа (дней)</label>
+                            <input id="warDeadline" type="number" min="1" max="30" value="10" required>
+                            <div class="hint">Целевое государство должно ответить в течение этого срока</div>
+                        </div>
+                        <button class="form-submit" type="submit">⚔️ Объявить войну</button>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            modal.querySelector('#warForm').addEventListener('submit', window.handleWarSubmit);
+            modal.querySelector('[data-close="warModal"]').onclick = () => hideModal('warModal');
+            modal.addEventListener('click', (e) => { if (e.target === modal) hideModal('warModal'); });
+        }
+        
+        // Заполняем список целевых государств
+        const targetSelect = document.getElementById('warTargetCountry');
+        targetSelect.innerHTML = '<option value="">Выберите государство...</option>' + 
+            state.countries
+                .filter(c => c.id !== state.currentProfile?.countryId)
+                .map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`)
+                .join('');
+        
+        showModal('warModal');
+    };
+
+    // --- Обработка объявления войны ---
+    window.handleWarSubmit = async function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('warName').value.trim();
+        const targetCountryId = document.getElementById('warTargetCountry').value;
+        const reason = document.getElementById('warReason').value.trim();
+        const deadlineDays = Number(document.getElementById('warDeadline').value);
+        
+        if (!name || !targetCountryId) {
+            alert('Заполните обязательные поля');
+            return;
+        }
+        
+        const currentCountry = state.countries.find(c => c.id === state.currentProfile?.countryId);
+        const targetCountry = state.countries.find(c => c.id === targetCountryId);
+        
+        if (!currentCountry || !targetCountry) {
+            alert('Государства не найдены');
+            return;
+        }
+        
+        const deadline = new Date(Date.now() + deadlineDays * 24 * 60 * 60 * 1000).toISOString();
+        
+        try {
+            await addDoc(collection(db, 'events'), {
+                type: 'war',
+                name: name,
+                countryId: currentCountry.id,
+                country: currentCountry.name,
+                targetCountryId: targetCountry.id,
+                targetCountry: targetCountry.name,
+                reason: reason,
+                deadline: deadline,
+                status: 'pending',
+                createdAt: serverTimestamp(),
+                uid: state.currentUser?.uid || null
+            });
+            
+            // Уведомление в чат
+            await addDoc(collection(db, 'chatMessages'), {
+                text: `⚔️ ВОЙНА ОБЪЯВЛЕНА! «${name}» — ${currentCountry.name} атакует ${targetCountry.name}! Причина: ${reason || 'не указана'}. Ответ в течение ${deadlineDays} дней.`,
+                sender: '⚠️ Военный штаб ССР',
+                uid: null,
+                createdAt: serverTimestamp()
+            });
+            
+            hideModal('warModal');
+            document.getElementById('warForm').reset();
+            toast(`⚔️ Война «${name}» объявлена!`);
+            
+            window.renderWarGrid();
+            
+        } catch (err) {
+            console.error(err);
+            alert('Не удалось объявить войну');
+        }
+    };
+
+    // --- Добавляем кнопку в кабинет президента ---
+    function addWarButtonToCabinet() {
+        const actions = document.querySelector('#cabinetContent .actions');
+        if (actions && !actions.querySelector('#cabWarButton')) {
+            const btn = document.createElement('button');
+            btn.className = 'btn-secondary';
+            btn.id = 'cabWarButton';
+            btn.style.background = 'linear-gradient(135deg,#dc2626,#991b1b)';
+            btn.innerHTML = '<i class="fa-solid fa-crosshairs"></i> Начать войну';
+            btn.onclick = window.openWarModal;
+            actions.appendChild(btn);
+        }
+    }
+
+    // --- Патчим refreshCabinet для добавления кнопки ---
+    const originalRefreshCabinet = window.refreshCabinet || refreshCabinet;
+    window.refreshCabinet = async function() {
+        await originalRefreshCabinet.call(this);
+        addWarButtonToCabinet();
+    };
+
+    // --- Обновляем renderAll для включения военной секции ---
+    const originalRenderAll = window.renderAll || renderAll;
+    window.renderAll = function() {
+        originalRenderAll.call(this);
+        window.renderWarSection();
+    };
+
+    // --- Инициализация при загрузке ---
+    setTimeout(() => {
+        window.renderWarSection();
+        window.renderWarGrid();
+    }, 1000);
+}
+</script>
+</body>
+</html>
