@@ -128,10 +128,17 @@ body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--mut
 <!-- Votes list -->
 <div class="modal" id="voteListModal" aria-hidden="true"><div class="modal-content" style="max-width:680px"><button class="close-btn" data-close="voteListModal">×</button><div class="modal-header"><i class="fa-solid fa-square-poll-horizontal"></i> Голосования</div><div id="voteListContent"></div></div></div>
 
-<!-- Constitution -->
-<div class="modal" id="constitutionModal" aria-hidden="true"><div class="modal-content wide"><button class="close-btn" data-close="constitutionModal">×</button><div class="modal-header"><i class="fa-solid fa-gavel"></i> Народный устав ССР</div><div id="constitutionText"></div></div></div>
-<div class="toast" id="toast"></div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- ===== КОНСТИТУЦИЯ/УСТАВ ===== -->
+<div class="modal" id="constitutionModal" aria-hidden="true">
+  <div class="modal-content wide">
+    <button class="close-btn" data-close="constitutionModal">×</button>
+    <div class="modal-header">
+      <i class="fa-solid fa-gavel"></i>
+      Устав ССР
+    </div>
+    <div id="constitutionText" style="line-height:1.8;color:var(--text);padding:8px 4px;"></div>
+  </div>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
@@ -158,307 +165,313 @@ try { if (await isSupported()) getAnalytics(app); } catch(e) { console.info("Ana
 const state = { countries:[], citizens:[], events:[], votes:[], chatMessages:[], currentUser:null, currentProfile:null, currentSort:"alphabetical", searchQuery:"", map:null, countryLayer:null, eventLayer:null, listeners:[] };
 
 const constitutionText = `
-<style>
-.constitution-wrap {
-    max-width: 100%;
-    font-size: 0.98rem;
-    line-height: 1.6;
-    color: var(--text);
-}
-.constitution-wrap h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    color: var(--accent);
-    margin-bottom: 8px;
-    letter-spacing: 2px;
-}
-.constitution-wrap .subhead {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.95rem;
-    margin-bottom: 24px;
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 14px;
-}
-.constitution-wrap .chapter {
-    margin-top: 24px;
-    margin-bottom: 16px;
-    padding: 10px 16px;
-    background: var(--surface2);
-    border-radius: 12px;
-    border-left: 5px solid var(--accent);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text);
-}
-.constitution-wrap .chapter i {
-    color: var(--accent);
-    margin-right: 10px;
-}
-.constitution-wrap .article {
-    margin: 10px 0 10px 20px;
-    padding-left: 14px;
-    border-left: 3px solid var(--border);
-}
-.constitution-wrap .article strong {
-    color: var(--accent);
-}
-.constitution-wrap .article .sub {
-    margin-left: 24px;
-    color: var(--muted);
-    font-size: 0.93rem;
-}
-.constitution-wrap .legal-note {
-    background: #fef2f2;
-    border-left: 5px solid var(--accent);
-    padding: 16px 20px;
-    border-radius: 12px;
-    margin: 20px 0 10px;
-    font-size: 0.95rem;
-}
-.constitution-wrap .legal-note strong {
-    color: #991b1b;
-}
-.constitution-wrap .signature {
-    text-align: right;
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 2px solid var(--border);
-    color: var(--muted);
-    font-style: italic;
-}
-</style>
+<div style="max-width:100%;">
 
-<div class="constitution-wrap">
+  <!-- ШАПКА -->
+  <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid var(--border);">
+    <div style="display:inline-block;background:#e11d48;color:#fff;font-weight:700;font-size:0.7rem;padding:4px 16px;border-radius:99px;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;">Официальный документ</div>
+    <h1 style="font-size:2.2rem;font-weight:800;margin:0;color:var(--text);">📜 УСТАВ ССР</h1>
+    <p style="color:var(--muted);font-size:1.1rem;margin:4px 0 2px 0;">Содружество Сельских Республик</p>
+    <p style="color:var(--accent);font-weight:600;font-size:1rem;">Добровольное общественное объединение</p>
+  </div>
 
-    <h2>⚔️ НАРОДНЫЙ УСТАВ ССР</h2>
-    <div class="subhead">
-        <i>«Сельские Страны и Республики» — игровое сообщество для спорта, дружбы и здорового соперничества</i><br>
-        <span style="font-size:0.85rem;">Версия 4.0 · Принят на Общем Совете ССР · 20 августа 2026 г.</span>
+  <!-- ===== СТАТУС ===== -->
+  <div style="background:rgba(22,163,74,0.08);border-radius:16px;padding:16px 22px;margin-bottom:24px;border-left:4px solid #16a34a;text-align:center;">
+    <p style="margin:0;color:var(--text);font-weight:700;font-size:1rem;">
+      ⚖️ ССР действует в строгом соответствии с законодательством Российской Федерации
+    </p>
+    <p style="margin:4px 0 0 0;color:var(--muted);font-size:0.9rem;">
+      Ст. 30 Конституции РФ — право на объединение
+    </p>
+  </div>
+
+  <!-- ===== ГЛАВА 1 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #e11d48;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">1. ОБЩИЕ ПОЛОЖЕНИЯ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">1.1.</strong> ССР (далее — «Объединение») является <strong style="color:var(--text);">добровольным общественным объединением</strong> граждан Российской Федерации, созданным для организации активного досуга, развития командного духа и укрепления дружеских связей между жителями сёл и городов России.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">1.2.</strong> Объединение <strong style="color:var(--accent);">не является</strong>:</p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• политической партией или движением;</li>
+      <li style="margin:4px 0;">• коммерческой организацией;</li>
+      <li style="margin:4px 0;">• структурой, претендующей на государственную власть или суверенитет.</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">1.3.</strong> Термины <strong style="color:var(--text);">«государство», «президент», «граждане», «территория», «столица»</strong> используются как внутренние названия для упрощения коммуникации и воспитания ответственности, лидерских качеств и командного духа у участников.</p>
+
+    <p style="color:var(--muted);margin:12px 0 0 0;"><strong style="color:var(--text);">1.4.</strong> Все действия Объединения осуществляются в рамках действующего законодательства Российской Федерации. Никакие решения, принятые внутри Объединения, <strong style="color:var(--text);">не имеют юридической силы</strong> за его пределами и не изменяют административно-территориальное устройство Российской Федерации.</p>
+
+    <div style="margin-top:12px;background:rgba(225,29,72,0.06);padding:10px 14px;border-radius:10px;">
+      <p style="margin:0;color:var(--text);font-weight:600;font-size:0.9rem;">
+        ⚠️ Все термины «государство», «президент», «война» используются <strong style="color:var(--accent);">исключительно в игровом контексте</strong> и не создают юридических последствий.
+      </p>
     </div>
+  </div>
 
-    <div class="legal-note">
-        <strong><i class="fa-solid fa-balance-scale"></i> ВАЖНО:</strong>
-        ССР является ИГРОВОЙ платформой. Все термины («государство», «война», «президент») используются исключительно в игровом контексте. ССР не заменяет государственные институты РФ и не претендует на реальную власть или территории.
+  <!-- ===== ГЛАВА 2 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #eab308;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">2. ЦЕЛИ И ЗАДАЧИ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">2.1.</strong> Основной целью Объединения является объединение реальных людей из разных населённых пунктов России для совместного активного отдыха, спортивных соревнований и культурного обмена.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">2.2.</strong> Задачи Объединения:</p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• организация регулярных спортивных мероприятий (страйкбол, лазертаг, тактические игры);</li>
+      <li style="margin:4px 0;">• проведение туристических походов, пикников и праздников;</li>
+      <li style="margin:4px 0;">• развитие дружеских и партнёрских отношений между сёлами и городами;</li>
+      <li style="margin:4px 0;">• создание безопасной и уважительной среды для общения;</li>
+      <li style="margin:4px 0;">• популяризация активного образа жизни среди молодёжи и взрослых.</li>
+    </ul>
+  </div>
+
+  <!-- ===== ГЛАВА 3 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #16a34a;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">3. ТЕРРИТОРИЯ И МЕРОПРИЯТИЯ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">3.1.</strong> Термин «территория» внутри Объединения означает <strong style="color:var(--text);">реальный географический участок</strong> (лес, поле, овраг, парк), на котором проводятся мероприятия.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">3.2.</strong> Все мероприятия проводятся только на <strong style="color:var(--text);">согласованных площадках</strong> с соблюдением правил безопасности и при необходимости — с уведомлением местных органов власти.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">3.3.</strong> <strong style="color:var(--accent);">Запрещается:</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• проведение мероприятий на частной территории без разрешения владельца;</li>
+      <li style="margin:4px 0;">• нанесение вреда природе, имуществу или здоровью людей;</li>
+      <li style="margin:4px 0;">• использование любых видов оружия, кроме страйкбольного, с обязательным соблюдением правил техники безопасности.</li>
+    </ul>
+  </div>
+
+  <!-- ===== ГЛАВА 4 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #8b5cf6;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">4. СТРУКТУРА И УПРАВЛЕНИЕ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">4.1.</strong> Основной структурной единицей Объединения является <strong style="color:var(--text);">микрогосударство</strong> — группа жителей одного населённого пункта (села, города, района), объединившихся для участия в мероприятиях.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">4.2.</strong> Каждое микрогосударство:</p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• имеет добровольно выбранное название;</li>
+      <li style="margin:4px 0;">• выбирает главу (внутреннее название — «президент»);</li>
+      <li style="margin:4px 0;">• разрабатывает собственную символику (флаг, герб, нашивки);</li>
+      <li style="margin:4px 0;">• определяет свою территорию для проведения мероприятий.</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">4.3.</strong> Руководитель Объединения (внутреннее название — «Верховный Совет ССР») координирует взаимодействие между микрогосударствами, организует общие мероприятия и разрешает спорные вопросы.</p>
+
+    <p style="color:var(--muted);margin:12px 0 0 0;"><strong style="color:var(--text);">4.4.</strong> Все должности внутри Объединения являются <strong style="color:var(--text);">общественными и неоплачиваемыми</strong>.</p>
+  </div>
+
+  <!-- ===== ГЛАВА 5 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #e11d48;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">5. УЧАСТНИКИ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">5.1.</strong> Участником Объединения может стать любой гражданин Российской Федерации, достигший <strong style="color:var(--text);">14 лет</strong>, разделяющий цели Объединения и соблюдающий его правила.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">5.2.</strong> Участие является <strong style="color:var(--text);">строго добровольным</strong>. Каждый участник может выйти из состава Объединения в любое время без объяснения причин.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">5.3.</strong> Участники <strong style="color:var(--text);">обязаны</strong>:</p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• соблюдать действующее законодательство РФ;</li>
+      <li style="margin:4px 0;">• соблюдать правила безопасности при проведении мероприятий;</li>
+      <li style="margin:4px 0;">• уважать честь и достоинство других участников;</li>
+      <li style="margin:4px 0;">• не допускать действий, дискредитирующих Объединение.</li>
+    </ul>
+  </div>
+
+  <!-- ===== ГЛАВА 6 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #eab308;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">6. БЕЗОПАСНОСТЬ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">6.1.</strong> При проведении всех спортивных мероприятий обязательно использование <strong style="color:var(--text);">защитной экипировки</strong> (очки, маски, перчатки и т.д.).</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">6.2.</strong> <strong style="color:var(--accent);">Запрещено:</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• использование алкоголя и наркотических веществ на мероприятиях;</li>
+      <li style="margin:4px 0;">• агрессивное или хулиганское поведение;</li>
+      <li style="margin:4px 0;">• применение любого вида оружия, кроме разрешённого страйкбольного.</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 0 0;"><strong style="color:var(--text);">6.3.</strong> Ответственность за безопасность на конкретном мероприятии несёт <strong style="color:var(--text);">организатор</strong> (глава микрогосударства или назначенное им лицо).</p>
+  </div>
+
+  <!-- ===== ГЛАВА 7 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #8b5cf6;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">7. ОТНОШЕНИЯ С ОРГАНАМИ ВЛАСТИ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">7.1.</strong> Объединение открыто для диалога с местными органами власти, правоохранительными органами и средствами массовой информации.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">7.2.</strong> При создании нового микрогосударства его глава обязан:</p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• уведомить участкового уполномоченного полиции о своей деятельности;</li>
+      <li style="margin:4px 0;">• согласовать места проведения мероприятий с администрацией населённого пункта;</li>
+      <li style="margin:4px 0;">• информировать жителей населённого пункта о целях и характере деятельности.</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 0 0;"><strong style="color:var(--text);">7.3.</strong> Объединение не вмешивается в политические процессы, не поддерживает и не финансирует политические партии и движения.</p>
+  </div>
+
+  <!-- ===== ГЛАВА 8 ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #16a34a;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">8. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">8.1.</strong> Настоящий Устав является основным документом Объединения. Изменения и дополнения вносятся по согласованию с главами микрогосударств.</p>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">8.2.</strong> Объединение не преследует коммерческих целей и не извлекает прибыли из своей деятельности.</p>
+
+    <p style="color:var(--muted);margin:12px 0 0 0;"><strong style="color:var(--text);">8.3.</strong> Объединение оставляет за собой право отказать в участии лицам, нарушающим настоящий Устав или законодательство РФ.</p>
+  </div>
+
+  <!-- ===== ГЛАВА 9: ВОЙНЫ И МЕРОПРИЯТИЯ (ПОДРОБНО) ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #e11d48;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">9. ПРОВЕДЕНИЕ ВОЙН И МЕРОПРИЯТИЙ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">9.1. Объявление войны (страйкбольного сражения)</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• Президент микрогосударства подаёт заявку на войну через сайт</li>
+      <li style="margin:4px 0;">• В заявке указываются: причина, предлагаемая дата, ориентировочное место</li>
+      <li style="margin:4px 0;">• Заявка направляется президенту государства-противника</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">9.2. Ответ на заявку</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• У государства-противника есть <strong style="color:var(--text);">10 дней</strong> на ответ</li>
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Варианты ответа:</strong></li>
+      <li style="margin:4px 0;">  ✅ <strong style="color:#16a34a;">ПРИНЯТЬ</strong> — выбирается конкретное место и дата</li>
+      <li style="margin:4px 0;">  🏳️ <strong style="color:#e11d48;">СДАТЬСЯ</strong> — поражение без боя</li>
+      <li style="margin:4px 0;">  ⏰ <strong style="color:#eab308;">ИГНОРИРОВАТЬ</strong> — через 10 дней автоматическое поражение</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">9.3. Подготовка к войне</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• После принятия войны начинается <strong style="color:var(--text);">период подготовки — 10 дней</strong></li>
+      <li style="margin:4px 0;">• За это время стороны:</li>
+      <li style="margin:4px 0;">  • Собирают команды (минимально — 5 человек с каждой стороны)</li>
+      <li style="margin:4px 0;">  • Проверяют снаряжение и оружие</li>
+      <li style="margin:4px 0;">  • Изучают местность (полигон)</li>
+      <li style="margin:4px 0;">  • Разрабатывают тактику и сценарий боя</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">9.4. Сценарии сражений</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Захват флага</strong> — команда должна захватить и удержать флаг противника</li>
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Удержание точки</strong> — нужно удержать контроль над определённой территорией</li>
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Уничтожение</strong> — полное поражение команды противника</li>
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Разведка</strong> — сбор информации на территории противника</li>
+      <li style="margin:4px 0;">• Сценарий выбирается <strong style="color:var(--text);">по согласованию сторон</strong></li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">9.5. Проведение боя</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• На полигоне присутствуют <strong style="color:var(--text);">судьи</strong> (не менее 2 человек)</li>
+      <li style="margin:4px 0;">• Судьи фиксируют <strong style="color:var(--text);">попадания</strong> и <strong style="color:var(--text);">выход игроков</strong></li>
+      <li style="margin:4px 0;">• <strong style="color:var(--accent);">Запрещены</strong>: выстрелы в упор, удары, нецензурная брань</li>
+      <li style="margin:4px 0;">• Игрок, получивший попадание, <strong style="color:var(--text);">обязан покинуть поле</strong></li>
+      <li style="margin:4px 0;">• Бой длится до выполнения сценария или до истечения времени (обычно 30-60 минут)</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">9.6. Итоги войны</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• Победитель определяется <strong style="color:var(--text);">судьями</strong> по результатам боя</li>
+      <li style="margin:4px 0;">• Результат фиксируется в <strong style="color:var(--text);">реестре войн</strong> на сайте</li>
+      <li style="margin:4px 0;">• Победитель получает <strong style="color:var(--text);">+1 к рейтингу</strong>, проигравший — <strong style="color:var(--text);">-1</strong></li>
+      <li style="margin:4px 0;">• В случае сдачи или игнора — <strong style="color:var(--text);">поражение без боя</strong>, рейтинг -2</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">9.7. Другие мероприятия</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Турниры</strong> — соревнования по стрельбе, тактике, командной работе</li>
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Походы</strong> — совместные выезды на природу с ночёвкой</li>
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Стратегические игры</strong> — многочасовые сценарии на больших территориях</li>
+      <li style="margin:4px 0;">• <strong style="color:var(--text);">Праздники</strong> — общие встречи, пикники, награждения</li>
+    </ul>
+
+    <div style="margin-top:12px;background:rgba(22,163,74,0.06);padding:10px 14px;border-radius:10px;">
+      <p style="margin:0;color:var(--text);font-weight:600;font-size:0.9rem;">
+        ✅ Страйкбол официально признан видом спорта в РФ (Приказ Минспорта № 1047 от 22.11.2023)
+      </p>
     </div>
+  </div>
 
-    <!-- ГЛАВА I -->
-    <div class="chapter"><i class="fa-solid fa-scroll"></i> Глава I. ОБЩИЕ ПОЛОЖЕНИЯ</div>
+  <!-- ===== ГЛАВА 10: ВЫБОРЫ ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #8b5cf6;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">10. ВЫБОРЫ ПРЕЗИДЕНТА</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">10.1. Порядок выборов</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• Выборы проводятся <strong style="color:var(--text);">раз в год</strong></li>
+      <li style="margin:4px 0;">• В выборах участвуют <strong style="color:var(--text);">все граждане</strong> государства (активные участники)</li>
+      <li style="margin:4px 0;">• Выборы проводятся <strong style="color:var(--text);">тайным голосованием</strong> на сайте</li>
+      <li style="margin:4px 0;">• Кандидат считается избранным, если набрал <strong style="color:var(--text);">более 50% голосов</strong></li>
+    </ul>
 
-    <div class="article"><strong>Статья 1. Определение ССР</strong><br>
-    1.1. ССР (Сельские Страны и Республики) — добровольное игровое сообщество для организации военно-тактических игр, спортивных соревнований и культурных мероприятий между населёнными пунктами.<br>
-    1.2. ССР не является политической партией, государственным органом или юридическим лицом.<br>
-    1.3. Участие в ССР абсолютно добровольно.</div>
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">10.2. Кто может быть избран</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">✅ Гражданин государства старше <strong style="color:var(--text);">18 лет</strong></li>
+      <li style="margin:4px 0;">✅ Участвует в жизни государства не менее <strong style="color:var(--text);">6 месяцев</strong></li>
+      <li style="margin:4px 0;">✅ Не имеет дисциплинарных взысканий за последний год</li>
+    </ul>
 
-    <div class="article"><strong>Статья 2. Основные цели</strong><br>
-    Целями ССР являются:<br>
-    2.1. Развитие спорта, командного духа и здорового образа жизни среди жителей сёл и малых городов.<br>
-    2.2. Патриотическое воспитание через изучение тактики, стратегии и истории.<br>
-    2.3. Создание дружеских связей между соседними населёнными пунктами.<br>
-    2.4. Организация активного и полезного досуга для людей всех возрастов.</div>
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">10.3. Процедура выборов</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• За <strong style="color:var(--text);">30 дней</strong> до выборов объявляется начало кампании</li>
+      <li style="margin:4px 0;">• За <strong style="color:var(--text);">14 дней</strong> — регистрация кандидатов</li>
+      <li style="margin:4px 0;">• За <strong style="color:var(--text);">3 дня</strong> — начинается голосование</li>
+      <li style="margin:4px 0;">• Голосование длится <strong style="color:var(--text);">48 часов</strong></li>
+      <li style="margin:4px 0;">• Результаты публикуются <strong style="color:var(--text);">сразу</strong> после подсчёта голосов</li>
+    </ul>
 
-    <div class="article"><strong>Статья 3. Территория действия</strong><br>
-    3.1. Деятельность ССР распространяется на всю территорию Российской Федерации.<br>
-    3.2. Игровые «государства» не имеют реальных территориальных границ — их территория определяется участием и согласованными площадками для игр.</div>
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">10.4. Досрочный отзыв президента</strong></p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• Президент может быть отозван <strong style="color:var(--text);">досрочно</strong> по решению граждан</li>
+      <li style="margin:4px 0;">• Для этого нужно собрать <strong style="color:var(--text);">не менее 60% голосов</strong></li>
+      <li style="margin:4px 0;">• После отзыва — <strong style="color:var(--text);">внеочередные выборы</strong> (в течение 2 недель)</li>
+    </ul>
 
-    <!-- ГЛАВА II -->
-    <div class="chapter"><i class="fa-solid fa-gavel"></i> Глава II. ПРАВОВОЙ СТАТУС И ЛЕГИТИМНОСТЬ</div>
-
-    <div class="article"><strong>Статья 4. Законность деятельности</strong><br>
-    4.1. ССР действует в соответствии с Конституцией РФ и Федеральным законом № 82-ФЗ «Об общественных объединениях».<br>
-    4.2. Деятельность ССР не преследует политических целей.<br>
-    4.3. ССР не вмешивается в дела реальных органов государственной власти и местного самоуправления.</div>
-
-    <div class="article"><strong>Статья 5. Легитимность игровых «государств»</strong><br>
-    5.1. Для создания игрового «государства» необходимо провести собрание жителей села/деревни.<br>
-    5.2. Для мероприятий численностью более 50 человек организаторы обязаны уведомить местные органы власти в установленном законом порядке.<br>
-    5.3. Все мероприятия проводятся только на согласованных площадках (частные территории, спортивные полигоны, специально оборудованные места).</div>
-
-    <div class="article"><strong>Статья 6. Ограничения</strong><br>
-    6.1. Запрещено проведение мероприятий на территориях детских учреждений в учебное время, на кладбищах, мемориалах, священных местах, на полях с действующими сельхозпосевами.<br>
-    6.2. Запрещено использование любого оружия, кроме спортивного (страйкбол, пейнтбол, орбиз), с обязательным соблюдением мер безопасности.<br>
-    6.3. Запрещено создавать реальные конфликты, причинять вред людям или имуществу.</div>
-
-    <!-- ГЛАВА III -->
-    <div class="chapter"><i class="fa-solid fa-users"></i> Глава III. УЧАСТНИКИ, ПРАВА И ОБЯЗАННОСТИ</div>
-
-    <div class="article"><strong>Статья 7. Условия участия</strong><br>
-    7.1. Участником ССР может стать любое физическое лицо, достигшее возраста 14 лет.<br>
-    7.2. Участники младше 18 лет обязаны предоставить письменное согласие родителей или законных представителей.<br>
-    7.3. Участие лиц младше 14 лет запрещено.</div>
-
-    <div class="article"><strong>Статья 8. Права участников</strong><br>
-    Каждый участник имеет право:<br>
-    8.1. Участвовать в мероприятиях ССР.<br>
-    8.2. Создавать или вступать в игровые «государства».<br>
-    8.3. Выбирать и быть избранным на игровые должности (президент, командир, судья).<br>
-    8.4. Голосовать по вопросам деятельности своего «государства».<br>
-    8.5. Обжаловать решения организаторов в Совете ССР.<br>
-    8.6. Вносить предложения по улучшению проекта.</div>
-
-    <div class="article"><strong>Статья 9. Обязанности участников</strong><br>
-    Каждый участник обязан:<br>
-    9.1. Соблюдать правила безопасности.<br>
-    9.2. Иметь при себе защитные очки или маску во время игр.<br>
-    9.3. Уважать честь и достоинство других участников.<br>
-    9.4. Не нарушать правила проведения мероприятий.<br>
-    9.5. Соблюдать действующее законодательство РФ.</div>
-
-    <!-- ГЛАВА IV -->
-    <div class="chapter"><i class="fa-solid fa-crown"></i> Глава IV. СТРУКТУРА И УПРАВЛЕНИЕ</div>
-
-    <div class="article"><strong>Статья 10. Игровое «государство»</strong><br>
-    10.1. Игровое «государство» — это группа участников из одного населённого пункта или объединённых общими интересами.<br>
-    10.2. Каждое «государство» может иметь собственное название, флаг, герб и гимн.<br>
-    10.3. Внутренние отношения в «государстве» регулируются локальным уставом, который не противоречит настоящему Уставу ССР.</div>
-
-    <div class="article"><strong>Статья 11. Президент</strong><br>
-    11.1. Президент — высшая игровая должность в «государстве».<br>
-    11.2. Президент избирается участниками «государства» сроком на 1 год.<br>
-    11.3. Президент имеет право:<br>
-    - представлять своё «государство» в Совете ССР;<br>
-    - объявлять игровые события (мероприятия, конфликты);<br>
-    - назначать командиров и судей;<br>
-    - вести переговоры с другими «государствами».<br>
-    11.4. Президент несёт ответственность за организацию мероприятий и безопасность участников.</div>
-
-    <div class="article"><strong>Статья 12. Верховный Совет ССР</strong><br>
-    12.1. Верховный Совет — высший игровой орган управления ССР.<br>
-    12.2. В состав Совета входят все Президенты игровых «государств».<br>
-    12.3. Совет собирается не реже одного раза в месяц для обсуждения вопросов и решения споров.<br>
-    12.4. Решения Совета принимаются простым большинством голосов.<br>
-    12.5. Решения Совета являются обязательными для всех участников в игровом контексте.</div>
-
-    <!-- ГЛАВА V -->
-    <div class="chapter"><i class="fa-solid fa-shield-halved"></i> Глава V. ВОЕННЫЙ УСТАВ И ПРАВИЛА ИГР</div>
-
-    <div class="article"><strong>Статья 13. Военный статус</strong><br>
-    13.1. Игровые «государства» могут содержать символическую «армию» из своих участников.<br>
-    13.2. Все военные действия являются игровыми и проводятся исключительно на условных полях боя.<br>
-    13.3. Цель игровых военных действий — развитие тактического мышления, командной работы и физической подготовки.</div>
-
-    <div class="article"><strong>Статья 14. Разрешённое оружие</strong><br>
-    14.1. Разрешено использование только травмобезопасного оружия:<br>
-    - страйкбольное оружие (скорость до 120 м/с, шары до 6 мм);<br>
-    - пейнтбольные маркеры;<br>
-    - орбиз-автоматы (гидрогелевые шарики).<br>
-    14.2. ЗАПРЕЩЕНО использование:<br>
-    - пневматика с металлическими пулями;<br>
-    - травматическое оружие;<br>
-    - холодное оружие;<br>
-    - любое оружие, похожее на боевое (во избежание паники).<br>
-    14.3. Защита: ЗАЩИТНЫЕ ОЧКИ ИЛИ МАСКА — ОБЯЗАТЕЛЬНЫ!</div>
-
-    <div class="article"><strong>Статья 15. Правила боя</strong><br>
-    15.1. Попал — выбыл. При попадании в корпус или конечности (кроме головы при наличии маски) участник считается выбывшим до конца раунда.<br>
-    15.2. На дистанции менее 3 метров объявлять «убитым» голосом — стрельба запрещена.<br>
-    15.3. Пленные не подвергаются пыткам и унижениям. Обмен пленными производится по договорённости.<br>
-    15.4. Командир имеет право сдать позицию. Сдача засчитывается как поражение стороны.<br>
-    15.5. В случае травмы игра останавливается, оказывается первая медицинская помощь.<br>
-    15.6. Споры решает главный судья. Его решение окончательно.</div>
-
-    <div class="article"><strong>Статья 16. Игровые конфликты</strong><br>
-    16.1. Объявление игрового конфликта (войны) осуществляется через официальный канал ССР (сайт или общий чат).<br>
-    16.2. Стороны обязаны уведомить друг друга о начале конфликта не менее чем за 7 дней.<br>
-    16.3. Конфликт считается завершённым при захвате флага противника или по взаимному соглашению сторон.<br>
-    16.4. Победитель получает игровой трофей до следующего конфликта.</div>
-
-    <!-- ГЛАВА VI -->
-    <div class="chapter"><i class="fa-solid fa-coins"></i> Глава VI. ЭКОНОМИКА И НАЛОГИ</div>
-
-    <div class="article"><strong>Статья 17. Бюджет «государства»</strong><br>
-    17.1. Каждое «государство» может иметь собственный игровой бюджет.<br>
-    17.2. Бюджет формируется из добровольных взносов участников.<br>
-    17.3. Взносы могут составлять 50–200 рублей в месяц с участника (по решению собрания).<br>
-    17.4. Средства бюджета тратятся на:<br>
-    - закупку патронов (шариков) и петард;<br>
-    - ремонт и закупку формы (при необходимости);<br>
-    - организацию мероприятий и праздников.</div>
-
-    <div class="article"><strong>Статья 18. Казначей и отчётность</strong><br>
-    18.1. Каждое «государство» назначает казначея из числа участников.<br>
-    18.2. Казначей обязан вести учёт доходов и расходов.<br>
-    18.3. Отчёт о тратах предоставляется участникам не реже одного раза в месяц.<br>
-    18.4. За нецелевое использование средств казначей может быть отстранён от должности по решению Президента.</div>
-
-    <!-- ГЛАВА VII -->
-    <div class="chapter"><i class="fa-solid fa-handshake"></i> Глава VII. ДИПЛОМАТИЯ И СОЮЗЫ</div>
-
-    <div class="article"><strong>Статья 19. Дипломатические отношения</strong><br>
-    19.1. Игровые «государства» могут заключать между собой союзы (военные, экономические, культурные).<br>
-    19.2. Союзы заключаются на срок до 1 года с правом продления.<br>
-    19.3. Договоры подписываются Президентами в письменной форме (в том числе электронной).<br>
-    19.4. Нарушение договора влечёт разрыв отношений и может быть основанием для конфликта.</div>
-
-    <div class="article"><strong>Статья 20. Послы и переговоры</strong><br>
-    20.1. Для ведения переговоров Президенты могут назначать послов.<br>
-    20.2. Послы обладают правом на личную неприкосновенность во время переговоров.<br>
-    20.3. Переговоры проводятся в нейтральной зоне.<br>
-    20.4. Все спорные вопросы должны решаться путём переговоров до объявления конфликта.</div>
-
-    <!-- ГЛАВА VIII -->
-    <div class="chapter"><i class="fa-solid fa-exclamation-triangle"></i> Глава VIII. ЧРЕЗВЫЧАЙНЫЕ СИТУАЦИИ</div>
-
-    <div class="article"><strong>Статья 21. Чрезвычайное положение</strong><br>
-    21.1. Чрезвычайное положение в «государстве» вводится Президентом при:<br>
-    - стихийных бедствиях (пожар, наводнение, сильный ветер);<br>
-    - массовых беспорядках (реальные, не игровые);<br>
-    - иных угрозах жизни и здоровью участников.<br>
-    21.2. В условиях ЧП все мероприятия отменяются до стабилизации ситуации.<br>
-    21.3. Президент назначает ответственного за координацию действий.<br>
-    21.4. ЧП отменяется после устранения угрозы.</div>
-
-    <div class="article"><strong>Статья 22. Действия при травмах</strong><br>
-    22.1. При получении травмы участник должен немедленно сообщить организатору.<br>
-    22.2. Организатор обязан оказать первую помощь и при необходимости вызвать скорую.<br>
-    22.3. Все мероприятия должны иметь аптечку первой помощи.<br>
-    22.4. О несчастном случае организатор обязан уведомить родителей (для несовершеннолетних).</div>
-
-    <!-- ГЛАВА IX -->
-    <div class="chapter"><i class="fa-solid fa-flag"></i> Глава IX. СИМВОЛИКА И ТРАДИЦИИ</div>
-
-    <div class="article"><strong>Статья 23. Государственные символы</strong><br>
-    23.1. Каждое игровое «государство» имеет право на собственный флаг, герб и гимн.<br>
-    23.2. Символика утверждается внутренним собранием «государства».<br>
-    23.3. Символика не должна содержать экстремистских и оскорбительных элементов.<br>
-    23.4. Участники обязаны уважать символику других «государств».<br>
-    23.5. Осквернение флага или герба другого «государства» влечёт дисциплинарное взыскание.</div>
-
-    <div class="article"><strong>Статья 24. Праздники и традиции</strong><br>
-    24.1. День основания ССР празднуется ежегодно 1 января.<br>
-    24.2. В День ССР проводятся праздничные мероприятия, парады и соревнования.<br>
-    24.3. «Государства» могут устанавливать собственные праздники и традиции.<br>
-    24.4. Лучшее «государство» года определяется голосованием Верховного Совета.<br>
-    24.5. Победитель получает звание «Почётный житель ССР» и символический кубок.</div>
-
-    <!-- ГЛАВА X -->
-    <div class="chapter"><i class="fa-solid fa-gavel"></i> Глава X. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ</div>
-
-    <div class="article"><strong>Статья 25. Игровой статус</strong><br>
-    25.1. Все термины («государство», «президент», «война», «территория») используются исключительно в игровом контексте.<br>
-    25.2. ССР не претендует на реальную власть или территории.<br>
-    25.3. Игровые «захваты территорий» имеют силу только до следующей игры и не влияют на реальное землепользование.</div>
-
-    <div class="article"><strong>Статья 26. Изменение Устава</strong><br>
-    26.1. Изменения в Устав вносятся решением Верховного Совета ССР (не менее ⅔ голосов).<br>
-    26.2. Все изменения публикуются на официальном сайте ССР и в общем чате.<br>
-    26.3. Участники обязаны ознакомиться с изменениями в течение 14 дней с момента публикации.<br>
-    26.4. Поправки к Уставу могут вносить Президенты «государств» (не менее 3 подписей).</div>
-
-    <div class="article"><strong>Статья 27. Вступление в силу</strong><br>
-    27.1. Устав вступает в силу с момента его публикации на официальном сайте ССР.<br>
-    27.2. Регистрация в ССР означает полное и безоговорочное согласие с данным Уставом.<br>
-    27.3. Устав является основным документом, регулирующим отношения внутри ССР.</div>
-
-    <div class="article"><strong>Статья 28. Заключительное положение</strong><br>
-    28.1. Настоящий Устав составлен в единственном экземпляре и хранится в электронном виде на сайте ССР.<br>
-    28.2. Все участники имеют право на ознакомление с Уставом в любое время.</div>
-
-    <div class="signature">
-        <i class="fa-solid fa-shield-alt" style="color:var(--accent);"></i>
-        Утверждён Общим Советом ССР 20 августа 2026 года<br>
-        <span style="font-size:0.9rem;">«Честь, дружба, честная игра — основа ССР»</span>
+    <div style="margin-top:12px;background:rgba(139,92,246,0.06);padding:10px 14px;border-radius:10px;">
+      <p style="margin:0;color:var(--text);font-weight:600;font-size:0.9rem;">
+        🗳️ Все выборы — открытые, честные и прозрачные. Каждый голос имеет значение!
+      </p>
     </div>
+  </div>
+
+  <!-- ===== ГЛАВА 11: ДИПЛОМАТИЯ ===== -->
+  <div style="background:var(--surface2);border-radius:16px;padding:20px 24px;margin-bottom:24px;border-left:4px solid #eab308;">
+    <h3 style="font-size:1.2rem;font-weight:700;margin:0 0 12px 0;color:var(--text);">11. ДИПЛОМАТИЯ И СОЮЗЫ</h3>
+    
+    <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">11.1.</strong> Два или более государства могут заключить <strong style="color:var(--text);">союз</strong>.</p>
+    <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
+      <li style="margin:4px 0;">• Союз подтверждается <strong style="color:var(--text);">подписанным соглашением</strong> (в игровой форме)</li>
+      <li style="margin:4px 0;">• Союз даёт право на <strong style="color:var(--text);">совместные мероприятия</strong> и <strong style="color:var(--text);">взаимную поддержку</strong></li>
+      <li style="margin:4px 0;">• Союз может быть расторгнут <strong style="color:var(--text);">в любое время</strong> по желанию одной из сторон</li>
+    </ul>
+
+    <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">11.2.</strong> Государства могут заключать <strong style="color:var(--text);">мирные договоры</strong> после завершения войн.</p>
+
+    <p style="color:var(--muted);margin:12px 0 0 0;"><strong style="color:var(--text);">11.3.</strong> Все дипломатические отношения носят <strong style="color:var(--text);">игровой характер</strong> и не создают юридических обязательств.</p>
+  </div>
+
+  <!-- ===== КОНТАКТЫ ===== -->
+  <div style="background:linear-gradient(135deg,rgba(225,29,72,0.08),rgba(225,29,72,0.02));border-radius:16px;padding:18px 24px;margin-bottom:24px;border:1px solid rgba(225,29,72,0.15);text-align:center;">
+    <h3 style="font-size:1.1rem;font-weight:700;margin:0 0 8px 0;color:var(--text);">🌐 КОНТАКТЫ</h3>
+    <p style="margin:0;color:var(--muted);font-size:0.95rem;">
+      По всем вопросам взаимодействия, организации мероприятий и вступления в Объединение обращаться через сайт:
+    </p>
+    <p style="margin:6px 0 0 0;font-weight:700;font-size:1.1rem;color:var(--accent);">
+      ccp.zapto.org
+    </p>
+  </div>
+
+  <!-- ===== ПОДПИСЬ ===== -->
+  <div style="text-align:center;padding:20px 0 10px 0;border-top:1px solid var(--border);">
+    <p style="color:var(--muted);margin:0 0 6px 0;font-size:0.9rem;">
+      Устав принят на общем собрании глав микрогосударств ССР.
+    </p>
+    <p style="color:var(--text);font-weight:700;margin:0;">
+      Верховный Совет ССР
+    </p>
+    <p style="color:var(--muted);margin:10px 0 0 0;font-size:0.75rem;">
+      © ССР · Добровольное общественное объединение · 2026
+    </p>
+  </div>
 
 </div>
 `;
