@@ -156,7 +156,17 @@ const db = getFirestore(app);
 try { if (await isSupported()) getAnalytics(app); } catch(e) { console.info("Analytics недоступна в этом окружении."); }
 
 const state = { countries:[], citizens:[], events:[], votes:[], chatMessages:[], currentUser:null, currentProfile:null, currentSort:"alphabetical", searchQuery:"", map:null, countryLayer:null, eventLayer:null, listeners:[] };
-
+<!-- ===== КОНСТИТУЦИЯ/УСТАВ ===== -->
+<div class="modal" id="constitutionModal" aria-hidden="true">
+  <div class="modal-content wide">
+    <button class="close-btn" data-close="constitutionModal">×</button>
+    <div class="modal-header">
+      <i class="fa-solid fa-gavel"></i>
+      Устав ССР
+    </div>
+    <div id="constitutionText" style="line-height:1.8;color:var(--text);padding:8px 4px;"></div>
+  </div>
+</div>
 const constitutionText = `
 <style>
 .constitution-wrap {
