@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ССР — Сельские Страны и Республики</title>
+<title>ССР — реальное сообщество для вашего села</title>
+<meta name="description" content="ССР — реальное объединение жителей сёл и городов. Страйкбол, походы, соревнования и встречи на согласованных площадках. Не онлайн-игра — сайт помогает координировать реальные мероприятия.">
+<meta property="og:title" content="ССР — реальное сообщество для вашего села">
+<meta property="og:description" content="Объединяй соседей, участвуй в страйкболе, встречайся на реальных площадках и развивай команду. Сайт — инструмент координации.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
@@ -27,7 +30,46 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit}
 .chat-shell{height:min(72vh,650px);display:flex;flex-direction:column;background:linear-gradient(180deg,#f8fafc,#f1f5f9);border:1px solid var(--border);border-radius:20px;overflow:hidden}.chat-top{padding:14px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.86);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between}.chat-top-left{display:flex;align-items:center;gap:12px}.chat-avatar{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--accent),#be123c);box-shadow:0 8px 18px rgba(225,29,72,.22)}.chat-title{font-weight:800}.chat-subtitle{font-size:.8rem;color:var(--muted)}.online-dot{width:9px;height:9px;background:#22c55e;border-radius:50%;display:inline-block;margin-right:5px;box-shadow:0 0 0 4px rgba(34,197,94,.12)}.chat-messages{flex:1;padding:20px;overflow:auto;background-image:radial-gradient(circle at 15% 20%,rgba(225,29,72,.04) 0 1px,transparent 1px),radial-gradient(circle at 80% 60%,rgba(15,23,42,.04) 0 1px,transparent 1px);background-size:22px 22px}.bubble-row{display:flex;margin:8px 0}.bubble-row.mine{justify-content:flex-end}.bubble{max-width:min(76%,520px);padding:10px 13px;border-radius:18px;box-shadow:0 4px 14px rgba(15,23,42,.06);background:#fff;border:1px solid rgba(226,232,240,.85)}.mine .bubble{background:linear-gradient(135deg,#ffe4ea,#fff1f3);border-color:#fecdd3}.bubble-author{font-weight:800;color:var(--accent);font-size:.83rem;margin-bottom:3px}.bubble-text{white-space:pre-wrap;word-break:break-word}.bubble-meta{font-size:.72rem;color:#94a3b8;margin-top:6px;text-align:right}.chat-input-bar{display:flex;gap:9px;padding:12px;border-top:1px solid var(--border);background:rgba(255,255,255,.9)}.chat-input{flex:1;border:1px solid var(--border);background:#fff;border-radius:15px;padding:12px 14px;outline:0}.chat-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(225,29,72,.08)}.send-btn{width:48px;border:0;border-radius:15px;background:linear-gradient(135deg,var(--accent),#be123c);color:#fff}.chat-hint{font-size:.78rem;color:var(--muted);padding:0 16px 10px;background:rgba(255,255,255,.9)}
 .empty{text-align:center;color:var(--muted);padding:45px 15px}.toast{position:fixed;right:22px;bottom:22px;z-index:30000;background:#101828;color:#fff;padding:13px 16px;border-radius:13px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;box-shadow:0 12px 28px rgba(0,0,0,.2)}.toast.show{opacity:1;transform:translateY(0)}.loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:30px;color:var(--muted)}footer{text-align:center;padding:20px;color:var(--muted)}
 body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--muted:#94a3b8;--border:#243244;--nav:#020617;--shadow:0 16px 40px rgba(0,0,0,.28);background:radial-gradient(circle at top left,#0f172a 0,#080d18 55%,#05080f 100%)}body.dark .hero{background:linear-gradient(135deg,#101827,#1a0e15)}body.dark .chat-shell{background:linear-gradient(180deg,#0f172a,#111827)}body.dark .chat-top,body.dark .chat-input-bar,body.dark .chat-hint{background:rgba(15,23,42,.9)}body.dark .bubble{background:#111827;border-color:#253247}body.dark .mine .bubble{background:linear-gradient(135deg,#32141e,#1f1116)}body.dark .notice{background:#2a1118;border-color:#5b1c28}body.dark .notice strong{color:#fda4af}
+
+/* ===== Modern feature sections ===== */
+.feature-section{position:relative;margin-top:30px;padding:28px;background:linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--surface) 90%,var(--accent) 10%));border:1px solid var(--border);border-radius:26px;box-shadow:var(--shadow);overflow:hidden}
+.feature-section:before{content:"";position:absolute;inset:0 auto auto 0;width:180px;height:3px;background:linear-gradient(90deg,var(--accent),transparent);opacity:.9}
+.feature-section .section-title{margin-top:0}
+.feature-section p{line-height:1.65}
+.steps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:18px}
+.step-card{position:relative;padding:22px 18px 20px;border:1px solid var(--border);background:linear-gradient(180deg,var(--surface2),var(--surface));border-radius:20px;min-height:190px;transition:.25s;box-shadow:0 10px 26px rgba(15,23,42,.05)}
+.step-card:hover{transform:translateY(-5px);border-color:#fda4af;box-shadow:0 18px 35px rgba(15,23,42,.1)}
+.step-card h3{font-size:1.02rem;margin:14px 0 8px}.step-card p{font-size:.9rem;color:var(--muted)}
+.step-num{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#be123c);color:#fff;font-weight:900;box-shadow:0 10px 18px rgba(225,29,72,.22)}
+.feature-section .section-title>i{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(225,29,72,.09);color:var(--accent);font-size:.95rem}
+.video-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px}.video-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}.video-card video{display:block;width:100%;aspect-ratio:16/9;background:#05080f;object-fit:cover}.video-card-body{padding:14px}.video-card-body strong{display:block;margin-bottom:6px}.video-meta{font-size:.82rem;color:var(--muted)}.video-empty{grid-column:1/-1;display:grid;place-items:center;gap:8px;min-height:180px;border:1px dashed var(--border);border-radius:18px;color:var(--muted);text-align:center}.video-empty i{font-size:2rem;color:var(--accent)}.map-legend .legend-dot{width:12px;height:12px;border-radius:50%;display:inline-block}.map-legend .green{background:#16a34a}.map-legend .red{background:#dc2626}.map-legend .yellow{background:#eab308}
+ .map-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.map-legend span{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface2);font-size:.86rem;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;box-shadow:0 0 0 4px rgba(15,23,42,.04)}.legend-dot.green{background:#16a34a}.legend-dot.red{background:#dc2626}.legend-dot.yellow{background:#eab308}
+.table-wrap{overflow:auto;margin-top:18px;border:1px solid var(--border);border-radius:18px}.ranking-table{width:100%;border-collapse:collapse;min-width:760px}.ranking-table th{padding:14px 16px;text-align:left;background:var(--surface2);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}.ranking-table td{padding:16px;border-top:1px solid var(--border);font-size:.93rem}.ranking-table tr:hover td{background:rgba(225,29,72,.025)}
+.awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.award-card{display:flex;align-items:center;gap:14px;padding:16px;border-radius:18px;border:1px solid var(--border);background:var(--surface2)}.award-medal{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border);font-size:1rem}.award-card strong{display:block}.award-card small{display:block;margin-top:4px;color:var(--muted)}
+.calendar-card{padding:18px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);box-shadow:none}.calendar-card h3{margin:10px 0 6px;font-size:1.08rem}.calendar-card p{color:var(--muted);font-size:.9rem}.calendar-date{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:rgba(225,29,72,.09);color:var(--accent);font-weight:800;font-size:.8rem}
+.history-list{display:grid;gap:10px;margin-top:6px}.history-item{position:relative;padding:16px 18px 16px 48px;border:1px solid var(--border);background:var(--surface2);border-radius:16px}.history-item:before{content:"";position:absolute;left:19px;top:20px;width:11px;height:11px;border:3px solid var(--accent);border-radius:50%;background:var(--surface)}.history-item:after{content:"";position:absolute;left:24px;top:34px;bottom:-12px;width:1px;background:var(--border)}.history-item:last-child:after{display:none}.history-item strong{display:block}.history-item .time{color:var(--muted);font-size:.8rem;margin-top:5px}
+.forum-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}.forum-topic{padding:18px;border-radius:18px;border:1px solid var(--border);background:var(--surface2);transition:.2s}.forum-topic:hover{transform:translateY(-2px);border-color:#fda4af}.forum-topic .topic-head{display:flex;align-items:center;gap:10px;font-weight:800}.topic-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(225,29,72,.09);color:var(--accent)}.forum-topic .meta{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:.76rem;color:var(--muted)}
+.safety-head{display:flex;align-items:center;gap:14px}.safety-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(22,163,74,.1);color:#16a34a;font-size:1.2rem}.safety-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}.safety-item{padding:16px 18px;border:1px solid var(--border);border-radius:16px;background:var(--surface2);font-size:.92rem;line-height:1.55}.safety-item:before{content:"\\f3ed";font-family:"Font Awesome 6 Free";font-weight:900;color:#16a34a;margin-right:9px}
+.war-card{background:linear-gradient(145deg,var(--surface),var(--surface2));border-radius:22px;padding:20px;box-shadow:0 12px 30px rgba(15,23,42,.06)}.war-card .country-name{display:flex;align-items:center;gap:9px;font-size:1.08rem}.war-status{padding:7px 10px;border-radius:999px;background:var(--surface2);border:1px solid var(--border);font-size:.74rem;font-weight:800;white-space:nowrap}.war-mini{margin-top:14px;padding:14px 15px;border-radius:15px;background:rgba(225,29,72,.05);border:1px solid rgba(225,29,72,.12);font-size:.86rem;line-height:1.7}.war-mini strong{color:var(--text)}
+@media(max-width:1050px){.steps-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.feature-section{padding:20px;border-radius:20px}.steps-grid,.awards-grid,.forum-list,.safety-grid{grid-template-columns:1fr}.step-card{min-height:auto}.safety-head{align-items:flex-start}.feature-section .section-title{font-size:1.3rem}}
+
+.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.news-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);transition:.22s;display:flex;flex-direction:column}
+.news-card:hover{transform:translateY(-3px);border-color:#fda4af}
+.news-cover{height:190px;background:linear-gradient(135deg,#fff1f3,#f8fafc);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.news-cover img{width:100%;height:100%;object-fit:cover}.news-cover i{font-size:3rem;color:#94a3b8}
+.news-body{padding:18px}.news-title{font-size:1.18rem;font-weight:800;line-height:1.25;margin-bottom:9px}.news-excerpt{color:var(--muted);font-size:.92rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.news-meta{font-size:.78rem;color:var(--muted);margin-top:10px}.news-actions{display:flex;gap:8px;margin-top:14px}.news-actions .action-btn{flex:1;justify-content:center}
+.country-detail-flag{background:linear-gradient(135deg,#f8fafc,#e2e8f0);border:1px solid var(--border);border-radius:18px;overflow:hidden;min-height:310px;display:flex;align-items:center;justify-content:center}.country-detail-flag img{display:block;width:100%;height:100%;max-height:420px;object-fit:contain}.country-detail-info{line-height:1.8}.country-detail-info p{margin:0;padding:8px 0;border-bottom:1px solid var(--border)}.country-detail-info p:last-child{border-bottom:0}
+@media(max-width:760px){.country-detail-layout{grid-template-columns:1fr!important}.country-detail-flag{min-height:220px}.news-grid{grid-template-columns:1fr}.news-cover{height:180px}}
 @media(max-width:760px){body{padding-top:128px}.navbar{height:auto;min-height:76px;flex-direction:column;align-items:flex-start;padding:10px 14px}.nav-buttons{width:100%;overflow:auto;padding-bottom:2px}.nav-btn{white-space:nowrap}.container{padding:20px 12px 40px}.hero{padding:30px 18px}.hero h1{font-size:2rem}#map{height:400px}.modal{padding:10px}.modal-content{padding:22px 16px;border-radius:20px}.chat-shell{height:75vh}.bubble{max-width:88%}}
+.empty-state-icon{width:46px;height:46px;margin:0 auto 10px;border-radius:14px;display:grid;place-items:center;background:rgba(225,29,72,.08);color:var(--accent);font-size:1.1rem}.war-start-btn{background:linear-gradient(135deg,#dc2626,#991b1b);box-shadow:0 12px 24px rgba(220,38,38,.2)}.war-start-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(220,38,38,.24)}.war-mini i{color:var(--accent);width:18px}
+
+/* ===== REAL COMMUNITY POSITIONING ===== */
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(22,163,74,.09);border:1px solid rgba(22,163,74,.18);color:#15803d;font-size:.76rem;font-weight:900;letter-spacing:.08em;margin-bottom:14px}.hero p strong{color:var(--text)}.hero-actions,.map-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.real-game-btn{background:linear-gradient(135deg,#16a34a,#15803d);box-shadow:0 12px 25px rgba(22,163,74,.18)}.reality-banner{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;border-radius:18px;background:linear-gradient(135deg,#fff1f2,#fff);border:1px solid #fecdd3;box-shadow:var(--shadow);margin-bottom:20px}.reality-banner-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex:0 0 auto;background:var(--accent);color:#fff;font-size:1.1rem}.reality-banner strong{display:block;font-size:1rem;margin-bottom:4px}.reality-banner span{display:block;color:var(--muted);line-height:1.55}.not-game-section{padding:28px;border-radius:24px;background:var(--surface2);border:1px solid var(--border);border-left:5px solid var(--accent);box-shadow:var(--shadow);margin:24px 0}.not-game-head{display:flex;gap:14px;align-items:flex-start}.not-game-icon{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:rgba(225,29,72,.1);color:var(--accent);font-size:1.15rem;flex:0 0 auto}.not-game-head h2{font-size:1.45rem;line-height:1.2;margin-bottom:5px}.not-game-head p{color:var(--muted)}.reality-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}.reality-grid>div{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:16px}.reality-grid i{display:block;color:var(--success);font-size:1.2rem;margin-bottom:10px}.reality-grid strong{display:block;margin-bottom:5px}.reality-grid span{color:var(--muted);font-size:.88rem;line-height:1.5}.reality-note{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:14px 16px;border-radius:14px;background:rgba(22,163,74,.07);border:1px solid rgba(22,163,74,.15)}.reality-note>i{color:var(--success);margin-top:3px}.reality-note strong{display:block;margin-bottom:3px}.reality-note span{color:var(--muted);font-size:.9rem}.real-life-section{background:linear-gradient(135deg,var(--surface),var(--surface2))}.feature-heading{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:16px}.eyebrow{font-size:.74rem;font-weight:900;letter-spacing:.09em;color:var(--accent);margin-bottom:6px}.feature-heading h2{font-size:1.55rem;margin-bottom:5px}.feature-heading p{color:var(--muted)}.media-card{border:1px solid var(--border);background:var(--surface);border-radius:20px;padding:12px;box-shadow:var(--shadow)}.media-placeholder{min-height:290px;border-radius:15px;background:radial-gradient(circle at 50% 35%,rgba(225,29,72,.12),transparent 28%),linear-gradient(135deg,#101828,#1e293b);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:30px}.media-play{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);font-size:1.15rem;margin-bottom:14px}.media-placeholder strong{display:block;font-size:1.12rem;margin-bottom:5px}.media-placeholder span{display:block;max-width:540px;color:rgba(255,255,255,.72);line-height:1.5}.media-caption{display:flex;gap:9px;align-items:center;padding:12px 4px 4px;color:var(--muted);font-size:.88rem}.media-caption i{color:var(--accent)}
+@media(max-width:950px){.reality-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.not-game-section{padding:20px}.not-game-head h2{font-size:1.15rem}.reality-grid{grid-template-columns:1fr}.reality-banner{padding:16px}.media-placeholder{min-height:230px}.hero-actions .btn-primary,.hero-actions .btn-secondary,.map-actions .btn-primary,.map-actions .btn-secondary{width:100%}}
 </style>
 </head>
 <body>
@@ -36,29 +78,45 @@ body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--mut
   <div class="nav-buttons">
     <button class="nav-btn" id="themeToggle" type="button"><i class="fa-solid fa-moon"></i></button>
     <button class="nav-btn" id="chatButton" type="button"><i class="fa-solid fa-comments"></i> Чат</button>
+    <button class="nav-btn" id="newsButton" type="button"><i class="fa-solid fa-newspaper"></i> Новости</button>
+    <button class="nav-btn" id="warNavButton" type="button"><i class="fa-solid fa-crosshairs"></i> Войны</button>
     <button class="nav-btn" id="cabinetButton" type="button"><i class="fa-solid fa-user-tie"></i> Кабинет</button>
     <button class="nav-btn" id="constitutionButton" type="button"><i class="fa-solid fa-gavel"></i> Устав</button>
   </div>
 </nav>
 <main class="container">
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
   <section class="hero">
-    <h1>Создай своё государство</h1>
-    <p>Регистрация, карта, граждане, мероприятия, голосования и общий чат теперь работают через Firebase и синхронизируются между устройствами.</p>
-    <button class="btn-primary" id="openApplicationButton" type="button"><i class="fa-solid fa-pen-fancy"></i> Подать заявку</button>
+    <div class="hero-kicker"><i class="fa-solid fa-people-group"></i><span>РЕАЛЬНОЕ СООБЩЕСТВО ДЛЯ ВАШЕГО СЕЛА</span></div>
+    <h1>Объединяй людей. Встречайся в жизни.</h1>
+    <p>Объединяй соседей, проводи страйкбол и другие спортивные мероприятия, находи согласованные площадки и развивай своё микрогосударство. <strong>Это не виртуальный мир — сайт нужен для координации реальных людей и реальных встреч.</strong></p>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+      <div class="hero-actions"><button class="btn-primary" id="openApplicationButton" type="button"><i class="fa-solid fa-user-plus"></i> Создать микрогосударство</button><button class="btn-secondary real-game-btn" id="heroVisitButton" type="button"><i class="fa-solid fa-car-side"></i> Приехать на игру</button><button class="btn-secondary" id="heroWarButton" type="button" style="background:linear-gradient(135deg,#dc2626,#991b1b);"><i class="fa-solid fa-trophy"></i> Бросить вызов</button></div>
+      <button class="btn-secondary" id="heroTournamentButton" type="button" style="background:linear-gradient(135deg,#dc2626,#991b1b);"><i class="fa-solid fa-crosshairs"></i> Организовать турнир</button>
+    </div>
   </section>
   <h2 class="section-title"><i class="fa-solid fa-chart-simple"></i> Живая статистика</h2>
   <section class="live-stats" id="liveStatsContainer"><div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Загрузка Firestore…</div></section>
-  <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> О проекте</h2>
-  <section class="panel info-panel">
-    <p>ССР — добровольное игровое сообщество. Термины «государство», «президент» и другие используются только в игровом контексте.</p>
-    <p>Участие добровольное. Реальные территории, органы власти и законодательство не изменяются. Мероприятия проводятся только на согласованных площадках и с соблюдением требований безопасности.</p>
-    <div class="notice"><strong><i class="fa-solid fa-shield-halved"></i> Условия участия</strong><span>Не проводите действия, которые могут причинить вред людям, имуществу или нарушить действующее законодательство.</span></div>
+  <section class="reality-banner">
+    <div class="reality-banner-icon"><i class="fa-solid fa-location-dot"></i></div>
+    <div><strong>ССР — это реальное сообщество, а не онлайн-игра</strong><span>Здесь встречаются настоящие люди, выбирают реальные согласованные площадки и проводят мероприятия в реальной жизни. Сайт только помогает координировать микрогосударства, расписание и площадки.</span></div>
   </section>
-  <h2 class="section-title"><i class="fa-solid fa-map-location-dot"></i> Карта государств ССР</h2>
+
+  <section id="notGameSection" class="not-game-section">
+    <div class="not-game-head"><div class="not-game-icon"><i class="fa-solid fa-ban"></i></div><div><h2>ЭТО НЕ LARP И НЕ ВИРТУАЛЬНОЕ СООБЩЕСТВО</h2><p>Игровая терминология описывает формат соревнований, а не выдуманный мир.</p></div></div>
+    <div class="reality-grid">
+      <div><i class="fa-solid fa-user-group"></i><strong>Реальные люди</strong><span>Жители вашего села, соседи, друзья и знакомые.</span></div>
+      <div><i class="fa-solid fa-tree-city"></i><strong>Реальные площадки</strong><span>Лес, поле, парк или страйкбольный полигон — только с разрешением.</span></div>
+      <div><i class="fa-solid fa-person-running"></i><strong>Реальные мероприятия</strong><span>Страйкбол, походы, турниры и общие встречи.</span></div>
+      <div><i class="fa-solid fa-handshake"></i><strong>Реальные отношения</strong><span>Командная работа, дружба, партнёрство и соревнования.</span></div>
+    </div>
+    <div class="reality-note"><i class="fa-solid fa-circle-check"></i><div><strong>СССР — это офлайн прежде всего.</strong><span>Онлайн-кабинет, карта и форум нужны, чтобы людям было проще договориться и встретиться.</span></div></div>
+  </section>
+  <h2 class="section-title"><i class="fa-solid fa-map-location-dot"></i> Карта микрогосударств и площадок</h2>
   <div id="map"></div>
-  <h2 class="section-title"><i class="fa-solid fa-ranking-star"></i> Топ государств</h2>
+  <h2 class="section-title"><i class="fa-solid fa-ranking-star"></i> Рейтинг микрогосударств</h2>
   <section class="stats-grid" id="statsContainer"></section>
-  <h2 class="section-title"><i class="fa-solid fa-landmark"></i> Реестр государств</h2>
+  <h2 class="section-title"><i class="fa-solid fa-landmark"></i> Команды участников</h2>
   <div class="controls">
     <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" placeholder="Поиск государства…"></div>
     <div class="sorts">
@@ -69,7 +127,161 @@ body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--mut
     </div>
   </div>
   <section class="country-grid" id="countriesList"></section>
+
+  <section id="howToSection" class="feature-section">
+    <h2 class="section-title"><i class="fa-solid fa-building-columns"></i> КАК СОБРАТЬ КОМАНДУ СВОЕГО СЕЛА</h2>
+    <div class="steps-grid">
+      <article class="step-card"><div class="step-num"><i class="fa-solid fa-users"></i></div><h3>Собери команду</h3><p>Найди 5–10 соседей, друзей или знакомых, которым интересны совместные тренировки и активный отдых.</p></article>
+      <article class="step-card"><div class="step-num"><i class="fa-solid fa-pen-ruler"></i></div><h3>Придумай название и символику</h3><p>Выберите название микрогосударства, оформите символику и договоритесь о едином стиле.</p></article>
+      <article class="step-card"><div class="step-num"><i class="fa-solid fa-map-marked-alt"></i></div><h3>Определи территорию</h3><p>Выберите реальную площадку — лес, поле, парк или полигон. Заранее согласуйте использование места с владельцем или оператором площадки.</p></article>
+      <article class="step-card"><div class="step-num"><i class="fa-solid fa-file-signature"></i></div><h3>Зарегистрируйся на сайте</h3><p>Нажми «Создать микрогосударство», заполни форму и добавь информацию о микрогосударстве.</p></article>
+      <article class="step-card"><div class="step-num"><i class="fa-solid fa-flag"></i></div><h3>Начинай играть!</h3><p>Общайся с соседями, участвуй в мероприятиях и развивай своё микрогосударство.</p></article>
+    </div>
+  </section>
+
+  <section id="mapInfoSection" class="feature-section">
+    <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div><h2 class="section-title" style="margin-bottom:6px;"><i class="fa-solid fa-map-location-dot"></i> ИНТЕРАКТИВНАЯ КАРТА</h2><p style="color:var(--muted);">Отдельные слои для микрогосударств, полигонов и мероприятий.</p></div>
+      <div class="map-actions"><button class="btn-secondary" id="scrollMapButton" type="button"><i class="fa-solid fa-location-crosshairs"></i> Открыть карту</button></div>
+    </div>
+    <div class="map-legend"><span><i class="legend-dot green"></i> Микрогосударства</span><span><i class="legend-dot red"></i> Полигоны</span><span><i class="legend-dot yellow"></i> Мероприятия</span></div>
+  </section>
+
+  <section id="videoSection" class="feature-section real-life-section">
+    <div class="feature-heading"><div><div class="eyebrow"><i class="fa-solid fa-video"></i> МЕДИА ССР</div><h2>ВИДЕО С МЕРОПРИЯТИЙ</h2><p>Выложите настоящий ролик с мероприятия прямо на сайт.</p></div><button class="btn-primary" id="uploadVideoButton" type="button"><i class="fa-solid fa-cloud-arrow-up"></i> Выложить видео</button></div>
+    <div id="videoGallery" class="video-gallery"></div>
+  </section>
+
+  <section id="ratingSection" class="feature-section">
+    <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div>
+        <h2 class="section-title" style="margin-bottom:6px;"><i class="fa-solid fa-trophy"></i> РЕЙТИНГ ССР</h2>
+        <p style="color:var(--muted);">Рейтинг считается по проведённым игровым турнирм.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="ranking-table">
+        <thead><tr><th>Место</th><th>Государство</th><th>Руководитель микрогосударства</th><th>Войн</th><th>Побед</th><th>Рейтинг</th></tr></thead>
+        <tbody id="rankingBody"></tbody>
+      </table>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card"><span class="award-medal"><i class="fa-solid fa-medal"></i></span><div><strong>Золотой флаг</strong><small>3 победы подряд</small></div></div>
+      <div class="award-card"><span class="award-medal"><i class="fa-solid fa-award"></i></span><div><strong>Серебряный флаг</strong><small>5 побед всего</small></div></div>
+      <div class="award-card"><span class="award-medal"><i class="fa-solid fa-flag-checkered"></i></span><div><strong>Бронзовый флаг</strong><small>Первый бой</small></div></div>
+    </div>
+  </section>
+
+  <section id="calendarSection" class="feature-section">
+    <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div>
+        <h2 class="section-title" style="margin-bottom:6px;"><i class="fa-solid fa-calendar-days"></i> КАЛЕНДАРЬ СОБЫТИЙ</h2>
+        <p style="color:var(--muted);">Турниры, походы, тренировки и общие сборы ССР.</p>
+      </div>
+      <button class="btn-secondary" id="presidentEventButton" type="button"><i class="fa-solid fa-plus"></i> Добавить мероприятие</button>
+    </div>
+    <div id="calendarGrid" class="news-grid"></div>
+  </section>
+
+  <section id="historySection" class="feature-section">
+    <h2 class="section-title"><i class="fa-solid fa-scroll"></i> ИСТОРИЯ ССР</h2>
+    <div id="historyList" class="history-list"></div>
+  </section>
+
+  <section id="forumSection" class="feature-section">
+    <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div>
+        <h2 class="section-title" style="margin-bottom:6px;"><i class="fa-solid fa-comments"></i> ФОРУМ ССР</h2>
+        <p style="color:var(--muted);">Общие вопросы, стратегия, снаряжение, предложения и флудилка.</p>
+      </div>
+      <button class="btn-secondary" id="createTopicButton" type="button"><i class="fa-solid fa-plus"></i> Создать тему</button>
+    </div>
+    <div id="forumList" class="forum-list"></div>
+  </section>
+
+  <section id="safetySection" class="feature-section">
+    <div class="safety-head"><div class="safety-icon"><i class="fa-solid fa-shield-halved"></i></div><div><h2 class="section-title" style="margin:0 0 6px;">ПРАВИЛА БЕЗОПАСНОСТИ</h2><p>Правила обязательны на всех игровых мероприятиях.</p></div></div>
+    <div class="safety-grid">
+      <div class="safety-item"><i class="fa-solid fa-glasses"></i> 1. Очки и маски — надевать до выхода на поле.</div>
+      <div class="safety-item"><i class="fa-solid fa-ruler-horizontal"></i> 2. Дистанция выстрела — не менее 5 метров.</div>
+      <div class="safety-item"><i class="fa-solid fa-bullseye"></i> 3. Стрелять только по цели, не в голову.</div>
+      <div class="safety-item"><i class="fa-solid fa-person-walking-arrow-right"></i> 4. При попадании — поднять руку и покинуть поле.</div>
+      <div class="safety-item"><i class="fa-solid fa-eye-slash"></i> 5. Запрещено снимать очки на поле.</div>
+      <div class="safety-item"><i class="fa-solid fa-box-open"></i> 6. После игры — осмотреть оборудование и разрядить его.</div>
+    </div>
+    <div class="notice" style="margin-top:16px;"><strong>НАРУШИТЕЛИ</strong><span>Предупреждение · Отстранение на 1 месяц · Исключение из ССР.</span></div>
+  </section>
+
+<!-- Раздел новостей -->
+<section id="newsSection" style="margin-top:40px;">
+    <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+        <div>
+            <h2 class="section-title" style="margin:0 0 6px;"><i class="fa-solid fa-newspaper"></i> Последние новости ССР</h2>
+            <p style="color:var(--muted);">Новости и публикации микрогосударств сообщества</p>
+        </div>
+        <button class="btn-secondary" id="openNewsTopButton" type="button"><i class="fa-solid fa-arrow-down"></i> Смотреть новости</button>
+    </div>
+    <div class="news-grid" id="newsGrid"></div>
+</section>
+
 </main>
+<!-- Добавляем модальное окно для подробной информации о стране -->
+<div class="modal" id="countryDetailModal" aria-hidden="true">
+    <div class="modal-content wide" style="max-width:1050px;">
+        <button class="close-btn" data-close="countryDetailModal">×</button>
+        <div class="modal-header"><i class="fa-solid fa-landmark"></i> <span id="detailCountryName"></span></div>
+        <div id="countryDetailContent" class="country-detail-layout" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+            <div>
+                <div class="country-detail-flag" style="margin-bottom:16px;"><img id="detailFlag" src="" alt="Флаг"></div>
+                <div id="detailInfo" class="country-detail-info"></div>
+            </div>
+            <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3 style="font-size:1.2rem;"><i class="fa-solid fa-newspaper"></i> Новости государства</h3>
+                    <button class="action-btn" id="detailAddNewsBtn" style="display:none;"><i class="fa-solid fa-plus"></i> Добавить новость</button>
+                </div>
+                <div id="detailNewsList" style="max-height:400px; overflow-y:auto; background:var(--surface2); border-radius:16px; padding:12px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно новости -->
+<div class="modal" id="newsDetailModal" aria-hidden="true">
+    <div class="modal-content wide" style="max-width:850px;">
+        <button class="close-btn" data-close="newsDetailModal">×</button>
+        <div class="modal-header"><i class="fa-solid fa-newspaper"></i> <span id="newsDetailTitle">Новость</span></div>
+        <div id="newsDetailContent"></div>
+    </div>
+</div>
+
+<!-- Модальное окно для добавления новости -->
+<div class="modal" id="addNewsModal" aria-hidden="true">
+    <div class="modal-content" style="max-width:600px;">
+        <button class="close-btn" data-close="addNewsModal">×</button>
+        <div class="modal-header"><i class="fa-solid fa-pen-to-square"></i> Добавить новость</div>
+        <form id="addNewsForm">
+            <input type="hidden" id="newsCountryId">
+            <div class="form-group">
+                <label>Заголовок *</label>
+                <input id="newsTitle" required>
+            </div>
+            <div class="form-group">
+                <label>Текст новости *</label>
+                <textarea id="newsContent" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Изображение (опционально)</label>
+                <div class="file-btn" id="newsFilePicker"><i class="fa-solid fa-cloud-arrow-up"></i> Выбрать изображение</div>
+                <input id="newsFileInput" type="file" accept="image/*" hidden>
+                <div class="file-name" id="newsFileName">Файл не выбран</div>
+            </div>
+            <button class="form-submit" type="submit">Опубликовать</button>
+        </form>
+    </div>
+</div>
+
+
 <footer>© 2026 · Верховный Совет ССР · Firebase Firestore / Authentication</footer>
 
 <!-- Application -->
@@ -77,7 +289,7 @@ body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--mut
   <button class="close-btn" data-close="applicationModal">×</button><div class="modal-header"><i class="fa-solid fa-file-signature"></i> Заявка на создание государства</div>
   <form id="applicationForm">
     <div class="form-group"><label>Название государства *</label><input id="countryName" required></div>
-    <div class="form-group"><label>Имя Президента *</label><input id="presidentName" required></div>
+    <div class="form-group"><label>Имя Руководитель микрогосударства *</label><input id="presidentName" required></div>
     <div class="form-group"><label>Пароль президента *</label><input id="password" type="password" minlength="6" required><div class="hint">Firebase Authentication требует пароль минимум 6 символов.</div></div>
     <div class="form-group"><label>Столица *</label><input id="capital" required></div>
     <div class="form-group"><label>Площадь (км²) *</label><input id="area" type="number" min="0" step="0.01" required></div>
@@ -89,7 +301,7 @@ body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--mut
     <div class="form-group"><label>Ссылка на галерею</label><input id="galleryLink" type="url" placeholder="https://example.com/album"></div>
     <div class="form-group"><label>Контактный телефон *</label><input id="phone" type="tel" required></div>
     <div class="form-group"><label>Описание легитимности</label><textarea id="legitimacy" rows="4"></textarea></div>
-    <button class="form-submit" type="submit">Создать государство</button>
+    <button class="form-submit" type="submit">Создать микрогосударство</button>
   </form>
 </div></div>
 
@@ -114,13 +326,13 @@ body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--mut
 </div></div>
 
 <!-- Citizen -->
-<div class="modal" id="citizenModal" aria-hidden="true"><div class="modal-content" style="max-width:430px"><button class="close-btn" data-close="citizenModal">×</button><div class="modal-header"><i class="fa-solid fa-id-card"></i> Регистрация гражданина</div><form id="citizenForm"><div class="form-group"><label>Государство *</label><select id="citizenCountry" required></select></div><div class="form-group"><label>Ваше имя *</label><input id="citizenName" required></div><div class="form-group"><label>Возраст *</label><input id="citizenAge" type="number" min="14" required></div><button class="form-submit">Зарегистрироваться</button></form></div></div>
+<div class="modal" id="citizenModal" aria-hidden="true"><div class="modal-content" style="max-width:430px"><button class="close-btn" data-close="citizenModal">×</button><div class="modal-header"><i class="fa-solid fa-id-card"></i> Регистрация участника</div><form id="citizenForm"><div class="form-group"><label>Микрогосударство <span style="font-weight:500;color:var(--muted)">(необязательно)</span></label><select id="citizenCountry"><option value="">Без микрогосударства</option></select></div><div class="form-group"><label>Ваше имя *</label><input id="citizenName" required></div><div class="form-group"><label>Возраст *</label><input id="citizenAge" type="number" min="14" required></div><button class="form-submit">Зарегистрироваться</button></form></div></div>
 
 <!-- Event -->
 <div class="modal" id="eventModal" aria-hidden="true"><div class="modal-content"><button class="close-btn" data-close="eventModal">×</button><div class="modal-header"><i class="fa-solid fa-calendar-plus"></i> Добавить мероприятие</div><form id="eventForm"><input type="hidden" id="eventCountryName"><div class="form-group"><label>Название *</label><input id="eventName" required></div><div class="form-group"><label>Описание</label><textarea id="eventDescription" rows="3"></textarea></div><div class="form-group"><label>Дата и время *</label><input id="eventDate" type="datetime-local" required></div><div class="form-group"><label>Широта *</label><input id="eventLat" required></div><div class="form-group"><label>Долгота *</label><input id="eventLng" required></div><button class="form-submit">Создать</button></form></div></div>
 
 <!-- Citizens list -->
-<div class="modal" id="citizensListModal" aria-hidden="true"><div class="modal-content" style="max-width:620px"><button class="close-btn" data-close="citizensListModal">×</button><div class="modal-header"><i class="fa-solid fa-users"></i> Граждане</div><div id="citizensListContent"></div></div></div>
+<div class="modal" id="citizensListModal" aria-hidden="true"><div class="modal-content" style="max-width:620px"><button class="close-btn" data-close="citizensListModal">×</button><div class="modal-header"><i class="fa-solid fa-users"></i> Участники</div><div id="citizensListContent"></div></div></div>
 
 <!-- Vote create -->
 <div class="modal" id="voteModal" aria-hidden="true"><div class="modal-content" style="max-width:520px"><button class="close-btn" data-close="voteModal">×</button><div class="modal-header"><i class="fa-solid fa-square-poll-vertical"></i> Новое голосование</div><form id="voteForm"><input type="hidden" id="voteCountryName"><div class="form-group"><label>Вопрос *</label><input id="voteQuestion" required></div><div class="form-group"><label>Варианты через запятую *</label><input id="voteOptions" placeholder="Да, Нет, Воздержаться" required></div><button class="form-submit">Создать</button></form></div></div>
@@ -142,9 +354,10 @@ body.dark{--bg:#080d18;--surface:#0f172a;--surface2:#111827;--text:#e5e7eb;--mut
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, limit, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, limit, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-analytics.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCcWwOPTmkq6VlMyb2Jn3fq1PsJ-bZ6m_o",
@@ -160,9 +373,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
+
+// Сохраняем авторизацию между перезагрузками страницы и повторными посещениями.
+// Это важно для браузерной версии ССР: пользователь не должен входить заново каждый раз.
+try {
+  await setPersistence(auth, browserLocalPersistence);
+} catch (e) {
+  console.warn("Не удалось включить постоянную сессию Firebase Auth", e);
+}
 try { if (await isSupported()) getAnalytics(app); } catch(e) { console.info("Analytics недоступна в этом окружении."); }
 
-const state = { countries:[], citizens:[], events:[], votes:[], chatMessages:[], currentUser:null, currentProfile:null, currentSort:"alphabetical", searchQuery:"", map:null, countryLayer:null, eventLayer:null, listeners:[] };
+const state = { countries:[], citizens:[], events:[], votes:[], news:[], chatMessages:[], currentUser:null, currentProfile:null, currentSort:"alphabetical", searchQuery:"", map:null, countryLayer:null, eventLayer:null, listeners:[] };
 
 const constitutionText = `
 <div style="max-width:100%;">
@@ -204,7 +426,7 @@ const constitutionText = `
 
     <div style="margin-top:12px;background:rgba(225,29,72,0.06);padding:10px 14px;border-radius:10px;">
       <p style="margin:0;color:var(--text);font-weight:600;font-size:0.9rem;">
-        ⚠️ Все термины «государство», «президент», «война» используются <strong style="color:var(--accent);">исключительно в игровом контексте</strong> и не создают юридических последствий.
+        ⚠️ Все термины «государство», «президент», «турнир» используются <strong style="color:var(--accent);">исключительно в игровом контексте</strong> и не создают юридических последствий.
       </p>
     </div>
   </div>
@@ -326,7 +548,7 @@ const constitutionText = `
     
     <p style="color:var(--muted);margin:6px 0;"><strong style="color:var(--text);">9.1. Объявление войны (страйкбольного сражения)</strong></p>
     <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
-      <li style="margin:4px 0;">• Президент микрогосударства подаёт заявку на войну через сайт</li>
+      <li style="margin:4px 0;">• Руководитель микрогосударства микрогосударства подаёт заявку на войну через сайт</li>
       <li style="margin:4px 0;">• В заявке указываются: причина, предлагаемая дата, ориентировочное место</li>
       <li style="margin:4px 0;">• Заявка направляется президенту государства-противника</li>
     </ul>
@@ -405,7 +627,7 @@ const constitutionText = `
 
     <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">10.2. Кто может быть избран</strong></p>
     <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
-      <li style="margin:4px 0;">✅ Гражданин государства старше <strong style="color:var(--text);">18 лет</strong></li>
+      <li style="margin:4px 0;">✅ Участник государства старше <strong style="color:var(--text);">18 лет</strong></li>
       <li style="margin:4px 0;">✅ Участвует в жизни государства не менее <strong style="color:var(--text);">6 месяцев</strong></li>
       <li style="margin:4px 0;">✅ Не имеет дисциплинарных взысканий за последний год</li>
     </ul>
@@ -421,7 +643,7 @@ const constitutionText = `
 
     <p style="color:var(--muted);margin:12px 0 6px 0;"><strong style="color:var(--text);">10.4. Досрочный отзыв президента</strong></p>
     <ul style="color:var(--muted);margin:0 0 0 20px;list-style-type:none;padding:0;font-size:0.95rem;">
-      <li style="margin:4px 0;">• Президент может быть отозван <strong style="color:var(--text);">досрочно</strong> по решению граждан</li>
+      <li style="margin:4px 0;">• Руководитель микрогосударства может быть отозван <strong style="color:var(--text);">досрочно</strong> по решению граждан</li>
       <li style="margin:4px 0;">• Для этого нужно собрать <strong style="color:var(--text);">не менее 60% голосов</strong></li>
       <li style="margin:4px 0;">• После отзыва — <strong style="color:var(--text);">внеочередные выборы</strong> (в течение 2 недель)</li>
     </ul>
@@ -503,32 +725,124 @@ function subscribeData(){
 }
 function handleFirestoreError(error){ console.error(error); if(error.code==="failed-precondition") toast("Firestore: проверьте индексы."); else if(error.code==="permission-denied") toast("Firestore: проверьте Rules."); }
 
-function initMap(){ if(!window.L)return; state.map=L.map("map").setView([55.7558,37.6176],4); L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors",maxZoom:19}).addTo(state.map); state.countryLayer=L.layerGroup().addTo(state.map); state.eventLayer=L.layerGroup().addTo(state.map); }
-function updateMap(){ if(!state.map)return; state.countryLayer.clearLayers(); state.eventLayer.clearLayers(); state.countries.forEach(c=>{const lat=Number(c.latitude),lng=Number(c.longitude);const popup=`<strong>${esc(c.name)}</strong><br>Президент: ${esc(c.president)}<br>Столица: ${esc(c.capital)}<br>Площадь: ${Number(c.area||0).toLocaleString("ru-RU")} км²`; if(Array.isArray(c.boundary)&&c.boundary.length>=3){L.polygon(c.boundary,{color:"#e11d48",fillColor:"#e11d48",fillOpacity:.17}).bindPopup(popup).addTo(state.countryLayer);} else if(coordinatesOK(lat,lng)){L.marker([lat,lng]).bindPopup(popup).addTo(state.countryLayer);}}); state.events.forEach(e=>{const lat=Number(e.lat),lng=Number(e.lng); if(!coordinatesOK(lat,lng))return; L.marker([lat,lng],{icon:L.divIcon({className:"event-marker",html:'<i class="fa-solid fa-calendar-check" style="color:#e11d48;font-size:24px"></i>',iconSize:[24,24]})}).bindPopup(`<strong>${esc(e.name)}</strong><br>${esc(e.description)}<br>${esc(e.date)}<br>${esc(e.country)}`).addTo(state.eventLayer);}); }
+function iconMarker(cls, icon, color){ return L.divIcon({className:cls,html:`<span style="width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:${color};color:#fff;box-shadow:0 8px 20px rgba(15,23,42,.22);border:3px solid #fff;font-size:15px;"><i class="fa-solid ${icon}"></i></span>`,iconSize:[36,36],iconAnchor:[18,18],popupAnchor:[0,-18]}); }
+function initMap(){
+  if(!window.L || !document.getElementById("map")) return;
+  state.map=L.map("map",{zoomControl:true,scrollWheelZoom:true}).setView([55.7558,37.6176],5);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors",maxZoom:19}).addTo(state.map);
+  state.countryLayer=L.layerGroup().addTo(state.map);
+  state.eventLayer=L.layerGroup().addTo(state.map);
+  state.battlefieldLayer=L.layerGroup().addTo(state.map);
+  setTimeout(()=>state.map.invalidateSize(),250);
+}
+function updateMap(){
+  if(!state.map)return;
+  state.countryLayer?.clearLayers(); state.eventLayer?.clearLayers(); state.battlefieldLayer?.clearLayers();
+  const bounds=[];
+  state.countries.forEach(c=>{
+    const lat=Number(c.latitude),lng=Number(c.longitude);
+    const popup=`<div style="min-width:220px"><strong style="font-size:1rem">${esc(c.name)}</strong><br><span>Руководитель: ${esc(c.president)}</span><br><span>Столица: ${esc(c.capital)}</span><br><span>Участников: ${state.citizens.filter(x=>x.countryId===c.id).length}</span></div>`;
+    if(Array.isArray(c.boundary)&&c.boundary.length>=3){
+      L.polygon(c.boundary,{color:"#16a34a",weight:3,fillColor:"#16a34a",fillOpacity:.12}).bindPopup(popup).addTo(state.countryLayer);
+      c.boundary.forEach(pt=>{ if(Array.isArray(pt)&&pt.length===2) bounds.push(pt); });
+    } else if(coordinatesOK(lat,lng)){
+      L.marker([lat,lng],{icon:iconMarker("microstate-marker","flag","#16a34a")}).bindPopup(popup).addTo(state.countryLayer); bounds.push([lat,lng]);
+    }
+  });
+  getBattlefields().forEach(b=>{
+    const lat=Number(b.lat),lng=Number(b.lng); if(!coordinatesOK(lat,lng))return;
+    L.marker([lat,lng],{icon:iconMarker("battlefield-marker","location-dot","#dc2626")}).bindPopup(`<strong>${esc(b.name)}</strong><br>${esc(b.description||"Полигон")}`).addTo(state.battlefieldLayer);
+    bounds.push([lat,lng]);
+  });
+  state.events.filter(e=>e.type!=="battlefield"&&e.type!=="polygon").forEach(e=>{
+    const lat=Number(e.lat),lng=Number(e.lng); if(!coordinatesOK(lat,lng))return;
+    L.marker([lat,lng],{icon:iconMarker("event-marker","calendar-days","#eab308")}).bindPopup(`<strong>${esc(e.name)}</strong><br>${esc(e.description||"")}<br>${esc(e.date||"")}<br>${esc(e.country||"")}`).addTo(state.eventLayer);
+    bounds.push([lat,lng]);
+  });
+  if(bounds.length) state.map.fitBounds(bounds,{padding:[35,35],maxZoom:8});
+  setTimeout(()=>state.map.invalidateSize(),100);
+}
 
 function renderAll(){renderLiveStats();renderStats();renderCountries();renderCitizenOptions();if(state.currentUser)refreshCabinet();}
 function renderLiveStats(){const c=document.getElementById("liveStatsContainer");if(!state.countries.length){c.innerHTML='<div class="empty">Пока нет зарегистрированных государств.</div>';return;}const pop=state.countries.reduce((s,x)=>s+(Number(x.population)||0),0),area=state.countries.reduce((s,x)=>s+(Number(x.area)||0),0),largest=[...state.countries].sort((a,b)=>(Number(b.area)||0)-(Number(a.area)||0))[0];c.innerHTML=`<div class="live-card"><div class="icon"><i class="fa-solid fa-flag"></i></div><div><div class="value">${state.countries.length}</div><div class="label">Государств</div></div></div><div class="live-card"><div class="icon"><i class="fa-solid fa-users"></i></div><div><div class="value">${pop.toLocaleString("ru-RU")}</div><div class="label">Население</div></div></div><div class="live-card"><div class="icon"><i class="fa-solid fa-vector-square"></i></div><div><div class="value">${area.toLocaleString("ru-RU")}</div><div class="label">км² общей площади</div></div></div><div class="live-card"><div class="icon"><i class="fa-solid fa-crown"></i></div><div><div class="value" style="font-size:1.1rem">${esc(largest.name)}</div><div class="label">Самое большое</div></div></div>`;}
 function renderStats(){const el=document.getElementById("statsContainer");if(!state.countries.length){el.innerHTML='<div class="empty">Нет данных.</div>';return;}const top=(arr,f,u)=>arr.slice(0,5).map(c=>`<div class="stat-item"><span class="name">${esc(c.name)}</span><span class="val">${Number(c[f]||0).toLocaleString("ru-RU")} ${u}</span></div>`).join("");const a=[...state.countries].sort((x,y)=>(Number(y.area)||0)-(Number(x.area)||0));const p=[...state.countries].sort((x,y)=>(Number(y.population)||0)-(Number(x.population)||0));el.innerHTML=`<div class="stat-box"><h3><i class="fa-solid fa-expand"></i> Топ-5 по площади</h3>${top(a,"area","км²")}</div><div class="stat-box"><h3><i class="fa-solid fa-users"></i> Топ-5 по населению</h3>${top(p,"population","чел.")}</div>`;}
 function getCountries(){const n=state.searchQuery.trim().toLocaleLowerCase("ru-RU");const list=state.countries.filter(c=>String(c.name||"").toLocaleLowerCase("ru-RU").includes(n));if(state.currentSort==="area")list.sort((a,b)=>(Number(b.area)||0)-(Number(a.area)||0));else if(state.currentSort==="population")list.sort((a,b)=>(Number(b.population)||0)-(Number(a.population)||0));else if(state.currentSort==="founded")list.sort((a,b)=>(Number(b.founded)||0)-(Number(a.founded)||0));else list.sort((a,b)=>String(a.name).localeCompare(String(b.name),"ru"));return list;}
-function renderCountries(){const el=document.getElementById("countriesList");const items=getCountries();if(!items.length){el.innerHTML='<div class="empty">Ничего не найдено.</div>';return;}el.innerHTML=items.map(c=>{const count=state.citizens.filter(x=>x.countryId===c.id).length;const flag=c.flagData?`<img src="${esc(c.flagData)}" alt="Флаг">`:`<i class="fa-solid fa-flag"></i>`;return `<article class="country-card"><div class="flag">${flag}</div><div class="country-body"><div class="country-name">${esc(c.name)}</div><div class="detail"><i class="fa-solid fa-user-tie"></i> Президент: ${esc(c.president)}</div><div class="detail"><i class="fa-solid fa-city"></i> Столица: ${esc(c.capital)}</div><div class="detail"><i class="fa-solid fa-vector-square"></i> ${Number(c.area||0).toLocaleString("ru-RU")} км²</div><div class="detail"><i class="fa-solid fa-users"></i> ${Number(c.population||0).toLocaleString("ru-RU")} чел.</div><div class="detail"><i class="fa-solid fa-id-card"></i> Граждане: ${count}</div>${c.founded?`<div class="detail"><i class="fa-solid fa-calendar"></i> Основано: ${esc(c.founded)}</div>`:""}${c.gallery?`<a href="${safeURL(c.gallery)}" target="_blank" rel="noopener noreferrer" class="detail" style="display:inline-block;margin-top:8px"><i class="fa-solid fa-images"></i> Галерея</a>`:""}<div class="actions"><button class="action-btn" data-action="citizen" data-id="${esc(c.id)}">Гражданином</button><button class="action-btn" data-action="votes" data-id="${esc(c.id)}">Голосования</button><button class="action-btn" data-action="citizens" data-id="${esc(c.id)}">Граждане</button></div></div></article>`}).join("");el.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>{const c=state.countries.find(x=>x.id===b.dataset.id);if(!c)return;if(b.dataset.action==="citizen")openCitizenRegistration(c.id);if(b.dataset.action==="votes")openVoteList(c.id);if(b.dataset.action==="citizens")showCitizensList(c.id);}));}
-function renderCitizenOptions(){const s=document.getElementById("citizenCountry");const selected=s.value;s.innerHTML=state.countries.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");if(state.countries.some(c=>c.id===selected))s.value=selected;}
+function renderCountries(){const el=document.getElementById("countriesList");const items=getCountries();if(!items.length){el.innerHTML='<div class="empty">Ничего не найдено.</div>';return;}el.innerHTML=items.map(c=>{const count=state.citizens.filter(x=>x.countryId===c.id).length;const flag=c.flagData?`<img src="${esc(c.flagData)}" alt="Флаг">`:`<i class="fa-solid fa-flag"></i>`;return `<article class="country-card"><div class="flag">${flag}</div><div class="country-body"><div class="country-name">${esc(c.name)}</div><div class="detail"><i class="fa-solid fa-user-tie"></i> Руководитель микрогосударства: ${esc(c.president)}</div><div class="detail"><i class="fa-solid fa-city"></i> Столица: ${esc(c.capital)}</div><div class="detail"><i class="fa-solid fa-vector-square"></i> ${Number(c.area||0).toLocaleString("ru-RU")} км²</div><div class="detail"><i class="fa-solid fa-users"></i> ${Number(c.population||0).toLocaleString("ru-RU")} чел.</div><div class="detail"><i class="fa-solid fa-id-card"></i> Участники: ${count}</div>${c.founded?`<div class="detail"><i class="fa-solid fa-calendar"></i> Основано: ${esc(c.founded)}</div>`:""}${c.gallery?`<a href="${safeURL(c.gallery)}" target="_blank" rel="noopener noreferrer" class="detail" style="display:inline-block;margin-top:8px"><i class="fa-solid fa-images"></i> Галерея</a>`:""}<div class="actions"><button class="action-btn" data-action="citizen" data-id="${esc(c.id)}">Участником</button><button class="action-btn" data-action="votes" data-id="${esc(c.id)}">Голосования</button><button class="action-btn" data-action="citizens" data-id="${esc(c.id)}">Участники</button></div></div></article>`}).join("");el.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>{const c=state.countries.find(x=>x.id===b.dataset.id);if(!c)return;if(b.dataset.action==="citizen")openCitizenRegistration(c.id);if(b.dataset.action==="votes")openVoteList(c.id);if(b.dataset.action==="citizens")showCitizensList(c.id);}));}
+function renderCitizenOptions(){const s=document.getElementById("citizenCountry");if(!s)return;const selected=s.value;s.innerHTML='<option value="">Без микрогосударства</option>'+state.countries.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");if(state.countries.some(c=>c.id===selected))s.value=selected;else s.value='';}
 
 async function handleApplication(e){e.preventDefault();const data={name:document.getElementById("countryName").value.trim(),president:document.getElementById("presidentName").value.trim(),password:document.getElementById("password").value,capital:document.getElementById("capital").value.trim(),area:Number(document.getElementById("area").value),population:Number(document.getElementById("population").value),founded:document.getElementById("founded").value.trim(),latitude:document.getElementById("latitude").value.trim(),longitude:document.getElementById("longitude").value.trim(),gallery:document.getElementById("galleryLink").value.trim(),phone:document.getElementById("phone").value.trim(),legitimacy:document.getElementById("legitimacy").value.trim(),boundary:boundaryParse(document.getElementById("boundaryInput").value)};if(!data.name||!data.president||!data.capital||!Number.isFinite(data.area)||!Number.isFinite(data.population)||!coordinatesOK(data.latitude,data.longitude)){alert("Заполните обязательные поля и проверьте координаты.");return;}if(state.countries.some(c=>c.name.toLocaleLowerCase("ru-RU")===data.name.toLocaleLowerCase("ru-RU"))){alert("Такое государство уже существует.");return;}const file=document.getElementById("flagUpload").files[0];try{let flagData=null;if(file){if(file.size>900*1024){alert("Для Firestore флаг лучше держать до 900 КБ. Выберите меньший файл.");return;}flagData=await fileToDataURL(file);}const cred=await createUserWithEmailAndPassword(auth,countryEmail(data.name),data.password);const id=slug(data.name)+"-"+cred.user.uid.slice(0,8);await setDoc(doc(db,"countries",id),{name:data.name,president:data.president,capital:data.capital,area:data.area,population:data.population,founded:data.founded,latitude:data.latitude,longitude:data.longitude,gallery:data.gallery,phone:data.phone,legitimacy:data.legitimacy,boundary:data.boundary,flagData,uid:cred.user.uid,createdAt:serverTimestamp()});await setDoc(doc(db,"profiles",cred.user.uid),{uid:cred.user.uid,countryId:id,countryName:data.name,president:data.president,role:"president",createdAt:serverTimestamp()});hideModal("applicationModal");e.target.reset();document.getElementById("fileNameDisplay").textContent="Файл не выбран";toast("Государство создано. Вход выполнен автоматически.");openCabinet();}catch(err){console.error(err);alert(firebaseAuthMessage(err));}}
 function fileToDataURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
 function firebaseAuthMessage(e){const m={"auth/email-already-in-use":"Это название уже занято.","auth/weak-password":"Пароль слишком слабый.","auth/invalid-credential":"Неверные данные входа.","auth/user-not-found":"Государство не найдено.","auth/wrong-password":"Неверный пароль."};return m[e.code]||e.message||"Ошибка Firebase.";}
 
 async function handleLogin(e){e.preventDefault();const name=document.getElementById("loginCountryName").value.trim();const pw=document.getElementById("loginPassword").value;try{await signInWithEmailAndPassword(auth,countryEmail(name),pw);hideModal("loginModal");toast("Вход выполнен.");}catch(err){console.error(err);alert(firebaseAuthMessage(err));}}
-async function loadProfile(user){if(!user){state.currentUser=null;state.currentProfile=null;hideModal("cabinetModal");updateChatHint();return;}state.currentUser=user;const snap=await getDoc(doc(db,"profiles",user.uid));state.currentProfile=snap.exists()?snap.data():null;updateChatHint();if(document.getElementById("cabinetModal").classList.contains("open"))refreshCabinet();}
-async function refreshCabinet(){if(!state.currentProfile)return;const c=state.countries.find(x=>x.id===state.currentProfile.countryId);if(!c)return;const citizens=state.citizens.filter(x=>x.countryId===c.id),events=state.events.filter(x=>x.countryId===c.id),votes=state.votes.filter(x=>x.countryId===c.id);document.getElementById("cabinetContent").innerHTML=`<h2 style="margin-bottom:8px">${esc(c.name)}</h2><p class="detail">Президент: <strong>${esc(c.president)}</strong></p><p class="detail">Столица: ${esc(c.capital)}</p><p class="detail">Площадь: ${Number(c.area||0).toLocaleString("ru-RU")} км²</p><p class="detail">Население: ${Number(c.population||0).toLocaleString("ru-RU")}</p><p class="detail">Граждан: ${citizens.length}</p><div class="actions" style="margin-top:18px"><button class="btn-secondary" id="cabCitizens">Граждане</button><button class="btn-secondary" id="cabEvent">Мероприятие</button><button class="btn-secondary" id="cabVote">Голосование</button><button class="btn-secondary" id="cabVotes">Все голосования</button><button class="btn-primary" id="logoutButton">Выйти</button></div><div style="margin-top:24px"><h3>Мероприятия</h3>${events.length?events.map(x=>`<div class="panel" style="padding:14px;margin-top:10px"><strong>${esc(x.name)}</strong><div class="detail">${esc(x.description)}</div><div class="detail">${esc(x.date)}</div></div>`).join(""):"<p class='detail' style='margin-top:8px'>Нет мероприятий.</p>"}</div>`;document.getElementById("cabCitizens").onclick=()=>showCitizensList(c.id);document.getElementById("cabEvent").onclick=()=>openEventModal(c.id);document.getElementById("cabVote").onclick=()=>openVoteModal(c.id);document.getElementById("cabVotes").onclick=()=>openVoteList(c.id);document.getElementById("logoutButton").onclick=logout;}
+async function loadProfile(user){
+  if(!user){
+    state.currentUser=null;
+    state.currentProfile=null;
+    hideModal("cabinetModal");
+    updateChatHint();
+    return;
+  }
+
+  state.currentUser=user;
+  try {
+    const snap=await getDoc(doc(db,"profiles",user.uid));
+    state.currentProfile=snap.exists()?snap.data():null;
+    updateChatHint();
+
+    if(!state.currentProfile){
+      console.error("Профиль президента не найден", user.uid);
+      toast("Профиль президента не найден в Firestore.");
+      return;
+    }
+
+    await refreshCabinet();
+  } catch(err) {
+    console.error("Ошибка загрузки профиля",err);
+    toast("Не удалось загрузить профиль президента. Проверьте Rules Firestore.");
+  }
+}
+async function refreshCabinet(){
+  const el=document.getElementById("cabinetContent");
+  if(!el)return;
+
+  if(!state.currentUser){
+    el.innerHTML='<div class="empty">Войдите в кабинет президента.</div>';
+    return;
+  }
+
+  if(!state.currentProfile){
+    el.innerHTML='<div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Загружаем профиль президента…</div>';
+    return;
+  }
+
+  let c=state.countries.find(x=>x.id===state.currentProfile.countryId);
+  if(!c){
+    el.innerHTML='<div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Загружаем данные команды…</div>';
+    return;
+  }
+
+  const citizens=state.citizens.filter(x=>x.countryId===c.id);
+  const events=state.events.filter(x=>x.countryId===c.id);
+  const votes=state.votes.filter(x=>x.countryId===c.id);
+
+  el.innerHTML=`<h2 style="margin-bottom:8px">${esc(c.name)}</h2><p class="detail">Руководитель микрогосударства: <strong>${esc(c.president)}</strong></p><p class="detail">Столица: ${esc(c.capital)}</p><p class="detail">Площадь: ${Number(c.area||0).toLocaleString("ru-RU")} км²</p><p class="detail">Население: ${Number(c.population||0).toLocaleString("ru-RU")}</p><p class="detail">Участников: ${citizens.length}</p><div class="actions" style="margin-top:18px"><button class="btn-secondary" id="cabCitizens">Участники</button><button class="btn-secondary" id="cabEvent">Мероприятие</button><button class="btn-secondary" id="cabVote">Голосование</button><button class="btn-secondary" id="cabVotes">Все голосования</button><button class="btn-primary" id="logoutButton">Выйти</button></div><div style="margin-top:24px"><h3>Мероприятия</h3>${events.length?events.map(x=>`<div class="panel" style="padding:14px;margin-top:10px"><strong>${esc(x.name)}</strong><div class="detail">${esc(x.description)}</div><div class="detail">${esc(x.date)}</div></div>`).join(""):"<p class='detail' style='margin-top:8px'>Нет мероприятий.</p>"}</div>`;
+
+  document.getElementById("cabCitizens").onclick=()=>showCitizensList(c.id);
+  document.getElementById("cabEvent").onclick=()=>openEventModal(c.id);
+  document.getElementById("cabVote").onclick=()=>openVoteModal(c.id);
+  document.getElementById("cabVotes").onclick=()=>openVoteList(c.id);
+  document.getElementById("logoutButton").onclick=logout;
+}
 async function logout(){await signOut(auth);hideModal("cabinetModal");toast("Вы вышли.");}
 
-function updateChatHint(){document.getElementById("chatHint").textContent=state.currentProfile?`Вы вошли как Президент ${state.currentProfile.countryName}.`:`Для отправки можно войти как президент или использовать имя гостя.`;}
+function updateChatHint(){document.getElementById("chatHint").textContent=state.currentProfile?`Вы вошли как Руководитель микрогосударства ${state.currentProfile.countryName}.`:`Для отправки можно войти как президент или использовать имя гостя.`;}
 function renderChat(){const box=document.getElementById("chatMessages");if(!state.chatMessages.length){box.innerHTML='<div class="empty">Сообщений пока нет. Напишите первым.</div>';return;}box.innerHTML=state.chatMessages.map(m=>{const mine=state.currentUser&&m.uid===state.currentUser.uid;return `<div class="bubble-row ${mine?"mine":""}"><div class="bubble"><div class="bubble-author">${esc(m.sender||"Гость")}</div><div class="bubble-text">${esc(m.text)}</div><div class="bubble-meta">${timeText(m.createdAt)}</div></div></div>`}).join("");box.scrollTop=box.scrollHeight;document.getElementById("chatOnlineLabel").textContent=`${state.chatMessages.length} сообщений · realtime`;
 }
-async function sendMessage(){const input=document.getElementById("chatInput"),text=input.value.trim();if(!text)return;let sender=state.currentProfile?`Президент ${state.currentProfile.countryName}`:"";if(!sender){sender=prompt("Введите имя для чата:")?.trim();if(!sender)return;}try{await addDoc(collection(db,"chatMessages"),{text,sender,uid:state.currentUser?.uid||null,createdAt:serverTimestamp()});input.value="";}catch(e){console.error(e);alert("Не удалось отправить сообщение. Проверьте Rules Firestore.");}}
+async function sendMessage(){const input=document.getElementById("chatInput"),text=input.value.trim();if(!text)return;let sender=state.currentProfile?`Руководитель микрогосударства ${state.currentProfile.countryName}`:"";if(!sender){sender=prompt("Введите имя для чата:")?.trim();if(!sender)return;}try{await addDoc(collection(db,"chatMessages"),{text,sender,uid:state.currentUser?.uid||null,createdAt:serverTimestamp()});input.value="";}catch(e){console.error(e);alert("Не удалось отправить сообщение. Проверьте Rules Firestore.");}}
 
 function openCitizenRegistration(countryId){renderCitizenOptions();document.getElementById("citizenCountry").value=countryId;showModal("citizenModal");}
-async function handleCitizen(e){e.preventDefault();const countryId=document.getElementById("citizenCountry").value,name=document.getElementById("citizenName").value.trim(),age=Number(document.getElementById("citizenAge").value);if(!name||!Number.isFinite(age)||age<14){alert("Возраст должен быть не менее 14 лет.");return;}const c=state.countries.find(x=>x.id===countryId);if(!c)return;try{await addDoc(collection(db,"citizens"),{countryId,name,age,createdAt:serverTimestamp()});hideModal("citizenModal");e.target.reset();toast(`Гражданин зарегистрирован в ${c.name}.`);}catch(err){console.error(err);alert("Не удалось зарегистрировать гражданина.");}}
+async function handleCitizen(e){e.preventDefault();const countryId=document.getElementById("citizenCountry").value,name=document.getElementById("citizenName").value.trim(),age=Number(document.getElementById("citizenAge").value);if(!name||!Number.isFinite(age)||age<14){alert("Возраст должен быть не менее 14 лет.");return;}const c=state.countries.find(x=>x.id===countryId);if(!c)return;try{await addDoc(collection(db,"citizens"),{countryId,name,age,createdAt:serverTimestamp()});hideModal("citizenModal");e.target.reset();toast(`Участник зарегистрирован в ${c.name}.`);}catch(err){console.error(err);alert("Не удалось зарегистрировать гражданина.");}}
 function showCitizensList(countryId){const c=state.countries.find(x=>x.id===countryId),list=state.citizens.filter(x=>x.countryId===countryId),el=document.getElementById("citizensListContent");el.innerHTML=list.length?`<h3 style="margin-bottom:12px">${esc(c?.name||"")}</h3><div>${list.map(x=>`<div class="panel" style="padding:12px;margin:8px 0"><strong>${esc(x.name)}</strong> · ${esc(x.age)} лет</div>`).join("")}</div>`:'<div class="empty">Граждан пока нет.</div>';showModal("citizensListModal");}
 
 function openEventModal(countryId){document.getElementById("eventCountryName").value=countryId;showModal("eventModal");}
@@ -539,7 +853,14 @@ async function handleVote(e){e.preventDefault();const countryId=document.getElem
 function openVoteList(countryId){const c=state.countries.find(x=>x.id===countryId),list=state.votes.filter(v=>v.countryId===countryId),el=document.getElementById("voteListContent");if(!list.length){el.innerHTML='<div class="empty">Голосований пока нет.</div>';showModal("voteListModal");return;}el.innerHTML=`<h3>${esc(c?.name||"")}</h3>`+list.map(v=>{const counts=Object.values(v.votes||{});const total=counts.length;return `<div class="panel" style="padding:16px;margin-top:12px"><strong>${esc(v.question)}</strong><div style="margin:10px 0">${v.options.map(o=>{const n=counts.filter(x=>x===o).length,pc=total?Math.round(n/total*100):0;return `<div style="margin:7px 0"><div style="display:flex;justify-content:space-between;gap:10px"><span>${esc(o)}</span><span>${n} · ${pc}%</span></div><div style="height:7px;background:var(--border);border-radius:99px;overflow:hidden"><div style="height:100%;width:${pc}%;background:var(--accent)"></div></div></div>`}).join("")}</div><button class="action-btn vote-button" data-id="${esc(v.id)}">Проголосовать</button></div>`}).join("");el.querySelectorAll(".vote-button").forEach(b=>b.onclick=()=>voteFor(b.dataset.id));showModal("voteListModal");}
 async function voteFor(voteId){const v=state.votes.find(x=>x.id===voteId);if(!v)return;const voter=prompt("Ваше имя:")?.trim();if(!voter)return;const choice=prompt(`Вариант: ${v.options.join(", ")}`)?.trim();if(!choice)return;const option=v.options.find(o=>o.toLocaleLowerCase("ru-RU")===choice.toLocaleLowerCase("ru-RU"));if(!option){alert("Такого варианта нет.");return;}try{await runTransaction(db,async tx=>{const ref=doc(db,"votes",voteId),snap=await tx.get(ref);if(!snap.exists())throw new Error("vote-not-found");const data=snap.data();const votes={...(data.votes||{}),[voter]:option};tx.update(ref,{votes});});toast("Голос учтён.");}catch(err){console.error(err);alert("Не удалось сохранить голос.");}}
 
-function openCabinet(){if(!state.currentUser){showModal("loginModal");return;}showModal("cabinetModal");refreshCabinet();}
+async function openCabinet(){
+  if(!state.currentUser){showModal("loginModal");return;}
+  showModal("cabinetModal");
+  const el=document.getElementById("cabinetContent");
+  if(el)el.innerHTML='<div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Загружаем кабинет…</div>';
+  await loadProfile(state.currentUser);
+  await refreshCabinet();
+}
 function openChat(){showModal("chatModal");renderChat();setTimeout(()=>document.getElementById("chatInput").focus(),100);}
 function openConstitution(){document.getElementById("constitutionText").innerHTML=constitutionText;showModal("constitutionModal");}
 function toggleTheme(){document.body.classList.toggle("dark");document.querySelector("#themeToggle i").className=document.body.classList.contains("dark")?"fa-solid fa-sun":"fa-solid fa-moon";}
@@ -584,680 +905,903 @@ function wireUI(){
   document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal.open").forEach(m=>hideModal(m.id));});
 }
 
-onAuthStateChanged(auth,async user=>{await loadProfile(user);});
+onAuthStateChanged(auth,async user=>{
+  try {
+    await loadProfile(user);
+  } catch (e) {
+    console.error("Auth/profile init error", e);
+  }
+});
 wireUI();
 initMap();
 subscribeData();
 setTimeout(migrateLegacyLocalStorage,2500);
 // ============================================================
-// РАЗДЕЛ «МЕРОПРИЯТИЯ» — ГЕНЕРАТОР ВОЕННЫХ КОНФЛИКТОВ
+// ЕДИНАЯ СИСТЕМА: МЕРОПРИЯТИЯ + ПОЛИГОНЫ + ВОЙНЫ
 // ============================================================
 
-// --- Рендер раздела мероприятий на главной ---
-function renderEventsSection() {
-    // Проверяем, есть ли уже блок мероприятий
-    let section = document.getElementById('eventsSection');
-    if (!section) {
-        // Создаём секцию, если её нет
-        section = document.createElement('section');
-        section.id = 'eventsSection';
-        section.style.marginTop = '40px';
-        
-        const title = document.createElement('h2');
-        title.className = 'section-title';
-        title.innerHTML = `<i class="fa-solid fa-crosshairs"></i> Военные конфликты и мероприятия`;
-        section.appendChild(title);
-        
-        // Контейнер для карточек
-        const grid = document.createElement('div');
-        grid.className = 'country-grid';
-        grid.id = 'eventsGrid';
-        section.appendChild(grid);
-        
-        // Вставляем после реестра
-        const registry = document.getElementById('countriesList');
-        if (registry) {
-            registry.closest('section')?.after(section);
-        } else {
-            document.querySelector('.container')?.appendChild(section);
-        }
-    }
-    renderEventsGrid();
+function formatDateTime(v){
+  if(!v) return "—";
+  try{
+    const d = v?.toDate ? v.toDate() : new Date(v);
+    return d.toLocaleString("ru-RU",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
+  }catch{return String(v);}
+}
+function remainingText(v){
+  const target = v?.toDate ? v.toDate().getTime() : new Date(v||0).getTime();
+  const diff = target - Date.now();
+  if(!Number.isFinite(target) || diff<=0) return "Срок истёк";
+  const days=Math.floor(diff/86400000), hours=Math.floor((diff%86400000)/3600000), mins=Math.floor((diff%3600000)/60000);
+  return `${days}д ${hours}ч ${mins}м`;
+}
+function getWars(){ return state.events.filter(e=>e.type==="war"); }
+function getBattlefields(){ return state.events.filter(e=>e.type==="battlefield" || e.type==="polygon"); }
+
+function ensureBattlefieldModal(){
+  if(document.getElementById("battlefieldModal")) return;
+  const m=document.createElement("div");
+  m.className="modal"; m.id="battlefieldModal"; m.setAttribute("aria-hidden","true");
+  m.innerHTML=`<div class="modal-content" style="max-width:620px">
+    <button class="close-btn" data-bf-close>×</button>
+    <div class="modal-header"><i class="fa-solid fa-location-dot"></i> Добавить полигон</div>
+    <form id="battlefieldForm">
+      <div class="form-group"><label>Название полигона *</label><input id="bfName" required placeholder="Полигон «Заря»"></div>
+      <div class="form-group"><label>Описание / адрес</label><textarea id="bfDescription" rows="3" placeholder="Согласованная площадка..."></textarea></div>
+      <div class="form-group"><label>Широта *</label><input id="bfLat" required placeholder="55.7558"></div>
+      <div class="form-group"><label>Долгота *</label><input id="bfLng" required placeholder="37.6176"></div>
+      <button class="form-submit">Сохранить полигон</button>
+    </form></div>`;
+  document.body.appendChild(m);
+  m.querySelector("[data-bf-close]").onclick=()=>hideModal("battlefieldModal");
+  m.addEventListener("click",e=>{if(e.target===m)hideModal("battlefieldModal")});
+  m.querySelector("#battlefieldForm").addEventListener("submit",async e=>{
+    e.preventDefault();
+    if(!state.currentUser || !state.currentProfile) return toast("Войдите как президент.");
+    const name=document.getElementById("bfName").value.trim(),description=document.getElementById("bfDescription").value.trim();
+    const lat=document.getElementById("bfLat").value.trim(),lng=document.getElementById("bfLng").value.trim();
+    if(!name||!coordinatesOK(lat,lng)) return toast("Проверьте название и координаты.");
+    try{
+      await addDoc(collection(db,"events"),{type:"battlefield",name,description,lat,lng,countryId:state.currentProfile.countryId,country:state.currentProfile.countryName,approved:true,createdAt:serverTimestamp(),uid:state.currentUser.uid});
+      hideModal("battlefieldModal"); e.target.reset(); toast("📍 Полигон добавлен на карту.");
+    }catch(err){console.error(err);toast("Не удалось добавить полигон.");}
+  });
+}
+window.openBattlefieldModal=()=>{ensureBattlefieldModal();showModal("battlefieldModal")};
+
+function ensureWarModal(){
+  let modal=document.getElementById("warModal");
+  if(modal) return modal;
+  modal=document.createElement("div"); modal.className="modal"; modal.id="warModal"; modal.setAttribute("aria-hidden","true");
+  modal.innerHTML=`<div class="modal-content" style="max-width:650px">
+    <button class="close-btn" data-close-war>×</button>
+    <div class="modal-header"><i class="fa-solid fa-crosshairs" style="color:var(--accent)"></i> Начать игровую войну</div>
+    <form id="warFormV2">
+      <div class="form-group"><label>Выберите государство *</label><select id="warTargetCountryV2" required></select></div>
+      <div class="form-group"><label>Название войны *</label><input id="warNameV2" required placeholder="Битва за Сосновый Бор"></div>
+      <div class="form-group"><label>Причина / описание</label><textarea id="warReasonV2" rows="3" placeholder="Игровой сюжет и условия соревнования"></textarea></div>
+      <div class="notice"><strong>⏳ Срок ответа — 10 дней</strong><span>После принятия заявки стороны получают ещё 10 дней на подготовку и выбор согласованного полигона.</span></div>
+      <button class="form-submit" style="margin-top:16px">Отправить заявку</button>
+    </form></div>`;
+  document.body.appendChild(modal);
+  modal.querySelector("[data-close-war]").onclick=()=>hideModal("warModal");
+  modal.addEventListener("click",e=>{if(e.target===modal)hideModal("warModal")});
+  modal.querySelector("#warFormV2").addEventListener("submit",async e=>{
+    e.preventDefault();
+    if(!state.currentUser||!state.currentProfile) return toast("Сначала войдите в кабинет президента.");
+    const source=state.countries.find(c=>c.id===state.currentProfile.countryId);
+    const target=state.countries.find(c=>c.id===document.getElementById("warTargetCountryV2").value);
+    const name=document.getElementById("warNameV2").value.trim();
+    const reason=document.getElementById("warReasonV2").value.trim();
+    if(!source||!target||!name) return toast("Заполните форму.");
+    if(source.id===target.id) return toast("Нельзя выбрать своё государство.");
+    const already=getWars().some(w=>(w.status==="pending"||w.status==="accepted") &&
+      ((w.countryId===source.id&&w.targetCountryId===target.id)||(w.countryId===target.id&&w.targetCountryId===source.id)));
+    if(already) return toast("Между этими государствами уже есть активная заявка.");
+    const deadline=new Date(Date.now()+10*86400000).toISOString();
+    try{
+      await addDoc(collection(db,"events"),{
+        type:"war",name,reason,status:"pending",countryId:source.id,country:source.name,targetCountryId:target.id,targetCountry:target.name,
+        deadline,createdAt:serverTimestamp(),uid:state.currentUser.uid,participants:[source.name]
+      });
+      await addDoc(collection(db,"chatMessages"),{
+        text:`⚔️ ${source.name} отправила игровой вызов государству ${target.name}. Ответить нужно до ${formatDateTime(deadline)}.`,
+        sender:"⚠️ Военный штаб ССР",uid:null,createdAt:serverTimestamp()
+      });
+      hideModal("warModal"); e.target.reset(); toast("⚔️ Заявка отправлена. У соперника 10 дней.");
+    }catch(err){console.error(err);toast("Не удалось отправить заявку. Проверьте Rules Firestore.");}
+  });
+  return modal;
 }
 
-// --- Рендер карточек мероприятий ---
-function renderEventsGrid() {
-    const grid = document.getElementById('eventsGrid');
-    if (!grid) return;
-    
-    const now = new Date();
-    // Сортируем по дате (ближайшие первыми)
-    const sorted = [...state.events].sort((a, b) => {
-        const da = new Date(a.date);
-        const db = new Date(b.date);
-        return da - db;
-    });
-    
-    if (!sorted.length) {
-        grid.innerHTML = `
-            <div class="empty" style="grid-column:1/-1;padding:30px;">
-                <i class="fa-solid fa-calendar-circle-plus" style="font-size:2.5rem;display:block;margin-bottom:12px;color:var(--muted);"></i>
-                Нет запланированных конфликтов. 
-                <br><small style="color:var(--muted)">Президенты могут создавать события в личном кабинете.</small>
-            </div>
-        `;
-        return;
-    }
-    
-    grid.innerHTML = sorted.map(ev => {
-        const country = state.countries.find(c => c.id === ev.countryId);
-        const isPast = new Date(ev.date) < now;
-        const status = isPast ? '🟥 Завершён' : '🟩 Активен';
-        const statusColor = isPast ? 'var(--muted)' : 'var(--success)';
-        
-        return `
-            <article class="country-card" style="border-left: 4px solid ${isPast ? 'var(--muted)' : 'var(--accent)'};">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
-                    <div style="font-weight:800;font-size:1.2rem;">${esc(ev.name)}</div>
-                    <div style="font-size:0.8rem;color:${statusColor};font-weight:700;">${status}</div>
-                </div>
-                <div class="detail"><i class="fa-solid fa-flag"></i> Организатор: ${esc(ev.country || country?.name || 'Неизвестно')}</div>
-                <div class="detail"><i class="fa-solid fa-calendar-day"></i> Дата: ${esc(ev.date)}</div>
-                ${ev.description ? `<div class="detail"><i class="fa-solid fa-align-left"></i> ${esc(ev.description)}</div>` : ''}
-                <div class="detail"><i class="fa-solid fa-location-dot"></i> Координаты: ${esc(ev.lat)}, ${esc(ev.lng)}</div>
-                <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <button class="action-btn" onclick="showEventOnMap('${ev.id}')">
-                        <i class="fa-solid fa-map-pin"></i> На карту
-                    </button>
-                    ${!isPast ? `<button class="action-btn" style="background:var(--accent);color:#fff;border-color:var(--accent);" onclick="joinEvent('${ev.id}')">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Участвовать
-                    </button>` : ''}
-                    ${state.currentUser && state.currentProfile?.countryId === ev.countryId ? `<button class="action-btn" onclick="deleteEvent('${ev.id}')" style="color:#e11d48;">
-                        <i class="fa-solid fa-trash-can"></i> Отменить
-                    </button>` : ''}
+window.openWarModal=function(){
+  if(!state.currentUser||!state.currentProfile){showModal("loginModal");return}
+  const sel=document.getElementById("warTargetCountryV2");
+  if(!sel){ensureWarModal();return window.openWarModal();}
+  const current=state.currentProfile.countryId;
+  sel.innerHTML='<option value="">Выберите государство…</option>'+
+    state.countries.filter(c=>c.id!==current).map(c=>`<option value="${esc(c.id)}">${esc(c.name)} — ${esc(c.president)}</option>`).join("");
+  document.getElementById("warReasonV2").value="";
+  showModal("warModal");
+};
+
+function ensureBattleChoiceModal(){
+  if(document.getElementById("battleChoiceModal")) return;
+  const m=document.createElement("div");m.className="modal";m.id="battleChoiceModal";m.setAttribute("aria-hidden","true");
+  m.innerHTML=`<div class="modal-content" style="max-width:650px"><button class="close-btn" data-bc-close>×</button>
+  <div class="modal-header"><i class="fa-solid fa-map"></i> Выбрать место и дату войны</div>
+  <form id="battleChoiceForm">
+   <input type="hidden" id="battleWarId">
+   <div class="form-group"><label>Полигон *</label><select id="battlefieldSelect" required></select><div class="hint">Полигоны берутся из карты ССР.</div></div>
+   <div class="form-group"><label>Дата игрового события *</label><input id="battleDate" type="datetime-local" required></div>
+   <div class="form-group"><label>Сценарий *</label><select id="battleScenario"><option>Захват флага</option><option>Удержание точки</option><option>Разведка</option><option>Командный турнир</option></select></div>
+   <button class="form-submit">Принять заявку и начать подготовку</button>
+  </form></div>`;
+  document.body.appendChild(m);
+  m.querySelector("[data-bc-close]").onclick=()=>hideModal("battleChoiceModal");
+  m.addEventListener("click",e=>{if(e.target===m)hideModal("battleChoiceModal")});
+  m.querySelector("#battleChoiceForm").addEventListener("submit",async e=>{
+    e.preventDefault();
+    const war=state.events.find(w=>w.id===document.getElementById("battleWarId").value);
+    const bf=getBattlefields().find(x=>x.id===document.getElementById("battlefieldSelect").value);
+    if(!war||!bf)return toast("Турнир или полигон не найдены.");
+    if(state.currentProfile?.countryId!==war.targetCountryId)return toast("Только президент целевого государства может принять заявку.");
+    const date=document.getElementById("battleDate").value,scenario=document.getElementById("battleScenario").value;
+    if(!date)return toast("Выберите дату.");
+    try{
+      await updateDoc(doc(db,"events",war.id),{
+        status:"accepted",location:bf.name,locationDescription:bf.description||"",lat:bf.lat,lng:bf.lng,
+        battlefieldId:bf.id,scenario,acceptedAt:serverTimestamp(),
+        preparationDeadline:new Date(Date.now()+10*86400000).toISOString(),warStartDate:date
+      });
+      await addDoc(collection(db,"chatMessages"),{
+        text:`✅ ${war.targetCountry} приняла игровой вызов ${war.country}. Полигон: ${bf.name}. Подготовка — 10 дней. Дата игры: ${formatDateTime(date)}.`,
+        sender:"⚠️ Военный штаб ССР",uid:null,createdAt:serverTimestamp()
+      });
+      hideModal("battleChoiceModal");toast("✅ Заявка принята. Началась 10-дневная подготовка.");
+    }catch(err){console.error(err);toast("Ошибка сохранения решения.");}
+  });
+}
+window.openBattleChoice=function(warId){
+  ensureBattleChoiceModal();
+  const sel=document.getElementById("battlefieldSelect");
+  const bfs=getBattlefields();
+  sel.innerHTML='<option value="">Выберите полигон…</option>'+bfs.map(b=>`<option value="${esc(b.id)}">${esc(b.name)} — ${esc(b.description||"")}</option>`).join("");
+  document.getElementById("battleWarId").value=warId;
+  const d=new Date(Date.now()+10*86400000); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); document.getElementById("battleDate").value=d.toISOString().slice(0,16);
+  showModal("battleChoiceModal");
+};
+
+window.declineWarV2=async function(warId){
+  const war=state.events.find(w=>w.id===warId);
+  if(!war)return;
+  if(state.currentProfile?.countryId!==war.targetCountryId)return toast("Только целевое государство может отклонить заявку.");
+  if(new Date(war.deadline)<new Date())return toast("Срок ответа уже истёк.");
+  if(!confirm(`Отклонить игровой вызов «${war.name}»?`))return;
+  try{
+    await updateDoc(doc(db,"events",warId),{status:"declined",declinedAt:serverTimestamp()});
+    await addDoc(collection(db,"chatMessages"),{text:`❌ ${war.targetCountry} отклонила игровой вызов от ${war.country}.`,sender:"⚠️ Военный штаб ССР",uid:null,createdAt:serverTimestamp()});
+    toast("Заявка отклонена.");
+  }catch(err){console.error(err);toast("Ошибка отклонения.");}
+};
+
+window.renderWarGrid=function(){
+  const grid=document.getElementById("warGrid"); if(!grid)return;
+  const wars=getWars().sort((a,b)=>new Date(a.deadline||0)-new Date(b.deadline||0));
+  if(!wars.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1">Активных игровых войн пока нет.</div>';return;}
+  grid.innerHTML=wars.map(w=>{
+    const expired=new Date(w.deadline||0)<new Date() && w.status==="pending";
+    const accepted=w.status==="accepted",declined=w.status==="declined";
+    const canRespond=!accepted&&!declined&&!expired&&state.currentProfile?.countryId===w.targetCountryId;
+    const status=accepted?"✅ Принята":declined?"❌ Отклонена":expired?"⌛ Срок истёк":"⏳ Ожидает ответа";
+    const color=accepted?"var(--success)":declined||expired?"var(--muted)":"#eab308";
+    return `<article class="country-card war-card" style="border-left:4px solid ${color}">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div class="country-name"><i class="fa-solid fa-crosshairs"></i> ${esc(w.name)}</div><div class="war-status" style="color:${color}">${status}</div></div>
+      <div class="detail"><i class="fa-solid fa-flag"></i> ${esc(w.country)} → ${esc(w.targetCountry)}</div>
+      <div class="detail"><i class="fa-solid fa-clock"></i> Ответ до: ${formatDateTime(w.deadline)} · <span class="countdown">${remainingText(w.deadline)}</span></div>
+      ${w.reason?`<div class="detail"><i class="fa-solid fa-align-left"></i> ${esc(w.reason)}</div>`:""}
+      ${canRespond?`<div class="actions">
+        <button class="action-btn" style="background:var(--success);color:#fff;border-color:var(--success)" onclick="window.openBattleChoice('${w.id}')"><i class="fa-solid fa-check"></i> Принять и выбрать место</button>
+        <button class="action-btn" style="background:var(--accent);color:#fff;border-color:var(--accent)" onclick="window.declineWarV2('${w.id}')"><i class="fa-solid fa-xmark"></i> Отклонить</button>
+      </div>`:""}
+      ${accepted?`<div class="war-mini"><strong><i class="fa-solid fa-location-dot"></i> Полигон:</strong> ${esc(w.location||"не выбран")}<br><strong><i class="fa-solid fa-shield-halved"></i> Подготовка:</strong> до ${formatDateTime(w.preparationDeadline)}<br><strong><i class="fa-solid fa-calendar-days"></i> Игра:</strong> ${formatDateTime(w.warStartDate)}<br><strong><i class="fa-solid fa-bullseye"></i> Сценарий:</strong> ${esc(w.scenario||"не указан")}</div>`:""}
+    </article>`;
+  }).join("");
+};
+
+function renderWarSection(){
+  let section=document.getElementById("warSection");
+  if(!section){
+    section=document.createElement("section");section.id="warSection";section.className="feature-section";
+    section.innerHTML=`<div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap"><div>
+      <h2 class="section-title" style="margin-bottom:6px"><i class="fa-solid fa-crosshairs"></i> СТРАЙКБОЛЬНЫЕ ТУРНИРЫ</h2>
+      <p style="color:var(--muted)">Заявка → 10 дней на ответ → выбор полигона → 10 дней подготовки.</p>
+    </div><button class="btn-primary war-start-btn" id="warStartSectionButton" type="button"><i class="fa-solid fa-crosshairs"></i> Организовать турнир</button></div>
+    <div id="warGrid" class="country-grid" style="margin-top:16px"></div>`;
+    document.getElementById("howToSection")?.before(section);
+    section.querySelector("#warStartSectionButton").onclick=window.openWarModal;
+  }
+  renderWarGrid();
+}
+
+function renderRanking(){
+  const body=document.getElementById("rankingBody"); if(!body)return;
+  const stats=state.countries.map(c=>{
+    const wars=getWars().filter(w=>w.status==="accepted"||w.status==="finished"||w.status==="declined");
+    const relevant=wars.filter(w=>w.countryId===c.id||w.targetCountryId===c.id);
+    const wins=wars.filter(w=>w.status==="finished"&&w.winnerCountryId===c.id).length;
+    const finishedLoss=wars.filter(w=>w.status==="finished"&&w.winnerCountryId&&((w.countryId===c.id||w.targetCountryId===c.id)&&w.winnerCountryId!==c.id)).length;
+    const noFightLoss=wars.filter(w=>w.status==="declined"&&w.targetCountryId===c.id).length;
+    const rating=wins-finishedLoss-noFightLoss*2;
+    return {c,wars:relevant.length,wins,rating};
+  }).sort((a,b)=>b.rating-a.rating||b.wins-a.wins||a.c.name.localeCompare(b.c.name,"ru"));
+  body.innerHTML=stats.map((x,i)=>`<tr><td>${i+1}</td><td><strong>${esc(x.c.name)}</strong></td><td>${esc(x.c.president)}</td><td>${x.wars}</td><td>${x.wins}</td><td><strong>${x.rating}</strong></td></tr>`).join("")||'<tr><td colspan="6" class="empty">Пока нет государств.</td></tr>';
+}
+
+function renderCalendar(){
+  const grid=document.getElementById("calendarGrid"); if(!grid)return;
+  const items=[...state.events].filter(e=>e.type!=="battlefield"&&((e.type==="war"&&e.status==="accepted")||e.type!=="war")).sort((a,b)=>new Date(a.warStartDate||a.date||a.createdAt||0)-new Date(b.warStartDate||b.date||b.createdAt||0)).slice(0,12);
+  grid.innerHTML=items.length?items.map(e=>`<article class="news-card calendar-card"><div class="calendar-date">${formatDateTime(e.warStartDate||e.date||e.createdAt)}</div><h3>${esc(e.name)}</h3><p>${esc(e.description||"Мероприятие ССР")}</p><div class="detail"><i class="fa-solid fa-flag"></i> ${esc(e.country||"ССР")}</div>${e.location?`<div class="detail"><i class="fa-solid fa-location-dot"></i> ${esc(e.location)}</div>`:""}</article>`).join(""):'<div class="empty" style="grid-column:1/-1">Пока нет мероприятий.</div>';
+}
+
+function renderHistory(){
+  const el=document.getElementById("historyList"); if(!el)return;
+  const history=[...state.events].sort((a,b)=>new Date(b.createdAt?.toDate?.()||b.createdAt||0)-new Date(a.createdAt?.toDate?.()||a.createdAt||0)).slice(0,20);
+  el.innerHTML=history.length?history.map(e=>{
+    let text=e.type==="war"?`${e.status==="accepted"?"Игровая турнир принята":"Игровой вызов"}: ${e.country||""} → ${e.targetCountry||""}`:`${e.name||"Событие"} — ${e.country||"ССР"}`;
+    return `<div class="history-item"><strong>${esc(text)}</strong><div class="time">${formatDateTime(e.createdAt)}${e.location?` · ${esc(e.location)}`:""}</div></div>`;
+  }).join(""):'<div class="empty">История появится автоматически после новых событий.</div>';
+}
+
+let uploadedVideos=[];
+function subscribeVideos(){
+  state.listeners.push(onSnapshot(query(collection(db,"videos"),orderBy("createdAt","desc"),limit(8)),snap=>{uploadedVideos=snap.docs.map(d=>({id:d.id,...d.data()}));renderVideoGallery();},handleFirestoreError));
+}
+function renderVideoGallery(){
+  const host=document.getElementById("videoGallery"); if(!host)return;
+  if(!uploadedVideos.length){host.innerHTML='<div class="video-empty"><i class="fa-solid fa-video"></i><strong>Видео пока нет</strong><span>Загрузите первый ролик с мероприятия.</span></div>';return;}
+  host.innerHTML=uploadedVideos.map(v=>`<article class="video-card"><video controls preload="metadata" src="${esc(v.url)}"></video><div class="video-card-body"><strong>${esc(v.title||"Видео ССР")}</strong><div class="video-meta"><i class="fa-solid fa-user"></i> ${esc(v.author||"Участник")}</div></div></article>`).join("");
+}
+function ensureVideoModal(){
+  if(document.getElementById("videoUploadModal"))return;
+  const m=document.createElement("div");m.className="modal";m.id="videoUploadModal";m.setAttribute("aria-hidden","true");
+  m.innerHTML=`<div class="modal-content" style="max-width:620px"><button class="close-btn" data-video-close>×</button><div class="modal-header"><i class="fa-solid fa-cloud-arrow-up"></i> Выложить видео</div><form id="videoUploadForm"><div class="form-group"><label>Название *</label><input id="videoTitle" maxlength="120" required placeholder="Турнир на полигоне «Заря»"></div><div class="form-group"><label>Видео *</label><input id="videoFile" type="file" accept="video/mp4,video/webm,video/quicktime" required><div class="hint">До 100 МБ. Видео загрузится в Firebase Storage.</div></div><button class="form-submit" id="videoUploadSubmit">Опубликовать</button></form></div>`;
+  document.body.appendChild(m);
+  m.querySelector("[data-video-close]").onclick=()=>hideModal("videoUploadModal");
+  m.addEventListener("click",e=>{if(e.target===m)hideModal("videoUploadModal")});
+  m.querySelector("#videoUploadForm").addEventListener("submit",handleVideoUpload);
+}
+async function handleVideoUpload(e){
+  e.preventDefault();
+  if(!state.currentUser)return toast("Сначала войдите в аккаунт.");
+  const title=document.getElementById("videoTitle").value.trim(), file=document.getElementById("videoFile").files[0];
+  if(!title||!file)return;
+  if(file.size>100*1024*1024)return toast("Видео должно быть не больше 100 МБ.");
+  const btn=document.getElementById("videoUploadSubmit");btn.disabled=true;btn.textContent="Загрузка…";
+  try{
+    const path=`videos/${state.currentUser.uid}/${Date.now()}-${slug(file.name).slice(0,50)}`;
+    const ref=storageRef(storage,path); await uploadBytes(ref,file,{contentType:file.type||"video/mp4"});
+    const url=await getDownloadURL(ref);
+    const author=state.currentProfile?.president||state.currentAccount?.displayName||state.currentUser.email||"Участник";
+    await addDoc(collection(db,"videos"),{title,url,storagePath:path,author,uid:state.currentUser.uid,createdAt:serverTimestamp()});
+    hideModal("videoUploadModal");e.target.reset();toast("Видео опубликовано.");
+  }catch(err){console.error(err);toast("Не удалось загрузить видео. Проверьте Firebase Storage Rules.");}
+  finally{btn.disabled=false;btn.textContent="Опубликовать";}
+}
+let forumTopics=[];
+function subscribeForum(){
+  state.listeners.push(onSnapshot(query(collection(db,"forumTopics"),orderBy("createdAt","desc"),limit(50)),snap=>{
+    forumTopics=snap.docs.map(d=>({id:d.id,...d.data()})); renderForum();
+  },()=>renderForum()));
+}
+function renderForum(){
+  const el=document.getElementById("forumList");if(!el)return;
+  const defaults=[
+    ["Общие вопросы","Как создать государство?"],
+    ["Стратегия и тактика","Как организовать честное соревнование?"],
+    ["Снаряжение","Обсуждение экипировки и защиты"],
+    ["Предложения","Что улучшить в ССР?"],
+    ["Флудилка","Обо всём"]
+  ];
+  const items=forumTopics.length?forumTopics:defaults.map((x,i)=>({id:"default"+i,title:x[0],content:x[1],author:"ССР"}));
+  el.innerHTML=items.map(t=>`<article class="forum-topic"><div class="topic-head"><span class="topic-icon"><i class="fa-solid fa-thumbtack"></i></span><strong>${esc(t.title)}</strong></div><div style="margin-top:9px;color:var(--muted)">${esc(t.content||"")}</div><div class="meta"><i class="fa-solid fa-user"></i> ${esc(t.author||"Участник")}</div></article>`).join("");
+}
+window.openForumTopicModal=function(){
+  if(document.getElementById("forumTopicModal"))showModal("forumTopicModal");
+  else{
+    const m=document.createElement("div");m.className="modal";m.id="forumTopicModal";m.innerHTML=`<div class="modal-content" style="max-width:620px"><button class="close-btn" data-ft-close>×</button><div class="modal-header"><i class="fa-solid fa-message"></i> Создать тему</div><form id="forumTopicForm"><div class="form-group"><label>Раздел *</label><select id="forumTopicTitle"><option>Общие вопросы</option><option>Стратегия и тактика</option><option>Снаряжение</option><option>Предложения</option><option>Флудилка</option></select></div><div class="form-group"><label>Текст *</label><textarea id="forumTopicContent" rows="5" required></textarea></div><button class="form-submit">Опубликовать</button></form></div>`;document.body.appendChild(m);
+    m.querySelector("[data-ft-close]").onclick=()=>hideModal("forumTopicModal");
+    m.addEventListener("click",e=>{if(e.target===m)hideModal("forumTopicModal")});
+    m.querySelector("#forumTopicForm").addEventListener("submit",async e=>{e.preventDefault();const title=document.getElementById("forumTopicTitle").value,content=document.getElementById("forumTopicContent").value.trim();if(!content)return;if(!state.currentProfile)return toast("Войдите в кабинет президента.");try{await addDoc(collection(db,"forumTopics"),{title,content,author:state.currentProfile.president,countryName:state.currentProfile.countryName,uid:state.currentUser.uid,createdAt:serverTimestamp()});hideModal("forumTopicModal");e.target.reset();toast("Тема создана.");}catch(err){console.error(err);toast("Не удалось создать тему.");}});
+    showModal("forumTopicModal");
+  }
+};
+
+function renderExtraSections(){renderWarSection();renderRanking();renderCalendar();renderHistory();renderForum();}
+
+const oldRenderAllFinal=renderAll;
+renderAll=function(){oldRenderAllFinal();renderExtraSections();};
+
+const oldRefreshCabinetFinal=refreshCabinet;
+refreshCabinet=async function(){
+  await oldRefreshCabinetFinal();
+  const actions=document.querySelector("#cabinetContent .actions"); if(!actions)return;
+  const c=state.countries.find(x=>x.id===state.currentProfile?.countryId); if(!c)return;
+  let btn=document.getElementById("cabWarButton");
+  if(!btn){btn=document.createElement("button");btn.id="cabWarButton";actions.prepend(btn)}
+  btn.className="btn-secondary";btn.style.background="linear-gradient(135deg,#dc2626,#991b1b)";btn.innerHTML='<i class="fa-solid fa-crosshairs"></i> Организовать турнир';btn.onclick=window.openWarModal;
+  let bf=document.getElementById("cabBattlefieldButton");
+  if(!bf){bf=document.createElement("button");bf.id="cabBattlefieldButton";actions.appendChild(bf)}
+  bf.className="btn-secondary";bf.innerHTML='<i class="fa-solid fa-location-dot"></i> Добавить полигон';bf.onclick=window.openBattlefieldModal;
+};
+
+function openWarFromUI(){ if(!state.currentUser){showModal("loginModal");return;} ensureWarModal(); window.openWarModal(); }
+document.getElementById("heroWarButton")?.addEventListener("click",openWarFromUI);
+document.getElementById("heroTournamentButton")?.addEventListener("click",openWarFromUI);
+document.getElementById("warNavButton")?.addEventListener("click",()=>document.getElementById("warSection")?.scrollIntoView({behavior:"smooth",block:"start"}));
+document.getElementById("scrollMapButton")?.addEventListener("click",()=>document.getElementById("map")?.scrollIntoView({behavior:"smooth",block:"start"}));
+document.getElementById("heroVisitButton")?.addEventListener("click",()=>document.getElementById("calendarSection")?.scrollIntoView({behavior:"smooth",block:"start"}));
+document.getElementById("mapVisitButton")?.addEventListener("click",()=>document.getElementById("calendarSection")?.scrollIntoView({behavior:"smooth",block:"start"}));
+
+document.getElementById("ratingSection")?.addEventListener("click",()=>renderRanking());
+document.getElementById("presidentEventButton")?.addEventListener("click",()=>{if(!state.currentProfile){showModal("loginModal");return}openEventModal(state.currentProfile.countryId)});
+document.getElementById("createTopicButton")?.addEventListener("click",openForumTopicModal);
+
+ensureWarModal();
+ensureBattlefieldModal();
+if(typeof subscribeForum==="function") subscribeForum();
+subscribeVideos();
+ensureVideoModal();
+document.getElementById("uploadVideoButton")?.addEventListener("click",()=>{ensureVideoModal();showModal("videoUploadModal")});
+setInterval(()=>{if(document.getElementById("warGrid"))renderWarGrid()},60000);
+setTimeout(renderExtraSections,700);
+
+// ========== РАЗДЕЛ НОВОСТЕЙ ==========
+    // Подписываемся на новости
+    state.listeners.push(onSnapshot(query(collection(db, "news"), orderBy("createdAt", "desc")), snap => {
+        state.news = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderNews();
+        renderCountryDetailNews();
+    }, handleFirestoreError));
+
+    // Функция отображения новостей на главной
+    function renderNews() {
+        const grid = document.getElementById('newsGrid');
+        if (!grid) return;
+        const items = (state.news || []).slice(0, 6);
+        if (!items.length) {
+            grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">Новостей пока нет. Будьте первым!</div>`;
+            return;
+        }
+        grid.innerHTML = items.map(n => `
+            <article class="news-card">
+                <div class="news-cover">${n.image ? `<img src="${esc(n.image)}" alt="Изображение новости">` : `<i class="fa-solid fa-newspaper"></i>`}</div>
+                <div class="news-body">
+                    <div class="news-title">${esc(n.title)}</div>
+                    <div class="detail"><i class="fa-solid fa-flag"></i> ${esc(n.countryName || 'Неизвестное государство')}</div>
+                    <div class="news-excerpt">${esc(n.content)}</div>
+                    <div class="news-meta"><i class="fa-regular fa-clock"></i> ${n.createdAt ? timeText(n.createdAt) : 'Только что'} ${n.author ? ` · ${esc(n.author)}` : ''}</div>
+                    <div class="news-actions">
+                        <button class="action-btn" type="button" data-news-action="read" data-id="${esc(n.id)}"><i class="fa-solid fa-book-open"></i> Читать</button>
+                        <button class="action-btn" type="button" data-news-action="country" data-id="${esc(n.countryId || '')}"><i class="fa-solid fa-landmark"></i> Страна</button>
+                    </div>
                 </div>
             </article>
+        `).join('');
+        grid.querySelectorAll('[data-news-action]').forEach(btn=>btn.addEventListener('click',()=>{
+            const n=(state.news||[]).find(x=>x.id===btn.dataset.id);
+            if(btn.dataset.newsAction==='read' && n) showNewsDetail(n.id);
+            if(btn.dataset.newsAction==='country' && btn.dataset.id) showCountryDetail(btn.dataset.id);
+        }));
+    }
+
+    function showNewsDetail(newsId){
+        const n=(state.news||[]).find(x=>x.id===newsId);
+        if(!n)return;
+        document.getElementById('newsDetailTitle').textContent=n.title||'Новость';
+        document.getElementById('newsDetailContent').innerHTML=`
+            ${n.image?`<img src="${esc(n.image)}" alt="" style="width:100%;max-height:420px;object-fit:cover;border-radius:16px;margin-bottom:18px;">`:''}
+            <div class="detail"><i class="fa-solid fa-flag"></i> ${esc(n.countryName||'Неизвестное государство')}</div>
+            <div style="font-size:1.02rem;line-height:1.8;white-space:pre-wrap;margin-top:14px;">${esc(n.content)}</div>
+            <div class="news-meta" style="margin-top:16px;"><i class="fa-regular fa-clock"></i> ${n.createdAt?timeText(n.createdAt):'Только что'}${n.author?` · ${esc(n.author)}`:''}</div>
         `;
-    }).join('');
-}
-
-// --- Показать мероприятие на карте ---
-window.showEventOnMap = function(eventId) {
-    const ev = state.events.find(e => e.id === eventId);
-    if (!ev) return toast('Мероприятие не найдено');
-    
-    const lat = Number(ev.lat);
-    const lng = Number(ev.lng);
-    if (!coordinatesOK(lat, lng)) return toast('Неверные координаты');
-    
-    if (state.map) {
-        state.map.setView([lat, lng], 14);
-        // Анимированный маркер
-        const marker = L.marker([lat, lng], {
-            icon: L.divIcon({
-                className: 'event-marker',
-                html: '<i class="fa-solid fa-bullseye" style="color:#e11d48;font-size:32px;"></i>',
-                iconSize: [32, 32],
-                iconAnchor: [16, 16]
-            })
-        }).addTo(state.map);
-        marker.bindPopup(`
-            <strong>${esc(ev.name)}</strong><br>
-            Организатор: ${esc(ev.country)}<br>
-            Дата: ${esc(ev.date)}
-        `).openPopup();
-        
-        // Убираем маркер через 5 секунд
-        setTimeout(() => state.map.removeLayer(marker), 5000);
+        showModal('newsDetailModal');
     }
-    toast('📍 Мероприятие отмечено на карте');
-};
 
-// --- Участие в мероприятии ---
-window.joinEvent = function(eventId) {
-    const ev = state.events.find(e => e.id === eventId);
-    if (!ev) return toast('Мероприятие не найдено');
-    
-    if (!state.currentUser) {
-        toast('Сначала войдите в кабинет президента');
-        showModal('loginModal');
-        return;
-    }
-    
-    const country = state.countries.find(c => c.id === state.currentProfile?.countryId);
-    if (!country) {
-        toast('Ваше государство не найдено');
-        return;
-    }
-    
-    // Проверяем, не зарегистрировано ли уже
-    const already = ev.participants?.includes(country.name);
-    if (already) {
-        toast(`Вы уже участвуете в «${ev.name}»`);
-        return;
-    }
-    
-    if (confirm(`Ваше государство «${country.name}» подтверждает участие в военном конфликте «${ev.name}»?`)) {
-        // Добавляем участника в Firestore
-        const participants = ev.participants || [];
-        participants.push(country.name);
-        
-        import('https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js').then(({ updateDoc, doc }) => {
-            const ref = doc(db, 'events', eventId);
-            updateDoc(ref, { participants });
-            toast(`✅ «${country.name}» вступает в битву!`);
-        }).catch(err => {
-            console.error(err);
-            toast('Ошибка записи в Firestore');
-        });
-    }
-};
-
-// --- Удаление мероприятия (только для организатора) ---
-window.deleteEvent = function(eventId) {
-    if (!confirm('Удалить это мероприятие?')) return;
-    
-    import('https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js').then(({ deleteDoc, doc }) => {
-        const ref = doc(db, 'events', eventId);
-        deleteDoc(ref);
-        toast('Мероприятие отменено');
-    }).catch(err => {
-        console.error(err);
-        toast('Ошибка удаления');
-    });
-};
-
-// --- Добавляем кнопку в кабинет президента для создания конфликта ---
-// Патчим renderCabinet, чтобы добавить новый тип события "Военный конфликт"
-const originalRenderCabinet = window.renderCabinet || function() {};
-window.renderCabinet = function(country) {
-    originalRenderCabinet(country);
-    
-    // Добавляем кнопку "Военный конфликт" если её нет
-    const actions = document.querySelector('#cabinetContent .actions');
-    if (actions && !actions.querySelector('#cabWarButton')) {
-        const btn = document.createElement('button');
-        btn.className = 'btn-secondary';
-        btn.id = 'cabWarButton';
-        btn.innerHTML = '<i class="fa-solid fa-bomb"></i> Военный конфликт';
-        btn.onclick = () => openWarModal(country.id);
-        actions.appendChild(btn);
-    }
-};
-
-// --- Модалка для создания военного конфликта ---
-function openWarModal(countryId) {
-    // Создаём модалку, если её нет
-    let modal = document.getElementById('warModal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.id = 'warModal';
-        modal.setAttribute('aria-hidden', 'true');
-        modal.innerHTML = `
-            <div class="modal-content" style="max-width:550px;">
-                <button class="close-btn" data-close="warModal">×</button>
-                <div class="modal-header"><i class="fa-solid fa-bomb" style="color:var(--accent);"></i> Объявить военный конфликт</div>
-                <form id="warForm">
-                    <input type="hidden" id="warCountryId" value="${esc(countryId)}">
-                    <div class="form-group">
-                        <label>Название конфликта *</label>
-                        <input id="warName" placeholder="Битва за сектор X" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Описание (цели, условия)</label>
-                        <textarea id="warDescription" rows="3" placeholder="Захват флага, удержание территории..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Дата и время сбора *</label>
-                        <input id="warDate" type="datetime-local" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Координаты места сбора *</label>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                            <input id="warLat" placeholder="55.7558" required>
-                            <input id="warLng" placeholder="37.6176" required>
-                        </div>
-                        <div class="hint">Координаты договорённой площадки для боя</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Правила конфликта</label>
-                        <select id="warRules">
-                            <option value="стандарт">Стандартные (попадание — выбывание)</option>
-                            <option value="захват_флага">Захват флага</option>
-                            <option value="удержание">Удержание территории</option>
-                            <option value="свои_правила">Свои правила</option>
-                        </select>
-                    </div>
-                    <button class="form-submit" type="submit">⚔️ Объявить конфликт</button>
-                </form>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        
-        // Обработчик формы
-        modal.querySelector('#warForm').addEventListener('submit', handleWarSubmit);
-        
-        // Закрытие
-        modal.querySelector('[data-close="warModal"]').onclick = () => hideModal('warModal');
-        modal.addEventListener('click', (e) => { if (e.target === modal) hideModal('warModal'); });
-    }
-    
-    // Устанавливаем countryId
-    document.getElementById('warCountryId').value = countryId;
-    
-    // Автозаполнение даты (через 2 часа от текущего момента)
-    const now = new Date();
-    now.setHours(now.getHours() + 2);
-    document.getElementById('warDate').value = now.toISOString().slice(0, 16);
-    
-    showModal('warModal');
-}
-
-// --- Обработка создания военного конфликта ---
-async function handleWarSubmit(e) {
-    e.preventDefault();
-    
-    const countryId = document.getElementById('warCountryId').value;
-    const name = document.getElementById('warName').value.trim();
-    const description = document.getElementById('warDescription').value.trim();
-    const date = document.getElementById('warDate').value;
-    const lat = document.getElementById('warLat').value.trim();
-    const lng = document.getElementById('warLng').value.trim();
-    const rules = document.getElementById('warRules').value;
-    
-    if (!name || !date || !coordinatesOK(lat, lng)) {
-        alert('Заполните все обязательные поля и проверьте координаты.');
-        return;
-    }
-    
-    const country = state.countries.find(c => c.id === countryId);
-    if (!country) {
-        alert('Ваше государство не найдено');
-        return;
-    }
-    
-    const fullDescription = `⚔️ ${description || 'Боевые действия'}\n📋 Правила: ${rules === 'свои_правила' ? 'будут объявлены на месте' : rules}`;
-    
-    try {
-        await addDoc(collection(db, 'events'), {
-            countryId,
-            country: country.name,
-            name,
-            description: fullDescription,
-            date,
-            lat,
-            lng,
-            type: 'war',
-            rules,
-            participants: [country.name], // организатор участвует автоматически
-            createdAt: serverTimestamp(),
-            uid: state.currentUser?.uid || null
-        });
-        
-        hideModal('warModal');
-        document.getElementById('warForm').reset();
-        toast(`⚔️ Военный конфликт «${name}» объявлен!`);
-        
-        // Отправляем сообщение в чат
-        try {
-            await addDoc(collection(db, 'chatMessages'), {
-                text: `⚔️ ВНИМАНИЕ! Объявлен военный конфликт «${name}»! Организатор: ${country.name}. Сбор ${date}.`,
-                sender: `⚠️ Военный штаб ССР`,
-                uid: null,
-                createdAt: serverTimestamp()
-            });
-        } catch (chatErr) {
-            console.warn('Не удалось отправить уведомление в чат', chatErr);
-        }
-        
-    } catch (err) {
-        console.error(err);
-        alert('Не удалось объявить конфликт. Проверьте подключение к Firestore.');
-    }
-}
-
-// --- Патчим renderEventsSection для обновления при изменении данных ---
-// Переопределяем renderAll, чтобы обновлялась секция мероприятий
-const originalRenderAll = window.renderAll || function() {};
-window.renderAll = function() {
-    originalRenderAll();
-    renderEventsGrid();
-};
-
-// --- Инициализация раздела мероприятий при загрузке ---
-const originalInit = window.onload || function() {};
-window.onload = function() {
-    originalInit();
-    renderEventsSection();
-};
-
-// Вызываем сразу, если DOM уже загружен
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(renderEventsSection, 500);
-} else {
-    document.addEventListener('DOMContentLoaded', renderEventsSection);
-}
-// ============================================================
-// РАЗДЕЛ «ВОЕННЫЕ КОНФЛИКТЫ» — ОБЪЯВЛЕНИЕ ВОЙНЫ
-// ============================================================
-
-// Проверяем, не определены ли уже функции
-if (typeof window.warSystemInitialized === 'undefined') {
-    window.warSystemInitialized = true;
-
-    // --- Рендер секции военных конфликтов на главной ---
-    window.renderWarSection = function() {
-        let section = document.getElementById('warSection');
-        if (!section) {
-            section = document.createElement('section');
-            section.id = 'warSection';
-            section.style.marginTop = '40px';
-            
-            const title = document.createElement('h2');
-            title.className = 'section-title';
-            title.innerHTML = `<i class="fa-solid fa-crosshairs"></i> Военные конфликты`;
-            section.appendChild(title);
-            
-            const grid = document.createElement('div');
-            grid.className = 'country-grid';
-            grid.id = 'warGrid';
-            section.appendChild(grid);
-            
-            const registry = document.getElementById('countriesList');
-            if (registry) {
-                registry.closest('section')?.after(section);
-            } else {
-                document.querySelector('.container')?.appendChild(section);
-            }
-        }
-        window.renderWarGrid();
-    };
-
-    // --- Рендер карточек военных конфликтов ---
-    window.renderWarGrid = function() {
-        const grid = document.getElementById('warGrid');
-        if (!grid) return;
-        
-        const wars = state.events.filter(ev => ev.type === 'war');
-        const now = new Date();
-        
-        wars.sort((a, b) => {
-            const da = new Date(a.deadline || a.date);
-            const db = new Date(b.deadline || b.date);
-            return da - db;
-        });
-        
-        if (!wars.length) {
-            grid.innerHTML = `
-                <div class="empty" style="grid-column:1/-1;padding:30px;">
-                    <i class="fa-solid fa-dove" style="font-size:2.5rem;display:block;margin-bottom:12px;color:var(--muted);"></i>
-                    Нет активных военных конфликтов. 
-                    <br><small style="color:var(--muted)">Нажмите «Начать войну» в кабинете президента.</small>
-                </div>
-            `;
-            return;
-        }
-        
-        grid.innerHTML = wars.map(war => {
-            const targetCountry = state.countries.find(c => c.id === war.targetCountryId);
-            const initiatorCountry = state.countries.find(c => c.id === war.countryId);
-            const isExpired = new Date(war.deadline) < now;
-            const isAccepted = war.status === 'accepted';
-            const isDeclined = war.status === 'declined';
-            
-            let statusText = '⏳ Ожидание ответа';
-            let statusColor = '#eab308';
-            if (isAccepted) {
-                statusText = '✅ Принята';
-                statusColor = 'var(--success)';
-            } else if (isDeclined) {
-                statusText = '❌ Отклонена';
-                statusColor = 'var(--accent)';
-            } else if (isExpired) {
-                statusText = '⌛ Срок истёк';
-                statusColor = 'var(--muted)';
-            }
-            
-            return `
-                <article class="country-card" style="border-left: 4px solid ${statusColor};">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
-                        <div style="font-weight:800;font-size:1.1rem;">⚔️ ${esc(war.name)}</div>
-                        <div style="font-size:0.8rem;color:${statusColor};font-weight:700;">${statusText}</div>
-                    </div>
-                    <div class="detail"><i class="fa-solid fa-flag"></i> Инициатор: ${esc(initiatorCountry?.name || war.country)}</div>
-                    <div class="detail"><i class="fa-solid fa-bullseye"></i> Цель: ${esc(targetCountry?.name || war.targetCountry)}</div>
-                    <div class="detail"><i class="fa-solid fa-clock"></i> Срок ответа: ${esc(new Date(war.deadline).toLocaleString('ru-RU'))}</div>
-                    ${war.location ? `<div class="detail"><i class="fa-solid fa-location-dot"></i> Место: ${esc(war.location)}</div>` : ''}
-                    ${war.reason ? `<div class="detail"><i class="fa-solid fa-question-circle"></i> Причина: ${esc(war.reason)}</div>` : ''}
-                    
-                    ${!isAccepted && !isDeclined && !isExpired && state.currentProfile?.countryId === war.targetCountryId ? `
-                        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-                            <button class="action-btn" style="background:var(--success);color:#fff;border-color:var(--success);" onclick="window.acceptWar('${war.id}')">
-                                <i class="fa-solid fa-check"></i> Принять
-                            </button>
-                            <button class="action-btn" style="background:var(--accent);color:#fff;border-color:var(--accent);" onclick="window.declineWar('${war.id}')">
-                                <i class="fa-solid fa-xmark"></i> Отклонить
-                            </button>
-                        </div>
-                    ` : ''}
-                    
-                    ${isAccepted ? `
-                        <div style="margin-top:14px;padding:10px;background:var(--surface2);border-radius:10px;">
-                            <strong>📍 Место войны:</strong> ${esc(war.location || 'Не выбрано')}
-                            <br><strong>🛡️ Подготовка:</strong> 10 дней с момента принятия
-                        </div>
-                    ` : ''}
-                </article>
-            `;
-        }).join('');
-    };
-
-    // --- Принятие войны ---
-    window.acceptWar = async function(warId) {
-        const war = state.events.find(e => e.id === warId);
-        if (!war) return toast('Война не найдена');
-        
-        const location = prompt('Введите место проведения войны (координаты или описание):');
-        if (!location) return;
-        
-        try {
-            await updateDoc(doc(db, 'events', warId), {
-                status: 'accepted',
-                location: location,
-                acceptedAt: serverTimestamp(),
-                warStartDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString()
-            });
-            
-            // Уведомление в чат
-            await addDoc(collection(db, 'chatMessages'), {
-                text: `✅ Война «${war.name}» ПРИНЯТА! Место: ${location}. Подготовка 10 дней.`,
-                sender: '⚠️ Военный штаб ССР',
-                uid: null,
-                createdAt: serverTimestamp()
-            });
-            
-            toast('✅ Война принята! Началась подготовка.');
-        } catch (err) {
-            console.error(err);
-            toast('Ошибка принятия войны');
-        }
-    };
-
-    // --- Отклонение войны ---
-    window.declineWar = async function(warId) {
-        const war = state.events.find(e => e.id === warId);
-        if (!war) return toast('Война не найдена');
-        
-        if (!confirm(`Отклонить войну «${war.name}»?`)) return;
-        
-        try {
-            await updateDoc(doc(db, 'events', warId), {
-                status: 'declined',
-                declinedAt: serverTimestamp()
-            });
-            
-            await addDoc(collection(db, 'chatMessages'), {
-                text: `❌ Война «${war.name}» отклонена.`,
-                sender: '⚠️ Военный штаб ССР',
-                uid: null,
-                createdAt: serverTimestamp()
-            });
-            
-            toast('Война отклонена');
-        } catch (err) {
-            console.error(err);
-            toast('Ошибка отклонения войны');
-        }
-    };
-
-    // --- Модальное окно для начала войны ---
-    window.openWarModal = function() {
-        let modal = document.getElementById('warModal');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.id = 'warModal';
-            modal.setAttribute('aria-hidden', 'true');
-            modal.innerHTML = `
-                <div class="modal-content" style="max-width:550px;">
-                    <button class="close-btn" data-close="warModal">×</button>
-                    <div class="modal-header"><i class="fa-solid fa-bomb" style="color:var(--accent);"></i> Начать войну</div>
-                    <form id="warForm">
-                        <div class="form-group">
-                            <label>Название войны *</label>
-                            <input id="warName" placeholder="Война за территорию..." required>
-                        </div>
-                        <div class="form-group">
-                            <label>Целевое государство *</label>
-                            <select id="warTargetCountry" required>
-                                <option value="">Выберите государство...</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Причина войны</label>
-                            <textarea id="warReason" rows="3" placeholder="Территориальный спор, ресурсы..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Срок ответа (дней)</label>
-                            <input id="warDeadline" type="number" min="1" max="30" value="10" required>
-                            <div class="hint">Целевое государство должно ответить в течение этого срока</div>
-                        </div>
-                        <button class="form-submit" type="submit">⚔️ Объявить войну</button>
-                    </form>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            
-            modal.querySelector('#warForm').addEventListener('submit', window.handleWarSubmit);
-            modal.querySelector('[data-close="warModal"]').onclick = () => hideModal('warModal');
-            modal.addEventListener('click', (e) => { if (e.target === modal) hideModal('warModal'); });
-        }
-        
-        // Заполняем список целевых государств
-        const targetSelect = document.getElementById('warTargetCountry');
-        targetSelect.innerHTML = '<option value="">Выберите государство...</option>' + 
-            state.countries
-                .filter(c => c.id !== state.currentProfile?.countryId)
-                .map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`)
-                .join('');
-        
-        showModal('warModal');
-    };
-
-    // --- Обработка объявления войны ---
-    window.handleWarSubmit = async function(e) {
+    // Добавляем новость
+    async function handleAddNews(e) {
         e.preventDefault();
-        
-        const name = document.getElementById('warName').value.trim();
-        const targetCountryId = document.getElementById('warTargetCountry').value;
-        const reason = document.getElementById('warReason').value.trim();
-        const deadlineDays = Number(document.getElementById('warDeadline').value);
-        
-        if (!name || !targetCountryId) {
-            alert('Заполните обязательные поля');
-            return;
+        const countryId = document.getElementById('newsCountryId').value;
+        const title = document.getElementById('newsTitle').value.trim();
+        const content = document.getElementById('newsContent').value.trim();
+        if (!title || !content) return alert('Заполните заголовок и текст');
+        const country = state.countries.find(c => c.id === countryId);
+        if (!country) return alert('Страна не найдена');
+        let image = null;
+        const file = document.getElementById('newsFileInput').files[0];
+        if (file) {
+            if (file.size > 900 * 1024) return alert('Изображение не должно превышать 900 КБ');
+            image = await fileToDataURL(file);
         }
-        
-        const currentCountry = state.countries.find(c => c.id === state.currentProfile?.countryId);
-        const targetCountry = state.countries.find(c => c.id === targetCountryId);
-        
-        if (!currentCountry || !targetCountry) {
-            alert('Государства не найдены');
-            return;
-        }
-        
-        const deadline = new Date(Date.now() + deadlineDays * 24 * 60 * 60 * 1000).toISOString();
-        
         try {
-            await addDoc(collection(db, 'events'), {
-                type: 'war',
-                name: name,
-                countryId: currentCountry.id,
-                country: currentCountry.name,
-                targetCountryId: targetCountry.id,
-                targetCountry: targetCountry.name,
-                reason: reason,
-                deadline: deadline,
-                status: 'pending',
+            await addDoc(collection(db, "news"), {
+                countryId,
+                countryName: country.name,
+                title,
+                content,
+                image,
+                author: state.currentProfile?.president || 'Руководитель микрогосударства',
                 createdAt: serverTimestamp(),
                 uid: state.currentUser?.uid || null
             });
-            
-            // Уведомление в чат
-            await addDoc(collection(db, 'chatMessages'), {
-                text: `⚔️ ВОЙНА ОБЪЯВЛЕНА! «${name}» — ${currentCountry.name} атакует ${targetCountry.name}! Причина: ${reason || 'не указана'}. Ответ в течение ${deadlineDays} дней.`,
-                sender: '⚠️ Военный штаб ССР',
-                uid: null,
-                createdAt: serverTimestamp()
-            });
-            
-            hideModal('warModal');
-            document.getElementById('warForm').reset();
-            toast(`⚔️ Война «${name}» объявлена!`);
-            
-            window.renderWarGrid();
-            
+            hideModal('addNewsModal');
+            document.getElementById('addNewsForm').reset();
+            document.getElementById('newsFileName').textContent = 'Файл не выбран';
+            toast('Новость опубликована!');
         } catch (err) {
             console.error(err);
-            alert('Не удалось объявить войну');
-        }
-    };
-
-    // --- Добавляем кнопку в кабинет президента ---
-    function addWarButtonToCabinet() {
-        const actions = document.querySelector('#cabinetContent .actions');
-        if (actions && !actions.querySelector('#cabWarButton')) {
-            const btn = document.createElement('button');
-            btn.className = 'btn-secondary';
-            btn.id = 'cabWarButton';
-            btn.style.background = 'linear-gradient(135deg,#dc2626,#991b1b)';
-            btn.innerHTML = '<i class="fa-solid fa-crosshairs"></i> Начать войну';
-            btn.onclick = window.openWarModal;
-            actions.appendChild(btn);
+            alert('Не удалось добавить новость');
         }
     }
 
-    // --- Патчим refreshCabinet для добавления кнопки ---
-    const originalRefreshCabinet = window.refreshCabinet || refreshCabinet;
-    window.refreshCabinet = async function() {
-        await originalRefreshCabinet.call(this);
-        addWarButtonToCabinet();
+    // Открываем модалку добавления новости
+    function openAddNewsModal(countryId) {
+        document.getElementById('newsCountryId').value = countryId;
+        document.getElementById('addNewsForm').reset();
+        document.getElementById('newsFileName').textContent = 'Файл не выбран';
+        showModal('addNewsModal');
+    }
+
+    // Подробная информация о стране
+    function showCountryDetail(countryId) {
+        const country = state.countries.find(c => c.id === countryId);
+        if (!country) return toast('Страна не найдена');
+        document.getElementById('detailCountryName').textContent = country.name;
+        const flag = country.flagData || '';
+        document.getElementById('detailFlag').src = flag || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="60"%3E%3Crect width="100" height="60" fill="%23e2e8f0"/%3E%3Ctext x="50" y="35" text-anchor="middle" fill="%2394a3b8" font-size="16"%3EФлаг%3C/text%3E%3C/svg%3E';
+        document.getElementById('detailInfo').innerHTML = `
+            <p><strong>Руководитель микрогосударства:</strong> ${esc(country.president)}</p>
+            <p><strong>Столица:</strong> ${esc(country.capital)}</p>
+            <p><strong>Площадь:</strong> ${Number(country.area||0).toLocaleString('ru-RU')} км²</p>
+            <p><strong>Население:</strong> ${Number(country.population||0).toLocaleString('ru-RU')} чел.</p>
+            <p><strong>Год основания:</strong> ${esc(country.founded || 'не указан')}</p>
+            <p><strong>Телефон:</strong> ${esc(country.phone || 'не указан')}</p>
+            <p><strong>Легитимность:</strong> ${esc(country.legitimacy || 'не указана')}</p>
+            ${country.gallery ? `<p><a href="${safeURL(country.gallery)}" target="_blank" rel="noopener"><i class="fa-solid fa-images"></i> Галерея</a></p>` : ''}
+            <p><strong>Координаты:</strong> ${esc(country.latitude)}, ${esc(country.longitude)}</p>
+        `;
+        // Показываем кнопку "Добавить новость", если пользователь президент этой страны
+        const addBtn = document.getElementById('detailAddNewsBtn');
+        if (state.currentProfile?.countryId === countryId) {
+            addBtn.style.display = 'inline-flex';
+            addBtn.onclick = () => openAddNewsModal(countryId);
+        } else {
+            addBtn.style.display = 'none';
+        }
+        // Загружаем новости страны
+        renderCountryDetailNews(countryId);
+        showModal('countryDetailModal');
+    }
+
+    function renderCountryDetailNews(countryId) {
+        const container = document.getElementById('detailNewsList');
+        if (!container) return;
+        const cid = countryId || (state.countries.find(c => c.id === (document.getElementById('detailCountryName').textContent ? state.countries.find(c => c.name === document.getElementById('detailCountryName').textContent)?.id : null))?.id);
+        const items = (state.news || []).filter(n => n.countryId === cid);
+        if (!items.length) {
+            container.innerHTML = `<div class="empty" style="padding:20px;">Новостей этого государства пока нет.</div>`;
+            return;
+        }
+        container.innerHTML = items.map(n => `
+            <div style="padding:12px; border-bottom:1px solid var(--border); margin-bottom:8px;">
+                <div style="font-weight:700;">${esc(n.title)}</div>
+                <div style="font-size:0.9rem;color:var(--muted);">${esc(n.content)}</div>
+                ${n.image ? `<img src="${esc(n.image)}" style="max-width:100%;max-height:150px;border-radius:8px;margin-top:8px;">` : ''}
+                <div style="font-size:0.75rem;color:var(--muted);margin-top:6px;">${n.createdAt ? timeText(n.createdAt) : ''}</div>
+            </div>
+        `).join('');
+    }
+
+    // Патчим renderCountries, добавляем кнопку "Подробнее"
+    const originalRenderCountries = window.renderCountries || renderCountries;
+    window.renderCountries = function() {
+        // Вызываем оригинал
+        originalRenderCountries.call(this);
+        // Добавляем обработчики для новых кнопок "Подробнее" (data-action="detail")
+        document.querySelectorAll('[data-action="detail"]').forEach(btn => {
+            btn.onclick = (e) => {
+                const id = btn.dataset.id;
+                showCountryDetail(id);
+            };
+        });
     };
 
-    // --- Обновляем renderAll для включения военной секции ---
-    const originalRenderAll = window.renderAll || renderAll;
-    window.renderAll = function() {
-        originalRenderAll.call(this);
-        window.renderWarSection();
+    // Дополняем функцию renderCountries, чтобы вставлять кнопку "Подробнее"
+    // Переопределим рендер карточек, добавив кнопку
+    // Можем заменить функцию полностью, но лучше переопределить через патч
+    const origRenderCountriesFull = renderCountries;
+    renderCountries = function() {
+        const el = document.getElementById('countriesList');
+        const items = getCountries();
+        if (!items.length) { el.innerHTML = '<div class="empty">Ничего не найдено.</div>'; return; }
+        el.innerHTML = items.map(c => {
+            const count = state.citizens.filter(x => x.countryId === c.id).length;
+            const flag = c.flagData ? `<img src="${esc(c.flagData)}" alt="Флаг">` : `<i class="fa-solid fa-flag"></i>`;
+            return `<article class="country-card"><div class="flag">${flag}</div><div class="country-body">
+                <div class="country-name">${esc(c.name)}</div>
+                <div class="detail"><i class="fa-solid fa-user-tie"></i> Руководитель микрогосударства: ${esc(c.president)}</div>
+                <div class="detail"><i class="fa-solid fa-city"></i> Столица: ${esc(c.capital)}</div>
+                <div class="detail"><i class="fa-solid fa-vector-square"></i> ${Number(c.area||0).toLocaleString("ru-RU")} км²</div>
+                <div class="detail"><i class="fa-solid fa-users"></i> ${Number(c.population||0).toLocaleString("ru-RU")} чел.</div>
+                <div class="detail"><i class="fa-solid fa-id-card"></i> Участники: ${count}</div>
+                ${c.founded ? `<div class="detail"><i class="fa-solid fa-calendar"></i> Основано: ${esc(c.founded)}</div>` : ''}
+                ${c.gallery ? `<a href="${safeURL(c.gallery)}" target="_blank" rel="noopener noreferrer" class="detail" style="display:inline-block;margin-top:8px"><i class="fa-solid fa-images"></i> Галерея</a>` : ''}
+                <div class="actions">
+                    <button class="action-btn" data-action="citizen" data-id="${esc(c.id)}">Участником</button>
+                    <button class="action-btn" data-action="votes" data-id="${esc(c.id)}">Голосования</button>
+                    <button class="action-btn" data-action="citizens" data-id="${esc(c.id)}">Участники</button>
+                    <button class="action-btn" data-action="detail" data-id="${esc(c.id)}" style="background:var(--accent);color:#fff;border-color:var(--accent);">Подробнее</button>
+                </div>
+            </div></article>`
+        }).join('');
+        // Назначаем обработчики
+        el.querySelectorAll('[data-action]').forEach(b => b.addEventListener('click', () => {
+            const c = state.countries.find(x => x.id === b.dataset.id);
+            if (!c) return;
+            if (b.dataset.action === 'citizen') openCitizenRegistration(c.id);
+            else if (b.dataset.action === 'votes') openVoteList(c.id);
+            else if (b.dataset.action === 'citizens') showCitizensList(c.id);
+            else if (b.dataset.action === 'detail') showCountryDetail(c.id);
+        }));
     };
 
-    // --- Инициализация при загрузке ---
+    // Добавляем кнопку "Добавить новость" в кабинет президента
+    const origRefreshCabinet = refreshCabinet;
+    refreshCabinet = async function() {
+        await origRefreshCabinet.call(this);
+        // Добавляем кнопку в кабинет, если её нет
+        const actions = document.querySelector('#cabinetContent .actions');
+        if (actions && !actions.querySelector('#cabAddNewsBtn')) {
+            const btn = document.createElement('button');
+            btn.className = 'btn-secondary';
+            btn.id = 'cabAddNewsBtn';
+            btn.innerHTML = '<i class="fa-solid fa-newspaper"></i> Добавить новость';
+            btn.onclick = () => {
+                const country = state.countries.find(c => c.id === state.currentProfile?.countryId);
+                if (country) openAddNewsModal(country.id);
+                else toast('Сначала войдите в кабинет');
+            };
+            actions.appendChild(btn);
+        }
+    };
+
+    // Инициализация обработчиков
+    document.getElementById('addNewsForm').addEventListener('submit', handleAddNews);
+    document.getElementById('newsFilePicker').onclick = () => document.getElementById('newsFileInput').click();
+    document.getElementById('newsFileInput').addEventListener('change', e => {
+        document.getElementById('newsFileName').textContent = e.target.files[0] ? `Выбран: ${e.target.files[0].name}` : 'Файл не выбран';
+    });
+
+    // При открытии модалки страны обновляем новости
+    document.getElementById('countryDetailModal').addEventListener('open', function() {
+        const name = document.getElementById('detailCountryName').textContent;
+        const c = state.countries.find(x => x.name === name);
+        if (c) renderCountryDetailNews(c.id);
+    });
+
+    // Также обновляем при загрузке новостей
+    renderCountryDetailNews = function(countryId) {
+        const container = document.getElementById('detailNewsList');
+        if (!container) return;
+        const cid = countryId || (() => {
+            const name = document.getElementById('detailCountryName')?.textContent;
+            if (name) {
+                const c = state.countries.find(x => x.name === name);
+                return c?.id;
+            }
+            return null;
+        })();
+        if (!cid) { container.innerHTML = '<div class="empty">Выберите государство</div>'; return; }
+        const items = (state.news || []).filter(n => n.countryId === cid);
+        if (!items.length) {
+            container.innerHTML = `<div class="empty" style="padding:20px;">Новостей этого государства пока нет.</div>`;
+            return;
+        }
+        container.innerHTML = items.map(n => `
+            <div style="padding:12px; border-bottom:1px solid var(--border); margin-bottom:8px;">
+                <div style="font-weight:700;">${esc(n.title)}</div>
+                <div style="font-size:0.9rem;color:var(--muted);">${esc(n.content)}</div>
+                ${n.image ? `<img src="${esc(n.image)}" style="max-width:100%;max-height:150px;border-radius:8px;margin-top:8px;">` : ''}
+                <div style="font-size:0.75rem;color:var(--muted);margin-top:6px;">${n.createdAt ? timeText(n.createdAt) : ''}</div>
+            </div>
+        `).join('');
+    };
+
+    // Добавим в renderAll вызов renderNews
+    const origRenderAll = renderAll;
+    renderAll = function() {
+        origRenderAll.call(this);
+        renderNews();
+    };
+
+    // Инициализируем секцию новостей при загрузке
     setTimeout(() => {
-        window.renderWarSection();
-        window.renderWarGrid();
+        renderNews();
     }, 1000);
+
+    document.getElementById('newsButton')?.addEventListener('click',()=>document.getElementById('newsSection')?.scrollIntoView({behavior:'smooth',block:'start'}));
+    document.getElementById('openNewsTopButton')?.addEventListener('click',()=>document.getElementById('newsSection')?.scrollIntoView({behavior:'smooth',block:'start'}));
+    document.querySelector('[data-close="newsDetailModal"]')?.addEventListener('click',()=>hideModal('newsDetailModal'));
+
+    // Кнопка "Подробнее" уже добавлена в renderCountries
+    // Также добавим обработчик для закрытия модалки новостей
+    document.querySelector('[data-close="addNewsModal"]').addEventListener('click', () => hideModal('addNewsModal'));
+    document.querySelector('[data-close="countryDetailModal"]').addEventListener('click', () => hideModal('countryDetailModal'));
+
+// ========================= AUTH + CITIZEN ACCOUNTS + FORUM 2.0 =========================
+function accountDisplayName(){
+  return state.currentProfile?.role === 'citizen' ? (state.currentProfile.displayName || 'Участник') : (state.currentProfile?.president || 'Руководитель микрогосударства');
 }
+function accountRoleLabel(){
+  return state.currentProfile?.role === 'citizen' ? 'Участник' : 'Руководитель микрогосударства';
+}
+function ensureAccountAuthModal(){
+  let m=document.getElementById('accountAuthModal');
+  if(m)return m;
+  m=document.createElement('div'); m.className='modal'; m.id='accountAuthModal'; m.setAttribute('aria-hidden','true');
+  m.innerHTML=`<div class="modal-content" style="max-width:540px">
+    <button class="close-btn" data-close-account>×</button>
+    <div class="modal-header"><i class="fa-solid fa-user-circle"></i> Аккаунт ССР</div>
+    <div class="auth-switch"><button type="button" id="authLoginTab" class="active">Вход</button><button type="button" id="authRegisterTab">Регистрация</button></div>
+    <div id="authLoginPane">
+      <div class="auth-choice-grid">
+        <button type="button" class="auth-choice active" data-login-role="citizen"><i class="fa-solid fa-user"></i><strong>Участник</strong><small>Вход по email и паролю</small></button>
+        <button type="button" class="auth-choice" data-login-role="president"><i class="fa-solid fa-flag"></i><strong>Руководитель микрогосударства</strong><small>Вход по названию команды</small></button>
+      </div>
+      <form id="accountLoginForm">
+        <div class="form-group"><label id="accountLoginLabel">Email *</label><input id="accountLoginId" required autocomplete="username"></div>
+        <div class="form-group"><label>Пароль *</label><input id="accountLoginPassword" type="password" required autocomplete="current-password"></div>
+        <button class="form-submit" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Войти</button>
+      </form>
+    </div>
+    <div id="authRegisterPane" style="display:none">
+      <div class="auth-choice-grid">
+        <button type="button" class="auth-choice active" data-register-role="citizen"><i class="fa-solid fa-user-plus"></i><strong>Участник</strong><small>Создать личный аккаунт</small></button>
+        <button type="button" class="auth-choice" data-register-role="president"><i class="fa-solid fa-flag"></i><strong>Микрогосударство</strong><small>Создать микрогосударство через заявку</small></button>
+      </div>
+      <form id="accountRegisterForm">
+        <div id="citizenRegisterFields">
+          <div class="form-group"><label>Имя *</label><input id="accountRegName" required autocomplete="name"></div>
+          <div class="form-group"><label>Возраст *</label><input id="accountRegAge" type="number" min="14" required></div>
+          <div class="form-group"><label>Микрогосударство <span style="font-weight:500;color:var(--muted)">(необязательно)</span></label><select id="accountRegCountry"><option value="">Без микрогосударства</option></select><div class="hint">Микрогосударство можно выбрать позже в личном кабинете.</div></div>
+          <div class="form-group"><label>Email *</label><input id="accountRegEmail" type="email" required autocomplete="email"></div>
+          <div class="form-group"><label>Пароль *</label><input id="accountRegPassword" type="password" minlength="6" required autocomplete="new-password"></div>
+          <div class="form-group"><label>Повторите пароль *</label><input id="accountRegPassword2" type="password" minlength="6" required autocomplete="new-password"></div>
+          <button class="form-submit" type="submit"><i class="fa-solid fa-user-plus"></i> Создать аккаунт</button>
+        </div>
+        <div id="presidentRegisterFields" style="display:none">
+          <div class="notice"><strong>Создание команды</strong><span>Для руководителя команды используется полноценная заявка с названием, символикой, координатами и другими данными.</span></div>
+          <button class="form-submit" id="goPresidentRegistration" type="button" style="margin-top:12px"><i class="fa-solid fa-flag"></i> Создать микрогосударство</button>
+        </div>
+      </form>
+    </div>
+  </div>`;
+  document.body.appendChild(m);
+  m.querySelector('[data-close-account]').onclick=()=>hideModal('accountAuthModal');
+  m.addEventListener('click',e=>{if(e.target===m)hideModal('accountAuthModal')});
+  m.querySelector('#authLoginTab').onclick=()=>{m.querySelector('#authLoginTab').classList.add('active');m.querySelector('#authRegisterTab').classList.remove('active');m.querySelector('#authLoginPane').style.display='block';m.querySelector('#authRegisterPane').style.display='none';};
+  m.querySelector('#authRegisterTab').onclick=()=>{m.querySelector('#authRegisterTab').classList.add('active');m.querySelector('#authLoginTab').classList.remove('active');m.querySelector('#authLoginPane').style.display='none';m.querySelector('#authRegisterPane').style.display='block';renderAccountRegCountries();};
+  m.querySelectorAll('[data-login-role]').forEach(btn=>btn.onclick=()=>selectLoginRole(btn.dataset.loginRole));
+  m.querySelectorAll('[data-register-role]').forEach(btn=>btn.onclick=()=>selectRegisterRole(btn.dataset.registerRole));
+  m.querySelector('#accountLoginForm').addEventListener('submit',handleAccountLogin);
+  m.querySelector('#accountRegisterForm').addEventListener('submit',handleAccountRegister);
+  m.querySelector('#goPresidentRegistration').onclick=()=>{hideModal('accountAuthModal');showModal('applicationModal');};
+  return m;
+}
+function selectLoginRole(role){
+  const m=ensureAccountAuthModal(); m.dataset.loginRole=role;
+  m.querySelectorAll('[data-login-role]').forEach(x=>x.classList.toggle('active',x.dataset.loginRole===role));
+  const label=m.querySelector('#accountLoginLabel'),input=m.querySelector('#accountLoginId');
+  if(role==='president'){label.textContent='Название команды *';input.placeholder='Например: Ордания';input.type='text';input.autocomplete='username';}
+  else{label.textContent='Email *';input.placeholder='name@example.com';input.type='email';input.autocomplete='username';}
+}
+function selectRegisterRole(role){
+  const m=ensureAccountAuthModal(); m.dataset.registerRole=role;
+  m.querySelectorAll('[data-register-role]').forEach(x=>x.classList.toggle('active',x.dataset.registerRole===role));
+  m.querySelector('#citizenRegisterFields').style.display=role==='citizen'?'block':'none';
+  m.querySelector('#presidentRegisterFields').style.display=role==='president'?'block':'none';
+  if(role==='citizen')renderAccountRegCountries();
+}
+function renderAccountRegCountries(){
+  const s=document.getElementById('accountRegCountry'); if(!s)return;
+  s.innerHTML='<option value="">Без микрогосударства</option>'+state.countries.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+}
+function openAccountAuth(mode='login'){
+  const m=ensureAccountAuthModal();
+  showModal('accountAuthModal');
+  if(mode==='register')m.querySelector('#authRegisterTab').click(); else m.querySelector('#authLoginTab').click();
+  selectLoginRole('citizen'); selectRegisterRole('citizen');
+}
+window.openAccountAuth=openAccountAuth;
+
+async function handleAccountLogin(e){
+  e.preventDefault();
+  const m=ensureAccountAuthModal(), role=m.dataset.loginRole||'citizen';
+  const id=document.getElementById('accountLoginId').value.trim(), pw=document.getElementById('accountLoginPassword').value;
+  if(!id||!pw)return;
+  try{
+    await signInWithEmailAndPassword(auth, role==='president'?countryEmail(id):id, pw);
+    hideModal('accountAuthModal'); toast('Вход выполнен.');
+  }catch(err){console.error(err);toast(firebaseAuthMessage(err));}
+}
+
+async function handleAccountRegister(e){
+  e.preventDefault();
+  const name=document.getElementById('accountRegName').value.trim();
+  const age=Number(document.getElementById('accountRegAge').value);
+  const countryId=document.getElementById('accountRegCountry').value || null;
+  const email=document.getElementById('accountRegEmail').value.trim().toLowerCase();
+  const pw=document.getElementById('accountRegPassword').value;
+  const pw2=document.getElementById('accountRegPassword2').value;
+  const country=countryId ? state.countries.find(c=>c.id===countryId) : null;
+  if(!name||!Number.isFinite(age)||age<14){toast('Заполните имя и корректный возраст.');return;}
+  if(countryId && !country){toast('Выбранное микрогосударство не найдено.');return;}
+  if(!email||!pw||pw.length<6||pw!==pw2){toast('Проверьте email и пароли.');return;}
+  try{
+    const cred=await createUserWithEmailAndPassword(auth,email,pw);
+    await setDoc(doc(db,'profiles',cred.user.uid),{uid:cred.user.uid,role:'citizen',displayName:name,age,countryId:country?.id||null,countryName:country?.name||'',email,createdAt:serverTimestamp()});
+    await addDoc(collection(db,'citizens'),{uid:cred.user.uid,countryId:country?.id||null,name,age,email,createdAt:serverTimestamp()});
+    hideModal('accountAuthModal'); toast(country ? 'Аккаунт участника создан.' : 'Аккаунт создан. Микрогосударство можно выбрать позже.');
+    openCabinet();
+  }catch(err){console.error(err);toast(firebaseAuthMessage(err));}
+}
+
+// Upgrade the existing citizen registration to create a real Firebase account.
+window.handleCitizenAccountRegistration=async function(e){
+  e.preventDefault();
+  const countryId=document.getElementById('citizenCountry').value;
+  const name=document.getElementById('citizenName').value.trim();
+  const age=Number(document.getElementById('citizenAge').value);
+  const email=document.getElementById('citizenEmail').value.trim().toLowerCase();
+  const pw=document.getElementById('citizenPassword').value;
+  const c=state.countries.find(x=>x.id===countryId);
+  if(!c||!name||age<14||!email||pw.length<6){toast('Заполните форму регистрации.');return;}
+  try{
+    const cred=await createUserWithEmailAndPassword(auth,email,pw);
+    await setDoc(doc(db,'profiles',cred.user.uid),{uid:cred.user.uid,role:'citizen',displayName:name,age,countryId:c?.id||null,countryName:c?.name||'',email,createdAt:serverTimestamp()});
+    await addDoc(collection(db,'citizens'),{uid:cred.user.uid,countryId:c?.id||null,name,age,email,createdAt:serverTimestamp()});
+    hideModal('citizenModal'); e.target.reset(); toast(c ? `Аккаунт участника создан в «${c.name}».` : 'Аккаунт участника создан. Микрогосударство можно выбрать позже.'); openCabinet();
+  }catch(err){console.error(err);toast(firebaseAuthMessage(err));}
+};
+
+// Install upgraded citizen form handler after the original handler is attached.
+document.getElementById('citizenForm')?.addEventListener('submit',e=>{e.preventDefault();e.stopImmediatePropagation();window.handleCitizenAccountRegistration(e)},true);
+
+// Citizen-aware cabinet: presidents keep the existing cabinet, participants get their own profile/dashboard.
+const baseRefreshCabinet=refreshCabinet;
+refreshCabinet=async function(){
+  if(state.currentProfile?.role==='citizen'){
+    const el=document.getElementById('cabinetContent'); if(!el)return;
+    const c=state.countries.find(x=>x.id===state.currentProfile.countryId);
+    el.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><span class="account-badge"><i class="fa-solid fa-user"></i> Участник</span><h2 style="margin:10px 0 5px">${esc(state.currentProfile.displayName||'Участник')}</h2><p class="detail">Микрогосударство: <strong>${esc(state.currentProfile.countryName||c?.name||'—')}</strong></p><p class="detail">Возраст: ${esc(state.currentProfile.age||'—')}</p><p class="detail">Email: ${esc(state.currentProfile.email||state.currentUser?.email||'—')}</p></div></div><div class="actions" style="margin-top:18px"><button class="btn-secondary" id="citCabForum"><i class="fa-solid fa-comments"></i> Открыть форум</button><button class="btn-secondary" id="citCabChat"><i class="fa-solid fa-message"></i> Общий чат</button><button class="btn-primary" id="citCabLogout"><i class="fa-solid fa-right-from-bracket"></i> Выйти</button></div><div class="panel" style="padding:18px;margin-top:20px"><h3><i class="fa-solid fa-circle-info"></i> Ваш аккаунт</h3><p class="detail" style="margin-top:8px">Аккаунт хранится в Firebase и автоматически сохраняет вход в этом браузере.</p></div>`;
+    document.getElementById('citCabForum').onclick=()=>document.getElementById('forumSection')?.scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('citCabChat').onclick=openChat;
+    document.getElementById('citCabLogout').onclick=logout;
+    return;
+  }
+  return baseRefreshCabinet();
+};
+
+// Make openCabinet explicitly handle citizen profiles too.
+openCabinet=async function(){
+  if(!state.currentUser){openAccountAuth('login');return;}
+  showModal('cabinetModal');
+  const el=document.getElementById('cabinetContent'); if(el)el.innerHTML='<div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Загружаем кабинет…</div>';
+  if(!state.currentProfile) await loadProfile(state.currentUser);
+  await refreshCabinet();
+};
+
+// Replace profile loader message so both roles work.
+const baseLoadProfile=loadProfile;
+loadProfile=async function(user){
+  if(!user){state.currentUser=null;state.currentProfile=null;hideModal('cabinetModal');updateChatHint();return;}
+  state.currentUser=user;
+  try{
+    const snap=await getDoc(doc(db,'profiles',user.uid));
+    state.currentProfile=snap.exists()?snap.data():null;
+    updateChatHint();
+    if(state.currentProfile && document.getElementById('cabinetModal')?.classList.contains('open')) await refreshCabinet();
+  }catch(err){console.error(err);state.currentProfile=null;toast('Не удалось загрузить профиль аккаунта.');}
+};
+
+// Forum: real topics + replies for both presidents and citizens.
+async function forumViewerData(){
+  if(!state.currentUser||!state.currentProfile) return null;
+  return {uid:state.currentUser.uid,name:accountDisplayName(),role:state.currentProfile.role,countryName:state.currentProfile.countryName||''};
+}
+async function openForumTopic(topicId){
+  const topic=forumTopics.find(x=>x.id===topicId); if(!topic)return;
+  let modal=document.getElementById('forumViewModal');
+  if(!modal){modal=document.createElement('div');modal.className='modal';modal.id='forumViewModal';document.body.appendChild(modal);}
+  modal.innerHTML=`<div class="modal-content wide"><button class="close-btn" data-close-topic>×</button><div class="modal-header"><i class="fa-solid fa-comments"></i> <span id="forumViewTitle"></span></div><div id="forumViewBody"></div><form id="forumReplyForm" style="margin-top:16px"><div class="form-group"><label>Ваш ответ</label><textarea id="forumReplyText" rows="4" maxlength="3000" placeholder="Напишите ответ…" required></textarea></div><button class="form-submit"><i class="fa-solid fa-paper-plane"></i> Ответить</button></form></div>`;
+  modal.querySelector('[data-close-topic]').onclick=()=>hideModal('forumViewModal'); modal.addEventListener('click',e=>{if(e.target===modal)hideModal('forumViewModal')},{once:true});
+  modal.querySelector('#forumViewTitle').textContent=topic.title;
+  const body=modal.querySelector('#forumViewBody');
+  body.innerHTML=`<div class="panel" style="padding:16px"><strong>${esc(topic.content||'')}</strong><div class="detail" style="margin-top:8px"><i class="fa-solid fa-user"></i> ${esc(topic.author||'Участник')} · ${esc(topic.countryName||'ССР')}</div></div><div class="forum-replies" id="forumReplies"><div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Загружаем ответы…</div></div>`;
+  showModal('forumViewModal');
+  try{
+    const rs=await getDocs(query(collection(db,'forumTopics',topicId,'replies'),orderBy('createdAt','asc'),limit(100)));
+    const replies=rs.docs.map(d=>({id:d.id,...d.data()}));
+    document.getElementById('forumReplies').innerHTML=replies.length?replies.map(r=>`<div class="forum-reply"><strong>${esc(r.author||'Участник')}</strong><div style="margin-top:5px;white-space:pre-wrap">${esc(r.content||'')}</div><div class="detail" style="margin-top:6px">${esc(r.countryName||'')} · ${timeText(r.createdAt)}</div></div>`).join(''):'<div class="empty" style="padding:20px">Ответов пока нет. Будьте первым.</div>';
+  }catch(err){console.error(err);document.getElementById('forumReplies').innerHTML='<div class="empty">Не удалось загрузить ответы.</div>';}
+  modal.querySelector('#forumReplyForm').addEventListener('submit',async e=>{
+    e.preventDefault(); const viewer=await forumViewerData(); if(!viewer){hideModal('forumViewModal');openAccountAuth('login');return;}
+    const content=document.getElementById('forumReplyText').value.trim(); if(!content)return;
+    try{await addDoc(collection(db,'forumTopics',topicId,'replies'),{content,author:viewer.name,role:viewer.role,countryName:viewer.countryName,uid:viewer.uid,createdAt:serverTimestamp()}); document.getElementById('forumReplyText').value=''; toast('Ответ опубликован.'); await openForumTopic(topicId);}catch(err){console.error(err);toast('Не удалось опубликовать ответ.');}
+  });
+}
+function renderForumEnhanced(){
+  const el=document.getElementById('forumList'); if(!el)return;
+  const items=forumTopics.length?forumTopics:[];
+  el.innerHTML=items.length?items.map(t=>`<article class="forum-topic"><div class="topic-head"><span class="topic-icon"><i class="fa-solid fa-comments"></i></span><strong>${esc(t.title)}</strong></div><div style="margin-top:9px;color:var(--muted);line-height:1.55">${esc(t.content||'')}</div><div class="meta"><i class="fa-solid fa-user"></i> ${esc(t.author||'Участник')} · ${esc(t.countryName||'ССР')}</div><div class="forum-topic-actions"><button class="action-btn" data-forum-open="${esc(t.id)}"><i class="fa-solid fa-arrow-up-right-from-square"></i> Открыть тему</button></div></article>`).join(''):'<div class="empty" style="grid-column:1/-1">Тем пока нет. Создайте первую тему.</div>';
+  el.querySelectorAll('[data-forum-open]').forEach(b=>b.onclick=()=>openForumTopic(b.dataset.forumOpen));
+}
+renderForum=renderForumEnhanced;
+window.openForumTopicModal=async function(){
+  const viewer=await forumViewerData(); if(!viewer){openAccountAuth('login');return;}
+  let m=document.getElementById('forumTopicModal');
+  if(!m){m=document.createElement('div');m.className='modal';m.id='forumTopicModal';m.innerHTML=`<div class="modal-content" style="max-width:620px"><button class="close-btn" data-ft-close>×</button><div class="modal-header"><i class="fa-solid fa-message"></i> Создать тему</div><form id="forumTopicFormEnhanced"><div class="form-group"><label>Раздел *</label><select id="forumTopicTitleEnhanced"><option>Общие вопросы</option><option>Стратегия и тактика</option><option>Снаряжение</option><option>Предложения</option><option>Флудилка</option></select></div><div class="form-group"><label>Тема *</label><input id="forumTopicSubjectEnhanced" maxlength="120" required placeholder="Задайте понятный заголовок"></div><div class="form-group"><label>Сообщение *</label><textarea id="forumTopicContentEnhanced" rows="6" maxlength="5000" required></textarea></div><button class="form-submit">Опубликовать тему</button></form></div>`;document.body.appendChild(m);m.querySelector('[data-ft-close]').onclick=()=>hideModal('forumTopicModal');m.addEventListener('click',e=>{if(e.target===m)hideModal('forumTopicModal')});}
+  m.querySelector('#forumTopicFormEnhanced').onsubmit=async e=>{e.preventDefault();const category=document.getElementById('forumTopicTitleEnhanced').value;const subject=document.getElementById('forumTopicSubjectEnhanced').value.trim();const content=document.getElementById('forumTopicContentEnhanced').value.trim();if(!subject||!content)return;try{const ref=await addDoc(collection(db,'forumTopics'),{category,title:subject,content,author:viewer.name,role:viewer.role,countryName:viewer.countryName,uid:viewer.uid,createdAt:serverTimestamp()});await addDoc(collection(db,'forumTopics',ref.id,'replies'),{content:'Тема создана.',author:viewer.name,role:viewer.role,countryName:viewer.countryName,uid:viewer.uid,system:true,createdAt:serverTimestamp()});hideModal('forumTopicModal');e.target.reset();toast('Тема опубликована.');}catch(err){console.error(err);toast('Не удалось создать тему.');}};
+  showModal('forumTopicModal');
+};
+
+// Allow citizens in chat and update text.
+updateChatHint=function(){document.getElementById('chatHint').textContent=state.currentProfile?`Вы вошли как ${accountRoleLabel()} ${accountDisplayName()}.`:'Войдите в аккаунт, чтобы участвовать в общении.';};
+sendMessage=async function(){const input=document.getElementById('chatInput'),text=input.value.trim();if(!text)return;if(!state.currentUser||!state.currentProfile){openAccountAuth('login');return;}const sender=accountDisplayName();try{await addDoc(collection(db,'chatMessages'),{text,sender,uid:state.currentUser.uid,role:state.currentProfile.role,countryName:state.currentProfile.countryName||'',createdAt:serverTimestamp()});input.value='';}catch(e){console.error(e);toast('Не удалось отправить сообщение.');}};
+
+// Replace old forum listener with one that also works for new enhanced rendering.
+renderForumEnhanced();
+// Make nav/account interactions available after module initialization.
+document.getElementById('cabinetButton')?.addEventListener('dblclick',()=>openAccountAuth('login'));
+document.getElementById('cabinetButton').onclick=openCabinet;
+document.getElementById('createTopicButton')?.addEventListener('click',()=>window.openForumTopicModal());
+document.getElementById('accountButton')?.addEventListener('click',()=>openAccountAuth('login'));
 </script>
+
+<!-- Account/Auth/Forum enhancement -->
+<style>
+.auth-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 18px}
+.auth-choice{border:1px solid var(--border);background:var(--surface2);border-radius:16px;padding:15px;text-align:left;transition:.2s}
+.auth-choice:hover{transform:translateY(-2px);border-color:#fda4af}
+.auth-choice.active{border-color:var(--accent);box-shadow:0 0 0 4px rgba(225,29,72,.08);background:rgba(225,29,72,.04)}
+.auth-choice i{font-size:1.25rem;color:var(--accent);margin-bottom:8px}
+.auth-choice strong,.auth-choice small{display:block}.auth-choice small{color:var(--muted);margin-top:3px}
+.auth-switch{display:flex;gap:8px;margin:0 0 18px}.auth-switch button{flex:1;border:1px solid var(--border);background:var(--surface2);padding:10px 12px;border-radius:12px;font-weight:800;color:var(--muted)}.auth-switch button.active{background:var(--nav);color:#fff;border-color:var(--nav)}
+.forum-topic-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.forum-topic .topic-count{font-size:.78rem;color:var(--muted);margin-top:8px}.forum-replies{margin-top:16px;display:grid;gap:10px;max-height:340px;overflow:auto;padding-right:4px}.forum-reply{padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--surface2)}
+.account-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(22,163,74,.08);color:#15803d;font-weight:800;font-size:.78rem}
+@media(max-width:760px){.auth-choice-grid{grid-template-columns:1fr}.auth-switch button{font-size:.9rem}}
+</style>
+<script>
+(() => {
+  const wait = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn, {once:true}) : fn();
+  wait(() => {
+    // Add account button near cabinet in navigation.
+    const nav = document.querySelector('.nav-buttons');
+    if(nav && !document.getElementById('accountButton')){
+      const b=document.createElement('button'); b.className='nav-btn'; b.id='accountButton'; b.type='button';
+      b.innerHTML='<i class="fa-solid fa-user-plus"></i> Аккаунт'; nav.appendChild(b);
+      b.onclick=()=>window.openAccountAuth && window.openAccountAuth('login');
+    }
+    // Extend citizen registration form with account credentials.
+    const cf=document.getElementById('citizenForm');
+    if(cf && !document.getElementById('citizenEmail')){
+      const wrap=cf.querySelector('.form-group:last-of-type');
+      const html=`<div class="form-group"><label>Email *</label><input id="citizenEmail" type="email" autocomplete="email" required></div><div class="form-group"><label>Пароль *</label><input id="citizenPassword" type="password" minlength="6" autocomplete="new-password" required><div class="hint">Минимум 6 символов.</div></div>`;
+      wrap.insertAdjacentHTML('beforebegin',html);
+      cf.querySelector('button.form-submit').textContent='Создать аккаунт участника';
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
